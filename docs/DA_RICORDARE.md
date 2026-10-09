@@ -2,6 +2,19 @@
 
 *Da NON decidere ora: li riprendiamo col simulatore e coi playtest. Ricordarli a Niky a ogni tappa importante.*
 
+## Cosa fanno oggi i giocatori a fine partita (base per scrivere gli Obiettivi Segreti)
+*600 giocatori-partita, AI Difficile contro Difficile a 2 giocatori, regole definitive. L'AI NON cerca gli obiettivi: sono le frequenze «per caso» di oggi. Chi mira a un obiettivo lo raggiunge più spesso.*
+| Cosa | Media | 10% / 50% / 90% |
+|---|---|---|
+| Carte Regione sul tavolo | 4,8 | 4 / 5 / 6 (max 7) |
+| Regioni giocate: Nord · Centro · Sud e Isole | 2,0 · 1,1 · 1,7 | Nord 1/2/3 · Centro 0/1/2 · Sud 0/2/3 |
+| Simboli sul tavolo (totale) · tipi diversi | 9,0 · 4,5 | tipi diversi 4/4/5 (max 7) |
+| Bonus di confine attivi | 1,6 | 0 / 2 / 3 |
+| Punti pattern · Accuratezza grezza · totale | 13,7 · 4,7 · 24,0 | totale 18 / 24 / 31 |
+| PM e carte rimasti a fine partita | 1,1 · 1,2 | |
+- **Chi raggiunge almeno:** 3 regioni del Nord 31% · 4 del Nord 9% · 2 del Centro 33% · 3 del Centro 7% · 3 del Sud 22% · tutte e 3 le aree 56% · **entrambe le isole 3%** · 5 tipi di simbolo 47% · 6 tipi 7% · **almeno 1 fusione 2%** · 3° lavoratore 6% · 3 bonus di confine 16% · 3 PM a fine partita 11%.
+- **Lettura:** le fusioni quasi non si fanno oggi (una fusione toglie la carta dalla previsione, salvo che il bersaglio chieda proprio quella fusione): un obiettivo sulle fusioni cambierebbe molto il modo di giocare. Le due isole insieme e la «rete estrema» a 3 regioni sono rarissime. Con ≈ 4,8 carte a testa gli obiettivi di territorio devono chiedere poche regioni.
+
 ## Misure della tappa 5 (con le regole NUOVE: scala di Accuratezza 1-2/3-4/5-6/7+ e segnalino «Protezione Civile») — da discutere con Niky
 *Tutte con intervallo di confidenza al 95%. Dove non indicato, AI Difficile contro Difficile, posti alternati.*
 - **Fedeltà contro pattern (ora in equilibrio):** solo-fedeltà batte solo-pattern **56,3%** [50,7–61,8] (300 partite, 2 giocatori) e **36,0%** [28,8–43,9] a 3 giocatori (atteso 33,3%); l'AI normale batte solo-pattern 88,0% e solo-fedeltà 92,7%. Accuratezza grezza media dell'AI normale 4,6 su 15, Coerenza 15,3, totale 24,0.

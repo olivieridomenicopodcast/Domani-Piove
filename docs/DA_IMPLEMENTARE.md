@@ -18,6 +18,6 @@
 | ⏳ da fare | Kit stampabile per giocare con carte e segnalini veri (istruzioni nel repo `stampa-gioco`); gli sprite SVG 100×140 sono già esportati in `assets/sprites/` | dopo la stabilizzazione del digitale |
 | 💬 da scrivere con Niky | **Mazzo degli Obiettivi Segreti** (pesca 2 / tieni 1 / punti a fine partita). Hook già pronto nel motore (`objective`, punteggio = 0). Non usare gli esempi in `docs/materiali/Obiettivi-Segreti-ESEMPI-NON-APPROVATI.md`. | Evento #67 (scarta e ripesca) già collegato all'hook |
 | ✅ fatto | Compensazione dell'ordine di turno: chi non inizia parte con 3 PM (verificata: 48,8% / 31,8% / 22,9% per chi inizia a 2 / 3 / 4 giocatori) | tappa 6 |
-| 💬 da decidere con Niky | Forza dell'Evento #74 «Potenziamento del centro operativo» (3° lavoratore gratis ≈ +5,7 punti a chi lo pesca): lasciarlo, o ridurlo a uno sconto sul costo | misure in DA_RICORDARE |
+| ✅ deciso | Evento #74 «Potenziamento del centro operativo» (3° lavoratore gratis, ≈ +5,7 punti a chi lo pesca): **lasciato com'è** (decisione di Niky). Da riguardare al playtest | DA_RICORDARE |
 | ⏳ da fare | Tarare le singole Carte Regione con più partite per carta (con 60 coppie quasi tutte restano nel rumore) | simulatore, `--forced regione --games 300` |
 | 📦 varianti spente | `sez2OccupiesSez1`, `requireAdjacentPlacement`, `thirdWorkerNextRound`, `maxSymbolsPerCard`, `poolPerSymbol`, `coerCap`, `startPMBonus`, `eventDrawer: 'first'` | parametri in `FF.DEFAULT_RULES` |
