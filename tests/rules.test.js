@@ -47,3 +47,9 @@ test('regolamento: tabelle di fusioni, scaglioni e pattern coincidono col codice
   assert.ok(R.sez2OccupiesSez1 === false && MD.includes('`sez2OccupiesSez1` no'));
   assert.ok(R.mapMode === 'italia' && MD.includes('`mapMode` italia'));
 });
+
+test('regolamento: gli Obiettivi Segreti del codice sono tutti nel testo, con titolo, condizione e punti', () => {
+  assert.ok(R.objectives === true && MD.includes('`objectives` sì'));
+  FF.OBJECTIVES.forEach((o) => assert.ok(MD.includes(`| ${o.id} | **${o.titolo}** | ${o.testo} | ${o.pts} |`), 'manca nel regolamento: ' + o.id));
+  assert.ok(!/segnaposto/i.test(MD.split('### Obiettivi Segreti')[1].split('### Spareggio')[0]));
+});

@@ -65,11 +65,11 @@ test('AI: determinize — nessuna carta si perde o si duplica e le mani hanno la
   assert.ok(done);
 });
 
-test('AI: i livelli sono ordinati (facile < media < difficile) — 120 partite per confronto, posti alternati', () => {
-  const wins = (a, b) => FF.Sim.run({ games: 120, seed: 'ord-' + a + b, a, b, players: 2 }).aWins;
+test('AI: i livelli sono ordinati (facile < media < difficile) — 240 partite per confronto, posti alternati', () => {
+  const wins = (a, b) => FF.Sim.run({ games: 240, seed: 'ord-' + a + b, a, b, players: 2 }).aWins;
   const me = wins('medium', 'easy'), hm = wins('hard', 'medium');
-  assert.ok(me / 120 > 0.7, 'la media deve battere la facile molto spesso: ' + me);
-  assert.ok(hm / 120 > 0.5, 'la difficile deve battere la media: ' + hm);
+  assert.ok(me / 240 > 0.7, 'la media deve battere la facile molto spesso: ' + me);
+  assert.ok(hm / 240 > 0.5, 'la difficile deve battere la media: ' + hm);
 });
 test('AI: pesa gli scaglioni dell\'Accuratezza e non regala punti — evalPlayer cresce con le condizioni soddisfatte', () => {
   const g = new FF.Game({ seed: 'ev', players: PL(2), log: false }), P = FF.AI.PARAMS.hard;

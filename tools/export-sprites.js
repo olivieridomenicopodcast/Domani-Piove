@@ -21,8 +21,9 @@ const done = new Set();
 FF.REGION_CARDS.forEach((c) => { const k = c.regione + '|' + c.variante + '|' + JSON.stringify(c.bonus); if (done.has(k)) return; done.add(k); put('carte-regione', c.regione + '-' + c.variante + (c.bonus && c.bonus.verso ? '-' + c.bonus.verso.join('-') : ''), S.region(c)); });
 FF.PREVISIONI.forEach((p) => put('carte-previsione', p.id + '-' + p.titolo, S.previsione(p)));
 FF.EVENT_IDS.forEach((id) => put('carte-evento', String(id).padStart(2, '0') + '-' + FF.EVENTS[id].titolo, S.evento(id)));
-['regione', 'evento', 'previsione'].forEach((k) => put('dorsi', k, S.back(k)));
+FF.OBJECTIVES.forEach((o) => put('carte-obiettivo', o.id + '-' + o.titolo, S.obiettivo(o)));
+['regione', 'evento', 'previsione', 'obiettivo'].forEach((k) => put('dorsi', k, S.back(k)));
 const html = '<!DOCTYPE html><meta charset="utf-8"><title>Domani Piove — sprite</title><style>body{font-family:system-ui;background:#eee;padding:1rem}h2{margin-top:2rem}.g{display:flex;flex-wrap:wrap;gap:12px}.c{width:140px;text-align:center;font-size:12px}.c svg{width:140px;height:auto;filter:drop-shadow(0 2px 3px #0004)}.c svg.sym{width:70px}</style><h1>Sprite (' + files.length + ')</h1>' +
-  ['simboli', 'carte-regione', 'carte-previsione', 'carte-evento', 'dorsi'].map((g) => '<h2>' + g + '</h2><div class="g">' + files.filter((x) => x.group === g).map((x) => '<div class="c">' + x.svg + '<div>' + x.name.replace(/</g, '&lt;') + '</div></div>').join('') + '</div>').join('');
+  ['simboli', 'carte-regione', 'carte-previsione', 'carte-evento', 'carte-obiettivo', 'dorsi'].map((g) => '<h2>' + g + '</h2><div class="g">' + files.filter((x) => x.group === g).map((x) => '<div class="c">' + x.svg + '<div>' + x.name.replace(/</g, '&lt;') + '</div></div>').join('') + '</div>').join('');
 fs.writeFileSync(path.join(__dirname, '..', 'sprites.html'), html);
 console.log('Esportati ' + files.length + ' sprite in assets/sprites/ e anteprima in sprites.html');

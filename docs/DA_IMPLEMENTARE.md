@@ -24,3 +24,4 @@
 
 - [ ] Obiettivi Segreti: riscrivere la bozza per la mappa d'Italia (via Quadrato/Fila, dentro obiettivi geografici: «Dorsale appenninica», «Pianura Padana», «Le isole»…).
 - [ ] Plancia personale stampabile con la forma dell'Italia (caselle per regione) per il kit fisico.
+- [x] Obiettivi Segreti nel gioco (dati, motore, AI, app, test, regolamento). Restano: stampa delle 24 carte Obiettivo (sprite già esportati in `assets/sprites/carte-obiettivo/`, 100×140) e verifica al playtest di soglie e fasce.

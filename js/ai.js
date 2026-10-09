@@ -19,9 +19,9 @@
 
   // parametri dei livelli (si possono sovrascrivere per fare esperimenti: AI.create(level, seed, {eff: 0.6}))
   AI.PARAMS = {
-    easy:   { random: 0.55, noise: 1.2, eff: 0.5, potW: 1, rho: 0.78, patW: 0.4, pmW: 0.06, oppW: 0, denial: 0, handW: 0.1, buyPrice: 1.5, noMarketCost: 3.5, passEps: 0.05 },
-    medium: { random: 0.06, noise: 0.35, eff: 0.65, potW: 1, rho: 0.84, patW: 0.7, pmW: 0.07, oppW: 0.15, denial: 0, handW: 0.1, buyPrice: 1.5, noMarketCost: 3.5, passEps: 0.05 },
-    hard:   { random: 0, noise: 0.03, eff: 0.7, potW: 1, rho: 0.86, patW: 0.8, pmW: 0.07, oppW: 0.35, denial: 0.6, handW: 0.1, buyPrice: 1.5, noMarketCost: 3.5, passEps: 0.05 },
+    easy:   { random: 0.55, noise: 1.2, eff: 0.5, potW: 1, objW: 0.4, rho: 0.78, patW: 0.4, pmW: 0.06, oppW: 0, denial: 0, handW: 0.1, buyPrice: 1.5, noMarketCost: 3.5, passEps: 0.05 },
+    medium: { random: 0.06, noise: 0.35, eff: 0.65, potW: 1, objW: 0.6, rho: 0.84, patW: 0.7, pmW: 0.07, oppW: 0.15, denial: 0, handW: 0.1, buyPrice: 1.5, noMarketCost: 3.5, passEps: 0.05 },
+    hard:   { random: 0, noise: 0.03, eff: 0.7, potW: 1, objW: 0.8, rho: 0.86, patW: 0.8, pmW: 0.07, oppW: 0.35, denial: 0.6, handW: 0.1, buyPrice: 1.5, noMarketCost: 3.5, passEps: 0.05 },
   };
 
   // ───────────────────────── informazione: cosa può sapere un giocatore ─────────────────────────
@@ -46,6 +46,7 @@
     if (peek != null && s.eventDeck.length) eunk.push(peek);   // la cima è la carta che ho visto
     s.eventDeck = eunk;
     s.players.forEach((p, q) => { if (q !== pid) p.peek = null; });
+    s.players.forEach((p, q) => { if (q !== pid) { p.objective = null; p.objChoices = []; } });   // gli Obiettivi Segreti degli altri non si conoscono
     s.rng = Math.floor(rng() * 2147483647) | 0;   // i dadi del motore veri non si conoscono
     return g;
   };
@@ -114,7 +115,9 @@
     return { raw, pot, virt };
   }
   // valore di un giocatore (più alto = meglio)
-  function evalPlayer(g, p, P) {
+  // stima della probabilità di raggiungere un obiettivo: base (misurata a tavolino) che sale col progresso già fatto
+  const objEst = (id, p, R) => { const O = FF.OBJ[id]; if (O.val(p, R) >= O.need) return 1; const r = FF.OBJ_RATE[id] == null ? 0.3 : FF.OBJ_RATE[id], pr = FF.objectiveProgress(id, p, R); return r + (1 - r) * pr * pr; };
+  function evalPlayer(g, p, P, noObj) {
     const R = g.rules, A = analyze(g, p, P), rawNow = A.raw;
     const accNow = FF.accuracyScore(p.table, g.s.target, R).pts;
     // finché c'è tempo per fare progressi vale la stima morbida (così ogni condizione completata non fa mai perdere valore);
@@ -133,6 +136,10 @@
     const left = Math.min(1, actionsLeft(g, p, P) / 8);
     v += P.handW * p.hand.length * left + 0.7 * hb * left;
     v += p.pm * P.pmW * left;
+    if (!noObj && P.objW && p.objective && R.objectives) {   // il mio Obiettivo Segreto (quello degli altri non lo conosco)
+      const O = FF.OBJ[p.objective], met = O.val(p, R) >= O.need;
+      v += P.objW * O.pts * (met ? 1 : 0.6 * Math.pow(FF.objectiveProgress(p.objective, p, R), 2) * Math.min(1, left * 1.5 + 0.2));
+    }
     return v;
   }
   AI.evalPlayer = (g, pid, P) => evalPlayer(g, g.s.players[pid], P || AI.PARAMS.hard);
@@ -145,7 +152,7 @@
     // guadagno di uno stato rispetto a quello di partenza: io − oppW × media degli avversari
     function stateValue(g, pid) {
       const s = g.s; let v = evalPlayer(g, s.players[pid], P);
-      if (P.oppW) { let o = 0, n = 0; s.players.forEach((q, i) => { if (i !== pid) { o += evalPlayer(g, q, P); n++; } }); v -= P.oppW * o / Math.max(1, n); }
+      if (P.oppW) { let o = 0, n = 0; s.players.forEach((q, i) => { if (i !== pid) { o += evalPlayer(g, q, P, true); n++; } }); v -= P.oppW * o / Math.max(1, n); }
       return v;
     }
     // simula un'azione/piazzamento sul clone, con le scelte annidate fatte dalla stessa AI (voraci)
@@ -197,6 +204,13 @@
           });
         case 'keep': return dec.options.map((o) => handDelta(g, pid, [o.card]));
         case 'order': return dec.options.map((o, i) => -i);
+        case 'objective': return dec.options.map((o) => FF.OBJ[o.obj].pts * (0.2 + 0.8 * objEst(o.obj, p, g.rules)));
+        case 'objswap': {
+          if (!p.objective) return [0, 0];
+          const mine = FF.OBJ[p.objective], keepV = mine.pts * objEst(p.objective, p, g.rules), others = FF.OBJECTIVE_IDS.filter((id) => id !== p.objective);
+          const swapV = others.reduce((a, id) => a + FF.OBJ[id].pts * objEst(id, p, g.rules), 0) / others.length;
+          return [keepV, swapV];
+        }
         case 'swap': return dec.options.map((o) => (o.skip ? 0.05 : handDelta(g, pid, [o.card], [o.hand])));
         case 'revise': {
           const sample = s.regionDeck.slice(-8), avg = sample.length ? sample.reduce((a, id) => a + handDelta(g, pid, [id]), 0) / sample.length : 0;
@@ -214,8 +228,8 @@
               const sp = dec.options[i].space; let worst = 0;
               for (const q of s.players) {
                 if (q.id === pid || q.passed || q.left < 1 || !g.placeOptions(q.id).some((o) => o.space === sp)) continue;
-                const before = evalPlayer(g, q, P), g3 = simulate(g, q.id, (x) => x.doPlace(q.id, sp), 1);
-                worst = Math.max(worst, evalPlayer(g3, g3.s.players[q.id], P) - before);
+                const before = evalPlayer(g, q, P, true), g3 = simulate(g, q.id, (x) => x.doPlace(q.id, sp), 1);
+                worst = Math.max(worst, evalPlayer(g3, g3.s.players[q.id], P, true) - before);
               }
               vals[i] += P.denial * 0.5 * worst;
             }

@@ -125,9 +125,27 @@
       <text x="94" y="134" text-anchor="end" font-size="5.4" fill="#8a8473" ${SANS}>#${e.id}</text>`;
     return svg('0 0 100 140', body, 'card evt ' + (cls || ''));
   };
+  // Carta Obiettivo Segreto (id come 'T1' o oggetto)
+  const OBJ_COL = { territorio: '#2f6b4f', simboli: '#7a4f9a', pattern: '#2c6f9c', risorse: '#9a6b1f' };
+  S.obiettivo = function (o, cls) {
+    if (typeof o === 'string') o = FF.OBJ[o];
+    const col = OBJ_COL[o.tipo], tl = wrap(o.titolo, 17), tx = wrap(o.testo, 25), band = o.pts <= 3 ? 'FACILE' : o.pts <= 5 ? 'MEDIA' : 'DIFFICILE';
+    const ty = 36 + tl.length * 10;
+    const body = `${title('Obiettivo Segreto ' + o.titolo + ' — ' + o.testo + ' (' + o.pts + ' punti)')}
+      <rect x="1.5" y="1.5" width="97" height="137" rx="7" fill="#f3efe4" stroke="#3a2d17" stroke-width="2"/>
+      <rect x="4" y="4" width="92" height="17" rx="4" fill="${col}"/>
+      <text x="50" y="12" text-anchor="middle" font-size="5.6" letter-spacing=".9" font-weight="700" fill="#fff" ${SANS}>OBIETTIVO SEGRETO</text>
+      <text x="50" y="18.6" text-anchor="middle" font-size="5.2" letter-spacing=".8" fill="#f1f1f1" ${SANS}>${esc(FF.OBJECTIVE_TYPES[o.tipo].toUpperCase())}</text>
+      ${lines(tl, 50, 33, 10, `text-anchor="middle" font-size="9" font-weight="700" fill="#1f2530" ${FONT}`)}
+      <line x1="14" y1="${(ty - 4).toFixed(1)}" x2="86" y2="${(ty - 4).toFixed(1)}" stroke="#bfb59b" stroke-width=".8"/>
+      ${lines(tx.slice(0, 5), 50, ty + 5, 8.6, `text-anchor="middle" font-size="6.8" fill="#2b2216" ${SANS}`)}
+      <circle cx="50" cy="116" r="14" fill="${col}"/><text x="50" y="122" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" ${SANS}>${o.pts}</text>
+      <text x="50" y="135" text-anchor="middle" font-size="5.2" letter-spacing=".8" fill="#6b5d40" ${SANS}>${band} · PUNTI</text>`;
+    return svg('0 0 100 140', body, 'card obj ' + (cls || ''));
+  };
   // dorso generico (mazzi coperti)
   S.back = function (kind, cls) {
-    const c = { regione: '#4f6f52', evento: '#9a2a1a', previsione: '#3d6c9e' }[kind] || '#555', lab = { regione: 'REGIONI', evento: 'EVENTI', previsione: 'PREVISIONI' }[kind] || '';
+    const c = { regione: '#4f6f52', evento: '#9a2a1a', previsione: '#3d6c9e', obiettivo: '#5b3a78' }[kind] || '#555', lab = { regione: 'REGIONI', evento: 'EVENTI', previsione: 'PREVISIONI', obiettivo: 'OBIETTIVI' }[kind] || '';
     return svg('0 0 100 140', `<rect x="1.5" y="1.5" width="97" height="137" rx="7" fill="${c}" stroke="#2a2a2a" stroke-width="2"/><rect x="8" y="8" width="84" height="124" rx="4" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.5"/><g transform="translate(30 50) scale(1.0)">${ICON.pioggia}</g><text x="50" y="108" text-anchor="middle" font-size="9" letter-spacing="1.4" font-weight="700" fill="#fff" ${SANS}>${lab}</text><text x="50" y="122" text-anchor="middle" font-size="6" fill="#fff" fill-opacity=".8" ${SANS}>DOMANI PIOVE</text>`, 'card back ' + (cls || ''));
   };
   S.seat = function (i, cls) {

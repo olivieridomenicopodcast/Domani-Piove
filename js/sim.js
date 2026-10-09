@@ -60,7 +60,7 @@
     const ai = levels.map((lv, p) => Sim.makeAI(lv, seed + 'ai' + p, p === aSeat ? opts.aParams : opts.bParams));
     const traj = []; let lastRound = -1;
     const snap = () => g.s.players.map((p, q) => g.scoreOf(q).total);
-    const res = FF.drive(g.run(), (d) => { if (g.s.round !== lastRound) { lastRound = g.s.round; traj.push(snap()); } return ai[d.pid].decide(g, d); }, g);
+    const res = FF.drive(g.run(), (d) => { if (g.s.round >= 1 && g.s.round !== lastRound) { lastRound = g.s.round; traj.push(snap()); } return ai[d.pid].decide(g, d); }, g);
     traj.push(res.scores.map((s) => s.total));
     return { g, res, aSeat, seed, levels, players, traj };
   };

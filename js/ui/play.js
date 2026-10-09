@@ -217,9 +217,15 @@
       $('#g-tabs').innerHTML = g.s.players.map((p) => `<button class="tab ${p.id === v ? 'sel' : ''} ${active === p.id ? 'act' : ''}" data-pid="${p.id}">${S.seat(p.id, 'tiny')} ${esc(p.name)}</button>`).join('');
       $$('#g-tabs .tab').forEach((b) => { b.onclick = () => { this.viewPid = Number(b.dataset.pid); this.renderTable(null); }; });
       $('#g-table').innerHTML = UI.tableauHTML(g, v);
-      const vis = this.viewHands().indexOf(v) >= 0, hand = g.s.players[v].hand;
-      $('#g-hand').innerHTML = vis ? `<div class="sub">Mano (${hand.length}) · solo tu la vedi</div><div class="hand">${hand.map((id) => `<button class="cardbtn" data-zoom="reg:${id}">${S.region(id)}</button>`).join('') || '<span class="muted">Nessuna carta in mano.</span>'}</div>`
-        : `<div class="sub">Mano: ${hand.length} carte <span class="muted">(nascoste)</span></div>`;
+      const vis = this.viewHands().indexOf(v) >= 0, hand = g.s.players[v].hand, pv = g.s.players[v];
+      let objH = '';
+      if (g.rules.objectives && pv.objective) {
+        const O = FF.OBJ[pv.objective], met = FF.objectiveMet(pv.objective, pv, g.rules);
+        objH = vis ? `<div class="objbox"><button class="cardbtn" data-zoom="obj:${O.id}" title="Il tuo Obiettivo Segreto">${S.obiettivo(O)}</button><div class="small"><b>Il tuo Obiettivo Segreto</b> (solo tu lo vedi)<br>${met ? '✅ Per ora lo soddisfi' : '⏳ Per ora non lo soddisfi'} · vale ${O.pts} se lo soddisfi a fine partita.</div></div>`
+          : `<div class="sub">Obiettivo Segreto: <span class="muted">nascosto</span></div>`;
+      }
+      $('#g-hand').innerHTML = (vis ? `<div class="sub">Mano (${hand.length}) · solo tu la vedi</div><div class="hand">${hand.map((id) => `<button class="cardbtn" data-zoom="reg:${id}">${S.region(id)}</button>`).join('') || '<span class="muted">Nessuna carta in mano.</span>'}</div>`
+        : `<div class="sub">Mano: ${hand.length} carte <span class="muted">(nascoste)</span></div>`) + objH;
     }
     setAction(html) { const a = $('#g-action'); if (a) { a.innerHTML = html; this.applySuggest(); } return a; }
 
@@ -231,6 +237,7 @@
       let icon;
       if (ev.k === 'round') icon = '<span class="aemoji">🕒</span>';
       else if (ev.k === 'end') icon = '<span class="aemoji">🏆</span>';
+      else if (ev.k === 'obj' && d.obj) icon = `<span class="amini">${S.obiettivo(d.obj)}</span>`;
       else if (ev.k === 'event' && d.event) icon = `<span class="amini">${S.evento(d.event)}</span>`;
       else if (ev.k === 'event') icon = '<span class="aemoji">📻</span>';
       else if (ev.k === 'act' && d.card != null && !d.blind) icon = `<span class="amini">${S.region(d.card)}</span>`;
@@ -251,12 +258,13 @@
       return {
         place: `${n}: tocca a te — piazza un lavoratore o passa`, play: `${n}: scegli la Carta Regione da giocare e dove`, buy: `${n}: scegli quale carta comprare`, symbol: `${n}: scegli il simbolo e la carta su cui metterlo`,
         doppia1: `${n}: Doppia azione — scegli la 1ª azione`, doppia2: `${n}: Doppia azione — scegli la 2ª azione`, ripetuta: `${n}: Azione ripetuta — quale azione fai due volte?`,
+        objective: `${n}: scegli in segreto l'Obiettivo da tenere (l'altro si scarta)`, objswap: `${n}: vuoi cambiare il tuo Obiettivo Segreto?`,
         keep: `${n}: scegli la carta da tenere`, order: `${n}: scegli l'ordine delle carte rimesse in fondo`, swap: `${n}: vuoi scambiare una carta con il mercato?`, revise: `${n}: vuoi scartare una carta e pescarne una nuova?`,
       }[d.type] || `Tocca a ${n}`;
     }
     async pace(ev) {
       if (this.fast || this.cancelled) return;
-      const always = (ev.k === 'round' || ev.k === 'event' || ev.k === 'end') && this.speed !== 'instant';
+      const always = (ev.k === 'round' || ev.k === 'event' || ev.k === 'end' || ev.k === 'obj') && this.speed !== 'instant';
       const stepping = this.speed === 'step' || this.paused || always;
       if (this.skipTo && !always) { this.announce(ev); return; }
       this.setAction('<div class="muted idle">Segui i messaggi qui sopra ☝️ <span class="small">(clic sul messaggio, Avanti, Spazio o Invio)</span></div>');
@@ -338,6 +346,8 @@
         case 'symbol': ans = await this.symbolPanel(d); break;
         case 'doppia1': case 'doppia2': case 'ripetuta': ans = await this.actPanel(d); break;
         case 'keep': ans = await this.cardsPanel(d, 'Tieni questa carta'); break;
+        case 'objective': ans = await this.objectivePanel(d); break;
+        case 'objswap': ans = await this.objswapPanel(d); break;
         case 'order': ans = await this.orderPanel(d); break;
         case 'swap': ans = await this.swapPanel(d); break;
         case 'revise': ans = await this.revisePanel(d); break;
@@ -496,6 +506,17 @@
       this.setAction(`<h3>${esc(this.promptFor(d))}</h3><div class="hand">${d.options.map((o, i) => `<div class="pickcard"><button class="cardbtn selectable" data-i="${i}">${S.region(o.card)}</button><div class="small">${esc(label)}</div></div>`).join('')}</div>`);
       return this.waitClick(async (e) => { const b = e.target.closest('[data-i]'); return b ? Number(b.dataset.i) : undefined; });
     }
+    objectivePanel(d) {
+      this.setAction(`<h3>${esc(this.promptFor(d))}</h3><div class="small muted">Obiettivo Segreto: si controlla solo a fine partita, non c'entra con la previsione. Se lo raggiungi vale i punti scritti sulla carta, altrimenti 0. Tocca una carta per ingrandirla, poi scegli.</div>
+        <div class="hand">${d.options.map((o, i) => `<div class="pickcard"><button class="cardbtn" data-zoom="obj:${o.obj}">${S.obiettivo(o.obj)}</button><button class="btn primary" data-i="${i}">Tengo questo</button></div>`).join('')}</div>`);
+      return this.waitClick(async (e) => { const b = e.target.closest('[data-i]'); return b ? Number(b.dataset.i) : undefined; });
+    }
+    objswapPanel(d) {
+      this.setAction(`<h3>${esc(this.promptFor(d))}</h3><div class="small muted">La carta degli Eventi ti permette di scartare il tuo Obiettivo Segreto e pescarne uno nuovo (a occhi chiusi: potrebbe essere peggiore).</div>
+        <div class="hand"><div class="pickcard"><button class="cardbtn" data-zoom="obj:${d.options[0].obj}">${S.obiettivo(d.options[0].obj)}</button><div class="small">Il tuo Obiettivo attuale</div></div></div>
+        <div class="btn-row"><button class="btn primary" data-i="0">Tengo il mio</button><button class="btn" data-i="1">Lo scarto e ne pesco uno nuovo</button></div>`);
+      return this.waitClick(async (e) => { const b = e.target.closest('[data-i]'); return b ? Number(b.dataset.i) : undefined; });
+    }
     orderPanel(d) {
       this.setAction(`<h3>${esc(this.promptFor(d))}</h3><div class="small muted">La prima resta più in alto tra le due, in fondo al mazzo.</div><div class="btn-row">${d.options.map((o, i) => `<button class="btn" data-i="${i}">${o.order.map((id) => `<span class="mini">${S.region(id)}</span>`).join(' → ')}</button>`).join('')}</div>`);
       return this.waitClick(async (e) => { const b = e.target.closest('[data-i]'); return b ? Number(b.dataset.i) : undefined; });
@@ -519,6 +540,8 @@
         case 'symbol': return `Metti ${SN[o.sym].i} ${SN[o.sym].n} su ${FF.regionOf(g.s.players[d.pid].table[o.idx])}`;
         case 'doppia1': case 'doppia2': case 'ripetuta': return `Scegli «${FF.SPACE_NAMES[o.act]}»`;
         case 'keep': return `Tieni ${rn(o.card)}`;
+        case 'objective': return `Tieni l'Obiettivo «${FF.OBJ[o.obj].titolo}»`;
+        case 'objswap': return o.keep ? 'Tieni il tuo Obiettivo' : 'Scarta l\'Obiettivo e pescane uno nuovo';
         case 'swap': return o.skip ? 'Non scambiare' : `Scambia ${rn(o.hand)} con ${rn(o.card)}`;
         case 'revise': return o.skip ? 'Tieni la mano' : `Scarta ${rn(o.discard)}`;
         default: return 'Questa scelta';
@@ -581,6 +604,7 @@
       const rows = r.scores.map((sc, i) => `<tr class="${r.winners.indexOf(i) >= 0 ? 'win' : ''}"><td>${S.seat(i, 'tiny')} ${esc(g.s.players[i].name)}</td><td>${sc.accRaw}</td><td>${sc.accPts}</td><td>${sc.border}</td><td>${sc.pattern}</td><td>${sc.objectives}</td><td><b>${sc.total}</b></td></tr>`).join('');
       const dlg = UI.modal(`<h2>🏁 Confronto Finale — ore 20:00</h2><p class="big">${r.winner == null ? '🤝 Pareggio tra ' + esc(win.join(' e ')) : '🏆 Vince <b>' + esc(win[0]) + '</b>'}</p>
         <div class="tblwrap"><table class="scoretbl"><thead><tr><th></th><th>Acc. grezzo</th><th>Acc. punti</th><th>Confine</th><th>Pattern</th><th>Obiettivi</th><th>Totale</th></tr></thead><tbody>${rows}</tbody></table></div>
+        ${g.rules.objectives ? `<div class="small"><b>Obiettivi Segreti:</b> ${r.scores.map((sc, i) => { const O = FF.OBJ[sc.objective]; return O ? `${esc(g.s.players[i].name)} — «${esc(O.titolo)}» (${O.pts}): ${sc.objMet ? '✅ +' + O.pts : '❌ 0'}` : ''; }).join(' · ')}</div>` : ''}
         <div class="small muted">Pattern per giocatore: ${r.scores.map((sc, i) => esc(g.s.players[i].name) + ' — ' + FF.SYMBOLS.map((x) => SN[x].i + sc.patternBy[x]).join(' ')).join(' · ')}</div>
         <div class="btn-row"><button class="btn" data-a="review">⏪ Rivedi</button><button class="btn" data-a="txt">⬇ Cronaca</button><button class="btn" data-a="json">⬇ Partita</button><button class="btn primary" data-a="home">Menu</button></div>`, { wide: true });
       dlg.el.addEventListener('click', (e) => {

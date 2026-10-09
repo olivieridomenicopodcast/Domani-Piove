@@ -1,4 +1,6 @@
-# Obiettivi Segreti — BOZZA da approvare insieme a Niky (NON ancora nel gioco)
+# Obiettivi Segreti — BOZZA (SUPERATA: ora sono nel gioco)
+
+> **Il mazzo definitivo è in `docs/REGOLAMENTO.md` §8 e in `js/data.js`.** Dopo le misure ho ritoccato soglie e fasce di molte carte (le carte troppo facili o impossibili per la AI), e cambiato «Le due Isole» in «Estremo Sud e Isole». Questo file resta come storia delle decisioni.
 
 ## Regole già decise
 - Si pescano **2 Obiettivi** a testa a inizio partita, se ne **tiene 1** e si scarta l'altro. [chiarito, Concept §7]

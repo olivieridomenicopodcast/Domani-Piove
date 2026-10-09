@@ -61,7 +61,8 @@
         regionDeck: t.regionDeck.slice(), regionDiscard: t.regionDiscard.slice(), eventDeck: t.eventDeck.slice(), eventDiscard: t.eventDiscard.slice(),
         pool: Object.assign({}, t.pool), market: t.market.slice(), occupied: Object.assign({}, t.occupied), transit: t.transit.slice(),
         target: { nord: T.nord.map((c) => Object.assign({}, c)), centro: T.centro.map((c) => Object.assign({}, c)), sud_isole: T.sud_isole.map((c) => Object.assign({}, c)) },
-        players: t.players.map((p) => Object.assign({}, p, { hand: p.hand.slice(), table: p.table.map((e) => ({ id: e.id, x: e.x, y: e.y, sym: e.sym.slice(), fusion: e.fusion })) })),
+        objDeck: t.objDeck.slice(), objDiscard: t.objDiscard.slice(),
+        players: t.players.map((p) => Object.assign({}, p, { hand: p.hand.slice(), objChoices: p.objChoices.slice(), table: p.table.map((e) => ({ id: e.id, x: e.x, y: e.y, sym: e.sym.slice(), fusion: e.fusion })) })),
       });
       return g;
     }
@@ -90,11 +91,14 @@
       for (let i = 0; i < n; i++) {
         const p = pl[i] || {};
         s.players.push({ id: i, name: p.name || ('Giocatore ' + (i + 1)), kind: p.kind || 'ai', level: p.level || null,
-          pm: R.startPM, hand: [], table: [], workers: R.workers, pendingWorker: false, objective: null, left: 0, passed: false, peek: null });
+          pm: R.startPM, hand: [], table: [], workers: R.workers, pendingWorker: false, objective: null, objChoices: [], left: 0, passed: false, peek: null });
       }
       for (let i = 0; i < n; i++) for (let k = 0; k < R.startCards; k++) { const c = this._drawRegion(); if (c != null) s.players[i].hand.push(c); }
       s.first = R.firstPlayer >= 0 ? R.firstPlayer % n : this.randInt(n);
       s.startFirst = s.first;
+      // Obiettivi Segreti: mazzo mescolato, 2 carte a testa (se ne tiene 1: decisione 'objective' a inizio partita)
+      s.objDeck = R.objectives ? this._shuffle(FF.OBJECTIVE_IDS.slice()) : []; s.objDiscard = [];
+      if (R.objectives) for (let i = 0; i < n; i++) { const q = s.players[(s.first + i) % n]; q.objChoices = [s.objDeck.pop(), s.objDeck.pop()]; }
       (R.startPMBonus || []).forEach((b, k) => { if (k < n) s.players[(s.first + k) % n].pm += b; });   // compensazione dell'ordine di turno: k = 0 è il primo giocatore
       if (cfg.forced) this._force(cfg.forced, s);
       s.round = 0; s.phase = 'setup'; s.occupied = {}; s.over = false; s.lastEvent = null;
@@ -196,9 +200,9 @@
     scoreOf(pid) {
       const p = this.s.players[pid], R = this.rules;
       const acc = FF.accuracyScore(p.table, this.s.target, R), bor = FF.borderScore(p.table, R), pat = FF.patternScore(p.table, R);
-      const obj = 0; // hook Obiettivi Segreti: ancora vuoto (il mazzo si scrive insieme a Niky)
+      const O = p.objective ? FF.OBJ[p.objective] : null, objMet = !!O && O.val(p, R) >= O.need, obj = objMet ? O.pts : 0;
       const coerenza = R.coerCap == null ? bor.total + pat.total : Math.min(R.coerCap, bor.total + pat.total);
-      return { accRaw: acc.raw, accPts: acc.pts, accLabel: acc.label, border: bor.total, pattern: pat.total, patternBy: pat.by, coerenza, objectives: obj, total: acc.pts + coerenza + obj, pm: p.pm, hits: acc.hits };
+      return { accRaw: acc.raw, accPts: acc.pts, accLabel: acc.label, border: bor.total, pattern: pat.total, patternBy: pat.by, coerenza, objectives: obj, objective: p.objective, objMet, total: acc.pts + coerenza + obj, pm: p.pm, hits: acc.hits };
     }
 
     // ───────────────────────── azioni: legalità e opzioni ─────────────────────────
@@ -411,7 +415,14 @@
         case 'symAll': for (const q of this.order(drawer)) for (let i = 0; i < k; i++) yield* this.act(q, 'simbolo', true); break;
         case 'symDrawer': for (let i = 0; i < k; i++) yield* this.act(drawer, 'simbolo', true); break;
         case 'peek': { const top = s.eventDeck.length ? s.eventDeck[s.eventDeck.length - 1] : null; s.players[drawer].peek = top; yield* this.say('event', `👁 ${this.pn(drawer)} guarda in segreto la prossima Carta Evento.`, drawer); break; }
-        case 'objReroll': yield* this.say('event', `🎯 Nessun Obiettivo Segreto da cambiare (mazzo non ancora scritto).`, drawer); break;
+        case 'objReroll': {
+          const p = s.players[drawer];
+          if (!p.objective || !s.objDeck.length) { yield* this.say('event', `🎯 ${this.pn(drawer)} non ha un Obiettivo Segreto da cambiare.`, drawer); break; }
+          const ans = yield* this.ask({ type: 'objswap', pid: drawer, options: [{ keep: true, obj: p.objective }, { swap: true, obj: p.objective }] });
+          if (ans === 1) { const old = p.objective; p.objective = s.objDeck.pop(); s.objDiscard.push(old); this.stat('obiettivo_cambiato', drawer); yield* this.say('event', `🎯 ${this.pn(drawer)} scarta il proprio Obiettivo Segreto e ne pesca uno nuovo (senza mostrarlo).`, drawer); }
+          else yield* this.say('event', `🎯 ${this.pn(drawer)} tiene il proprio Obiettivo Segreto.`, drawer);
+          break;
+        }
         case 'freeWorker': {
           const p = s.players[drawer];
           if (p.workers < 3 && !p.pendingWorker) { p.workers = 3; p.left++; yield* this.say('event', `👷 ${this.pn(drawer)} sblocca gratis il 3° lavoratore (subito disponibile).`, drawer); }
@@ -469,6 +480,15 @@
     *run() {
       const s = this.s;
       yield* this.say('sys', `🎮 Partita iniziata — seed ${this.cfg.seed}. ${this.n} giocatori. Previsione: ${FF.AREAS.map((a) => `${FF.AREA_NAMES[a]} «${FF.PREVISIONI.find((p) => p.id === s.prev[a]).titolo}»`).join(' · ')}.`);
+      if (this.rules.objectives) {
+        for (let i = 0; i < this.n; i++) {
+          const pid = (s.first + i) % this.n, p = s.players[pid], opts = p.objChoices.map((id) => ({ obj: id }));
+          const ans = yield* this.ask({ type: 'objective', pid, options: opts });
+          p.objective = opts[ans].obj; p.objChoices.forEach((id) => { if (id !== p.objective) s.objDiscard.push(id); }); p.objChoices = [];
+          this.stat('obiettivo_scelto_' + p.objective, pid);
+        }
+        yield* this.say('sys', `🎯 Ognuno ha scelto in segreto il proprio Obiettivo Segreto (pesca 2, tieni 1).`, -1);
+      }
       for (let r = 0; r < this.rules.rounds; r++) yield* this.roundGen();
       yield* this.finish();
       return this.result;
@@ -482,6 +502,7 @@
       const cmp = (a, b) => { if (a.total !== b.total) return a.total - b.total; const ka = key(a), kb = key(b); for (let i = 0; i < ka.length; i++) if (ka[i] !== kb[i]) return ka[i] - kb[i]; return 0; };
       let best = scores[0]; scores.forEach((sc) => { if (cmp(sc, best) > 0) best = sc; });
       const winners = scores.map((sc, i) => (cmp(sc, best) === 0 ? i : -1)).filter((i) => i >= 0);
+      if (R.objectives) for (let i = 0; i < scores.length; i++) { const sc = scores[i], O = FF.OBJ[sc.objective]; if (sc.objMet) this.stat('obiettivo_raggiunto', i); if (O) { this.stat('obiettivo_fine_' + O.id, i); if (sc.objMet) this.stat('obiettivo_ok_' + O.id, i); yield* this.say('obj', `🎯 ${this.pn(i)} rivela «${O.titolo}» (${O.pts} punti): ${O.testo} → ${sc.objMet ? 'RAGGIUNTO +' + O.pts : 'non raggiunto, 0 punti'}.`, i, { obj: O.id, met: sc.objMet }); } }
       this.result = { scores, winners, winner: winners.length === 1 ? winners[0] : null, rounds: s.round, startFirst: s.startFirst, target: s.target };
       yield* this.say('end', `🏁 Fine partita alle 20:00! ${scores.map((sc, i) => `${this.pn(i)} ${sc.total}`).join(' · ')} → ${this.result.winner == null ? 'PAREGGIO' : 'vince ' + this.pn(this.result.winner)}.`, -1);
       return this.result;

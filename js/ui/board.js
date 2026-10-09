@@ -118,8 +118,8 @@
   UI.scoresHTML = function (g) {
     const s = g.s;
     return `<div class="tblwrap"><table class="scoretbl"><thead><tr><th></th><th title="Punti Meteo">PM</th><th title="Lavoratori rimasti / totali">👷</th><th title="Carte in mano">🂠</th><th title="Accuratezza (grezzo → punti)">Acc.</th><th title="Coerenza Geografica (confine + pattern)">Coer.</th><th>Tot.</th></tr></thead><tbody>
-      ${s.players.map((p) => { const sc = g.scoreOf(p.id); return `<tr class="p${p.id}"><td>${S.seat(p.id, 'tiny')} ${esc(p.name)}</td><td>${p.pm}</td><td>${p.left}/${p.workers}</td><td>${p.hand.length}</td><td>${sc.accRaw}→${sc.accPts}</td><td>${sc.coerenza}</td><td><b>${sc.total}</b></td></tr>`; }).join('')}
-      </tbody></table></div><div class="small muted">Punteggi provvisori: contano solo al Confronto Finale (il bersaglio può ancora cambiare).</div>`;
+      ${s.players.map((p) => { const sc = g.scoreOf(p.id), tot = s.over ? sc.total : sc.total - sc.objectives; return `<tr class="p${p.id}"><td>${S.seat(p.id, 'tiny')} ${esc(p.name)}</td><td>${p.pm}</td><td>${p.left}/${p.workers}</td><td>${p.hand.length}</td><td>${sc.accRaw}→${sc.accPts}</td><td>${sc.coerenza}</td><td><b>${tot}</b></td></tr>`; }).join('')}
+      </tbody></table></div><div class="small muted">Punteggi provvisori, senza gli Obiettivi Segreti: contano solo al Confronto Finale (il bersaglio può ancora cambiare).</div>`;
   };
   UI.statesHTML = function (g) {
     const s = g.s, R = g.rules, out = [];
@@ -134,7 +134,7 @@
       const w = p.workers >= 3 ? 'ha il 3° lavoratore' : p.pendingWorker ? '3° lavoratore in arrivo dal prossimo round' : `3° lavoratore non sbloccato (${R.thirdWorkerCost} PM)`;
       out.push([`<span class="seatico">${S.seat(p.id, 'tiny')}</span>`, `<b>${esc(p.name)}</b>: ${w}${p.passed ? ' · <i>ha passato</i>' : ''}${p.peek != null ? ' · ha visto in anticipo un Evento' : ''}`]);
     });
-    out.push(['🎲', `Obiettivi Segreti: <i>non ancora in gioco</i> (il mazzo si scrive con Niky).`]);
+    if (R.objectives) out.push(['🎯', `Obiettivi Segreti: ognuno ne ha <b>1</b> (segreto). Si controllano a fine partita.`]);
     const low = FF.SYMBOLS.filter((x) => s.pool[x] <= 2);
     out.push(['🧺', low.length ? `Pool quasi finito: ${low.map((x) => SN[x].i + ' ' + s.pool[x]).join(', ')}.` : 'Pool dei simboli abbondante.']);
     return out.map((r) => `<div class="srow"><span class="sico">${r[0]}</span><span>${r[1]}</span></div>`).join('');

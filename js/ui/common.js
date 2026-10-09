@@ -83,7 +83,7 @@
   UI.randomSeed = () => 'dp-' + Math.random().toString(36).slice(2, 8);
 
   // ───────────────────────── carte: zoom con un tocco ─────────────────────────
-  // spec: "reg:<id>" | "prev:<id>" | "evt:<id>" | "sym:<nome>" | "fus:<nome>"
+  // spec: "reg:<id>" | "prev:<id>" | "evt:<id>" | "obj:<id>" | "sym:<nome>" | "fus:<nome>"
   UI.zoomSpec = function (spec) {
     const [t, a] = [spec.slice(0, spec.indexOf(':')), spec.slice(spec.indexOf(':') + 1)];
     let spr, titleH, desc;
@@ -94,6 +94,9 @@
     } else if (t === 'prev') {
       const p = FF.PREVISIONI.find((x) => x.id === a); spr = S.previsione(p); titleH = p.titolo;
       desc = `<i>${esc(p.testo)}</i><br><br>` + p.condizioni.map((c) => `${c.livello === 'core' ? '★' : '•'} <b>${esc(c.regione)}</b>: ${FF.SYMBOL_INFO[c.simbolo].i} ${FF.SYMBOL_INFO[c.simbolo].n} (${c.punti} pt)`).join('<br>');
+    } else if (t === 'obj') {
+      const o = FF.OBJ[a]; spr = S.obiettivo(o); titleH = o.titolo;
+      desc = `<b>${FF.OBJECTIVE_TYPES[o.tipo]}</b> · vale <b>${o.pts} punti</b> se raggiunto a fine partita, altrimenti 0.<br>${esc(o.testo)}<br><span class="muted">È segreto fino al Confronto Finale e non ha niente a che fare con la previsione.</span>`;
     } else if (t === 'evt') {
       const e = FF.EVENTS[Number(a)]; spr = S.evento(e); titleH = `#${e.id} ${e.titolo}`;
       desc = `<i>${esc(e.testo)}</i><br><br><b>${esc(e.condizione.replace(/\*\*/g, ''))}</b>`;
