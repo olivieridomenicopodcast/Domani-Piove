@@ -19,7 +19,7 @@ Siete meteorologi amatoriali, ognuno con il proprio canale. Sulla plancia centra
 ## 3. Preparazione
 1. Si pesca **1 Carta Previsione per area** (Nord, Centro, Sud e Isole), si legge ad alta voce e si trasferisce sulla plancia: ogni condizione diventa un **bersaglio** (regione + simbolo richiesto + punti). Le Previsioni non si leggono più dalle carte, ma dalla plancia. [chiarito]
 2. Mercato: **5 Carte Regione scoperte** + mazzo coperto.
-3. Ogni giocatore parte con **2 PM** e **2 Carte Regione** in mano. Nessun limite di carte in mano. [chiarito]
+3. Ogni giocatore parte con **2 PM** e **2 Carte Regione** in mano. Nessun limite di carte in mano. [chiarito] **Compensazione dell'ordine di turno:** chi *non* è il primo giocatore della partita parte con **1 PM in più** (3 invece di 2). Chi sceglie per primo ha un piccolo vantaggio: con questa regola le vittorie di chi inizia tornano vicine a quelle attese. [chiarito]
 4. Ogni giocatore ha **2 lavoratori**.
 5. Il primo giocatore è scelto a sorte [interpretazione] e riceve il segnalino «Protezione Civile» [chiarito].
 6. Obiettivi Segreti: si pescano 2, se ne tiene 1. *Il mazzo non esiste ancora: in questa versione la regola è un segnaposto che vale 0 punti.* [chiarito]
@@ -115,7 +115,7 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 Più punti totali; a parità più punti di Accuratezza, poi più Accuratezza grezza, poi più Coerenza, poi più PM; se ancora pari: pari merito.
 
 ## 9. Parametri (modificabili dall'app per fare esperimenti)
-`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 · `sez2OccupiesSez1` no · `requireAdjacentPlacement` sì · `borderPoints` 1 · `eventDrawer` segnalino che passa di mano (variante `first` = il primo giocatore del round, solo per esperimenti).
+`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 · `sez2OccupiesSez1` no · `requireAdjacentPlacement` sì · `borderPoints` 1 · `eventDrawer` segnalino che passa di mano (variante `first` = il primo giocatore del round, solo per esperimenti) · `startPMBonus` 0 al primo giocatore e +1 PM a tutti gli altri.
 
 ## 10. Differenze rispetto al Concept v9 originale
 | Tema | Concept v9 | Questa versione |
@@ -128,7 +128,7 @@ Più punti totali; a parità più punti di Accuratezza, poi più Accuratezza gre
 | Pattern Temporale | ambiguo (per carta o per gruppo) | Per gruppo |
 | Pattern Neve | «bonus fisso se esiste un gruppo» | Una volta sola per giocatore |
 | 3° lavoratore | «per il resto della partita» | Dal round successivo |
-| Primo giocatore | non scritto | A sorte, poi ruota di uno a ogni round |
+| Primo giocatore | non scritto | A sorte, poi ruota di uno a ogni round; chi non inizia parte con 1 PM in più (compensazione misurata: senza, chi inizia vince il 55% a 2 giocatori, il 38% a 3 e il 31% a 4) |
 | Chi pesca l'Evento | non scritto | Segnalino «Protezione Civile» che passa a sinistra a ogni Evento (a 3 giocatori il primo giocatore pescherebbe sempre tutti e tre gli Eventi) |
 | Scala di Accuratezza | 1–6 → 3, 7–10 → 6, 11–13 → 10, 14–15 → 15 | 1–2 → 3, 3–4 → 6, 5–6 → 10, 7+ → 15 (con le soglie vecchie la fedeltà non conveniva: ≈ 9% contro i pattern; ora ≈ 51%) |
 | Spareggio | non scritto | Vedi §8 |

@@ -29,22 +29,30 @@
     $('#tb-info').innerHTML = '';
   };
 
-  // Finestra modale. ritorna { el, close }
+  // Finestra modale. ritorna { el, close }. Tastiera: il focus entra nella finestra, Tab resta dentro, Esc chiude (opts.onEsc se la finestra non è chiudibile a clic).
   UI.modal = function (html, opts) {
     opts = opts || {};
-    const wrap = document.createElement('div');
+    const wrap = document.createElement('div'), prev = document.activeElement;
     wrap.className = 'overlay' + (opts.solid ? ' solid' : '');
-    wrap.innerHTML = `<div class="dlg ${opts.wide ? 'wide' : ''}" role="dialog" aria-modal="true">${html}</div>`;
+    wrap.innerHTML = `<div class="dlg ${opts.wide ? 'wide' : ''}" role="dialog" aria-modal="true" tabindex="-1">${html}</div>`;
     $('#modal-root').appendChild(wrap);
-    const api = { el: wrap.firstElementChild, close() { wrap.remove(); } };
+    const dlg = wrap.firstElementChild, focusables = () => $$('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])', dlg).filter((e) => !e.disabled && e.offsetParent !== null);
+    const api = { el: dlg, close() { document.removeEventListener('keydown', onKey, true); wrap.remove(); if (prev && prev.focus && document.contains(prev)) { try { prev.focus(); } catch (e) { /* ignora */ } } } };
+    function onKey(e) {
+      if (!document.contains(wrap) || wrap !== $('#modal-root').lastElementChild) return;
+      if (e.key === 'Escape') { if (opts.onEsc) { e.preventDefault(); opts.onEsc(); } else if (opts.dismiss !== false) { e.preventDefault(); api.close(); } }
+      else if (e.key === 'Tab') { const f = focusables(); if (!f.length) { e.preventDefault(); return; } const first = f[0], last = f[f.length - 1]; if (e.shiftKey && (document.activeElement === first || !dlg.contains(document.activeElement))) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && (document.activeElement === last || !dlg.contains(document.activeElement))) { e.preventDefault(); first.focus(); } }
+    }
+    document.addEventListener('keydown', onKey, true);
     if (opts.dismiss !== false) wrap.addEventListener('click', (e) => { if (e.target === wrap) api.close(); });
+    setTimeout(() => { const f = focusables(); (f.find((e) => e.hasAttribute('data-go') || e.hasAttribute('data-y') === false && e.classList.contains('primary')) || f[0] || dlg).focus(); }, 0);
     return api;
   };
   // conferma esplicita per mosse costose o rischiose: Promise<boolean>
   UI.confirm = function (title, bodyHtml, okLabel, cancelLabel) {
     return new Promise((resolve) => {
       const dlg = UI.modal(`<h2>⚠️ ${esc(title)}</h2><div class="warnbox">${bodyHtml}</div>
-        <div class="btn-row"><button class="btn" data-n>${esc(cancelLabel || 'Torno indietro')}</button><button class="btn danger" data-y style="flex:1">${esc(okLabel || 'Confermo')}</button></div>`, { dismiss: false });
+        <div class="btn-row"><button class="btn" data-n>${esc(cancelLabel || 'Torno indietro')}</button><button class="btn danger" data-y style="flex:1">${esc(okLabel || 'Confermo')}</button></div>`, { dismiss: false, onEsc: () => { dlg.close(); resolve(false); } });
       dlg.el.querySelector('[data-y]').onclick = () => { dlg.close(); resolve(true); };
       dlg.el.querySelector('[data-n]').onclick = () => { dlg.close(); resolve(false); };
     });

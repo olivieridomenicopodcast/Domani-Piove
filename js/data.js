@@ -30,7 +30,7 @@
     eventRounds: [4, 7, 10],    // [chiarito] Carta Evento alle 11:00, 14:00, 17:00 (= inizio del round 4, 7, 10 → [interpretazione])
     startPM: 2,                 // [chiarito] valori di partenza della Milestone
     startCards: 2,
-    startPMBonus: [],           // [variante da misurare] PM in più in base all'ordine di turno: [0, 1] = il 2° giocatore parte con 1 PM in più
+    startPMBonus: [0, 1, 1, 1], // [chiarito] compensazione dell'ordine di turno: chi NON inizia parte con 1 PM in più (3 invece di 2); [] = nessuna
     workers: 2,
     thirdWorkerCost: 5,         // [chiarito] 5 PM
     thirdWorkerNextRound: true, // [interpretazione] il 3° lavoratore è disponibile dal round dopo lo sblocco

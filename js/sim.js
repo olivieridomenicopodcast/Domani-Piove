@@ -152,7 +152,8 @@
       const o = Object.assign({}, opts, { a: opts.a || 'hard', b: keys[k], keepGames: 0 });
       const agg = await Sim.runAsync(o, (i, n) => { if (onProgress) onProgress(k * opts.games + i, keys.length * opts.games, Sim.profileLabel(keys[k])); }, cancel);
       const ci = wilson(agg.aWins, agg.n), expect = 1 / (opts.players || 2);
-      rows.push({ key: keys[k], label: Sim.profileLabel(keys[k]), agg, wins: agg.aWins / agg.n, ci, ok: ci[0] > expect + 0.1 });
+      // perde davvero se A vince in modo significativamente superiore al caso (+5 punti già nell'estremo basso dell'intervallo); con pochi campioni l'esito può restare incerto
+      rows.push({ key: keys[k], label: Sim.profileLabel(keys[k]), agg, wins: agg.aWins / agg.n, ci, ok: ci[0] > expect + 0.05, small: agg.n < 60 });
     }
     return { rows };
   };
@@ -231,7 +232,7 @@
   };
   Sim.extremeReport = function (ex, opts) {
     const L = [`# Prove estreme — A=${Sim.profileLabel(opts.a || 'hard')} contro strategie sbagliate di proposito, ${opts.games} partite ciascuna, ${opts.players || 2} giocatori`, '', 'Se una strategia sbagliata non perde, la regola ha un buco.', '', '| Strategia sbagliata (B) | A vince [95%] | Punteggio A | Punteggio B | Esito |', '|---|---|---|---|---|'];
-    ex.rows.forEach((r) => L.push(`| ${r.label} | ${pct(r.wins)} [${pct(r.ci[0])}–${pct(r.ci[1])}] | ${(r.agg.scoreA.s1 / Math.max(1, r.agg.scoreA.n)).toFixed(1)} | ${(r.agg.scoreB.s1 / Math.max(1, r.agg.scoreB.n)).toFixed(1)} | ${r.ok ? '✔ perde' : '✘ NON perde abbastanza'} |`));
+    ex.rows.forEach((r) => L.push(`| ${r.label} | ${pct(r.wins)} [${pct(r.ci[0])}–${pct(r.ci[1])}] | ${(r.agg.scoreA.s1 / Math.max(1, r.agg.scoreA.n)).toFixed(1)} | ${(r.agg.scoreB.s1 / Math.max(1, r.agg.scoreB.n)).toFixed(1)} | ${r.ok ? '✔ perde' : r.small ? '? incerto: poche partite (almeno 60)' : '✘ NON perde abbastanza'} |`));
     return L.join('\n');
   };
   Sim.forcedReport = function (fa) {

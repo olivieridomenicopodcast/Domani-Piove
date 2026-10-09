@@ -3,7 +3,7 @@
 Versione digitale per il playtest del gioco da tavolo **Domani Piove** (2–4 giocatori, piazzamento lavoratori, set collection e una previsione meteo condivisa che cambia durante la giornata).
 Nessuna build: HTML/CSS/JS vanilla con script classici, funziona aprendo `index.html` e anche in Node.
 
-**Stato: tappa 5 — motore, interfaccia da tavolo, AI a tre livelli e simulatore completo (nell'app e da riga di comando).** Giocabile in 3 modalità (contro l'AI con suggerimento facoltativo, passa il telefono, AI contro AI) più la 📊 Simulazione veloce: tornei con intervalli di confidenza, esperimenti sulle regole, prove estreme, analisi «forzata» di ogni carta, elenco partite con «Rivedi» ed export Markdown/CSV/JSON. Le misure e i dubbi sulle regole sono in `docs/DA_RICORDARE.md`.
+**Stato: tappa 6 — motore, interfaccia da tavolo, AI a tre livelli e simulatore completo (nell'app e da riga di comando).** Giocabile in 3 modalità (contro l'AI con suggerimento facoltativo, passa il telefono, AI contro AI) più la 📊 Simulazione veloce: tornei con intervalli di confidenza, esperimenti sulle regole, prove estreme, analisi «forzata» di ogni carta, elenco partite con «Rivedi» ed export Markdown/CSV/JSON. Le misure e i dubbi sulle regole sono in `docs/DA_RICORDARE.md`.
 
 ## Comandi
 ```
@@ -15,6 +15,9 @@ node tools/sim.js --games 200 --experiment poolPerSymbol=6,8,10     # esperiment
 node tools/sim.js --games 150 --a hard --extreme                    # prove estreme: le strategie sbagliate di proposito devono perdere
 node tools/sim.js --forced evento|regione|previsione --games 30 --a medium --b medium   # quanto rende ogni carta, a parità di seed
 node tools/experiment.js '{"coerCap":8}' 120                          # strategie estreme contro la AI normale per una variante di regole
+node tools/bump-sw.js       # aggiorna la versione del service worker se i file in cache sono cambiati (un test lo pretende)
+NODE_PATH=/opt/node-tools/node_modules node tools/offline-check.js   # prova la PWA offline nel browser
+NODE_PATH=/opt/node-tools/node_modules node tools/a11y-check.js      # accessibilità nel browser: nomi, tastiera, 320px, bersagli di tocco
 node tools/serve.js         # server locale → http://localhost:8080 (oppure apri index.html)
 node tools/export-sprites.js   # esporta gli sprite SVG in assets/sprites/*.svg e crea sprites.html
 NODE_PATH=/opt/node-tools/node_modules node tools/e2e.js --mode ai|hotseat|watch [--mobile] [--players 2|3|4] [--vp]   # partita completa nel browser (Playwright) con screenshot

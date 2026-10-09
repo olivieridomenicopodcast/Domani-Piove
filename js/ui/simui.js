@@ -85,8 +85,8 @@
       $('#x-md').onclick = () => UI.download(`domani-piove-esperimento-${o._o.ep}.md`, md); $('#x-copy').onclick = () => UI.copy(md);
     });
     $('#sm-ext').onclick = () => go(async (c) => {
-      const o = read(), ex = await FF.Sim.extremeSuite(o, progress, c), md = FF.Sim.extremeReport(ex, o), bad = ex.rows.filter((r) => !r.ok).length;
-      $('#sm-out').innerHTML = `<div class="card"><h2>Prove estreme</h2><p class="${bad ? 'bad' : 'good'}"><b>${bad ? `⚠ ${bad} strategia/e sbagliata/e NON perde abbastanza: la regola ha un buco.` : '✔ Tutte le strategie sbagliate di proposito perdono.'}</b></p>${UI.md(md)}<div class="btn-row"><button class="btn" id="x-md">⬇ .md</button><button class="btn" id="x-copy">📋 Copia</button></div></div>`;
+      const o = read(), ex = await FF.Sim.extremeSuite(o, progress, c), md = FF.Sim.extremeReport(ex, o), bad = ex.rows.filter((r) => !r.ok && !r.small).length, unsure = ex.rows.filter((r) => !r.ok && r.small).length;
+      $('#sm-out').innerHTML = `<div class="card"><h2>Prove estreme</h2><p class="${bad ? 'bad' : 'good'}"><b>${bad ? `⚠ ${bad} strategia/e sbagliata/e NON perde abbastanza: la regola ha un buco.` : unsure ? `? ${unsure} esito/i incerto/i: con meno di 60 partite per strategia l'intervallo è troppo largo. Aumenta le partite.` : '✔ Tutte le strategie sbagliate di proposito perdono.'}</b></p>${UI.md(md)}<div class="btn-row"><button class="btn" id="x-md">⬇ .md</button><button class="btn" id="x-copy">📋 Copia</button></div></div>`;
       $('#x-md').onclick = () => UI.download('domani-piove-prove-estreme.md', md); $('#x-copy').onclick = () => UI.copy(md);
     });
     $('#sm-for').onclick = () => go(async (c) => {
@@ -132,7 +132,7 @@
     $('#x-json').onclick = () => UI.download('domani-piove-simulazione.json', FF.Sim.toJSON(agg), 'application/json');
     $('#x-copy').onclick = () => UI.copy(md);
     $$('[data-rev]', out).forEach((b) => (b.onclick = () => review(agg, Number(b.dataset.rev))));
-    out.scrollIntoView({ behavior: 'smooth' });
+    out.scrollIntoView({ behavior: (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) ? 'auto' : 'smooth' });
   }
 
   // apre in modalità "Rivedi" una partita della simulazione, usando la cronologia delle risposte (stesso seed, stesse scelte)

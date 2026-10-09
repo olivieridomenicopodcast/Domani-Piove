@@ -149,7 +149,7 @@ test('Evento: il bersaglio mobile cambia l\'Accuratezza (chi aveva la vecchia co
   assert.equal(g.scoreOf(0).accRaw, 2);
 });
 test('Eventi positivi: PM, pesche, simboli gratuiti, 3° lavoratore, PM per carte in mano', () => {
-  const run = (id, chooser) => { const g = newGame(); g.s.first = 0; FF.drive(g.eventOp ? (function* () { for (const op of FF.EVENT_OPS[id]) yield* g.eventOp(op, 0); })() : null, chooser || (() => 0), g); return g; };
+  const run = (id, chooser) => { const g = newGame(); g.s.first = 0; g.s.players.forEach((p) => { p.pm = 2; }); /* PM di partenza uguali, a prescindere dalla compensazione */ FF.drive(g.eventOp ? (function* () { for (const op of FF.EVENT_OPS[id]) yield* g.eventOp(op, 0); })() : null, chooser || (() => 0), g); return g; };
   let g = run(8); assert.deepEqual(g.s.players.map((p) => p.pm), [4, 4]);
   g = run(70); assert.deepEqual(g.s.players.map((p) => p.pm), [5, 2]);
   g = run(75); assert.equal(g.s.players[0].pm, 2 + 2);
@@ -361,10 +361,12 @@ test('Evento: il segnalino «Protezione Civile» parte dal primo giocatore e pas
 });
 
 // ───────────────────────── compensazione dell'ordine di turno ─────────────────────────
-test('startPMBonus: PM in più in base all\'ordine di turno a partire dal primo giocatore (spento di default)', () => {
-  const g0 = new FF.Game({ seed: 3, players: PL(3) }); assert.deepEqual(g0.s.players.map((p) => p.pm), [2, 2, 2]);
-  for (const seed of [3, 4, 5, 6]) {
-    const g = new FF.Game({ seed, players: PL(3), rules: { startPMBonus: [0, 1, 1] } }), f = g.s.first;
-    assert.equal(g.s.players[f].pm, 2); assert.equal(g.s.players[(f + 1) % 3].pm, 3); assert.equal(g.s.players[(f + 2) % 3].pm, 3);
+test('startPMBonus: chi non inizia parte con 1 PM in più (3 invece di 2), a 2, 3 e 4 giocatori; [] la spegne', () => {
+  for (const n of [2, 3, 4]) for (const seed of [3, 4, 5, 6, 7]) {
+    const g = new FF.Game({ seed, players: PL(n) }), f = g.s.first;
+    g.s.players.forEach((p) => assert.equal(p.pm, p.id === f ? 2 : 3, `${n} giocatori, seed ${seed}, giocatore ${p.id}`));
   }
+  const off = new FF.Game({ seed: 3, players: PL(3), rules: { startPMBonus: [] } }); assert.deepEqual(off.s.players.map((p) => p.pm), [2, 2, 2]);
+  const alt = new FF.Game({ seed: 3, players: PL(3), rules: { startPMBonus: [0, 0, 1] } }), f = alt.s.first;
+  assert.equal(alt.s.players[(f + 2) % 3].pm, 3); assert.equal(alt.s.players[(f + 1) % 3].pm, 2);
 });

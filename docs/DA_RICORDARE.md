@@ -7,7 +7,7 @@
 - **Fedeltà contro pattern (ora in equilibrio):** solo-fedeltà batte solo-pattern **56,3%** [50,7–61,8] (300 partite, 2 giocatori) e **36,0%** [28,8–43,9] a 3 giocatori (atteso 33,3%); l'AI normale batte solo-pattern 88,0% e solo-fedeltà 92,7%. Accuratezza grezza media dell'AI normale 4,6 su 15, Coerenza 15,3, totale 24,0.
 - **Prove estreme** (60 partite ciascuna, A = Difficile): la AI normale batte casuale 100%, solo fedeltà 96,7% [88,6–99,1], solo pattern 95,0% [86,3–98,3], solo PM 100%, passivo 100%. **Nessuna strategia sbagliata di proposito regge.**
 - **⚠ Vantaggio dell'ordine di turno (resta anche con il segnalino):** chi inizia la partita vince di più, e l'effetto scende con l'ordine di turno. Con giocatori Medi (≈ 4.500 partite): a 3 giocatori primo **36,0%**, secondo 33,3%, terzo 30,7%; a 2 giocatori 52,6% / 47,4%. **Non esiste alcun vantaggio legato al posto fisso** (33,0 / 33,6 / 33,3%): gli scarti visti in alcune serie brevi erano rumore. A 2 giocatori chi inizia ha **+0,50 punti** [0,14–0,86] (su ≈ 24); senza la rotazione del primo giocatore sarebbe +1,16.
-- **Compensazione provata (PM iniziali in più a chi NON inizia, `startPMBonus`):**
+- **Compensazione ADOTTATA (PM iniziali in più a chi NON inizia, `startPMBonus`):** verificata con le regole definitive (1.000 partite Difficile contro Difficile): chi inizia vince **48,8%** [45,7–51,9] a 2 giocatori, **31,8%** [29,0–34,8] a 3, **22,9%** [20,4–25,6] a 4 (attesi 50 / 33,3 / 25%): neutro, con un filo di sovra-compensazione. Misure di partenza:
 | | 2 giocatori | 3 giocatori | 4 giocatori |
 |---|---|---|---|
 | Nessuna compensazione (3.000 partite) | 54,9% [53,1–56,7] | 38,1% [36,4–39,9] | 31,3% [29,6–33,0] |

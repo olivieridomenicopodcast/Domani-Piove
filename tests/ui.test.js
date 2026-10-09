@@ -51,3 +51,11 @@ test('animazione: con beats la partita emette un beat per ogni evento di cronaca
   while (!r.done) { if (r.value.type === 'beat') { beats++; r = it.next(); } else r = it.next(ch(r.value)); }
   assert.equal(beats, g.events.length);
 });
+
+test('PWA: la versione del service worker è aggiornata (se fallisce: node tools/bump-sw.js)', () => {
+  const crypto = require('crypto'), sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
+  const files = [...sw.match(/const FILES = \[([\s\S]*?)\];/)[1].matchAll(/'([^']+)'/g)].map((m) => m[1]).filter((f) => f !== './');
+  const h = crypto.createHash('sha1'); files.forEach((f) => { h.update(f + '\0'); h.update(fs.readFileSync(path.join(root, f))); });
+  const cur = sw.match(/const VERSION = 'dp-v(\d+)'; \/\/ cache: ([0-9a-f]+)/);
+  assert.ok(cur, 'manca l\'impronta nella riga VERSION'); assert.equal(cur[2], h.digest('hex').slice(0, 10), 'i file in cache sono cambiati: lancia node tools/bump-sw.js');
+});

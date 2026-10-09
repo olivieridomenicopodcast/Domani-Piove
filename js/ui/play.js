@@ -143,10 +143,10 @@
       el.innerHTML = `<div class="gbar"><span class="turn" id="g-turn"></span><span class="chip" id="g-first"></span><span class="spacer"></span><div class="ctrl" id="g-ctrl"></div></div>
         <div class="glayout"><aside class="legendcol"><details class="panel" id="g-legend"><summary class="ptitle">Legenda</summary><div class="legend">${UI.legendHTML()}</div></details></aside>
         <div class="maincol">
-          <div class="announce" id="g-announce"></div>
+          <div class="announce" id="g-announce" aria-live="polite" aria-atomic="true"></div>
           <div class="suggest hidden" id="g-suggest" aria-live="polite"></div>
           <div class="nexttxt" id="g-nexttxt"></div>
-          <div class="panel action" id="g-action"></div>
+          <div class="panel action" id="g-action" role="region" aria-label="La tua mossa" tabindex="-1"></div>
           <div class="panel"><div class="ptitle">Plancia centrale</div><div id="g-board"></div></div>
           <div class="panel"><div class="ptitle">Mercato Carte Regione</div><div id="g-market"></div></div>
           <div class="panel"><div class="ptitle">Il tavolo di <span id="g-tabname"></span></div><div class="tabs" id="g-tabs"></div><div id="g-table"></div><div class="handbox" id="g-hand"></div></div>
@@ -329,6 +329,7 @@
         this.lastCover = d.pid;
       }
       this.reveal = d.pid; this.renderAll(d.pid);
+      const act = $('#g-action'); if (act && !this.review) act.focus({ preventScroll: true });   // la tastiera parte dalla mossa da fare
       let ans;
       switch (d.type) {
         case 'place': ans = await this.placePanel(d); break;

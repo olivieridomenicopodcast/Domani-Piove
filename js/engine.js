@@ -95,7 +95,7 @@
       for (let i = 0; i < n; i++) for (let k = 0; k < R.startCards; k++) { const c = this._drawRegion(); if (c != null) s.players[i].hand.push(c); }
       s.first = R.firstPlayer >= 0 ? R.firstPlayer % n : this.randInt(n);
       s.startFirst = s.first;
-      (R.startPMBonus || []).forEach((b, k) => { const q = s.players[(s.first + k) % n]; if (q) q.pm += b; });
+      (R.startPMBonus || []).forEach((b, k) => { if (k < n) s.players[(s.first + k) % n].pm += b; });   // compensazione dell'ordine di turno: k = 0 è il primo giocatore
       if (cfg.forced) this._force(cfg.forced, s);
       s.round = 0; s.phase = 'setup'; s.occupied = {}; s.over = false; s.lastEvent = null;
       s.eventsDrawn = 0; s.transit = [];   // carte pescate da un Evento e non ancora assegnate (così lo stato è sempre coerente)

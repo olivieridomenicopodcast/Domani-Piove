@@ -1,7 +1,7 @@
 /* DOMANI PIOVE — stile. Tavolo di feltro blu-verde, pannelli color carta, testo grande e contrastato (base 17px). */
 :root {
   --felt: #1d3b4d; --felt2: #254b60; --paper: #f6efdd; --paper2: #ece3cb; --ink: #2a2113; --muted: #6a5d44;
-  --accent: #b5481b; --accent2: #2c7fb8; --ok: #2e7d4f; --warn: #b8741a; --bad: #b4261a; --line: #cdbf9d; --wood: #6b4f2a;
+  --accent: #b5481b; --accent2: #2c7fb8; --ok: #256a43; --warn: #b8741a; --bad: #b4261a; --line: #cdbf9d; --wood: #6b4f2a;
   --cw: 118px; --cardw: 134px;
 }
 * { box-sizing: border-box; }
@@ -172,3 +172,11 @@ details > summary.ptitle { cursor: pointer; }
 .linechart { width: 100%; max-width: 640px; height: auto; background: #fffdf6; border: 2px solid var(--line); border-radius: 10px; } .legendline { display: flex; gap: 1rem; font-size: .85rem; margin: .3rem 0 .8rem; } .legendline i { display: inline-block; width: 22px; height: 6px; border-radius: 3px; margin-right: .3rem; vertical-align: middle; }
 .progress { height: 14px; background: var(--paper2); border-radius: 8px; overflow: hidden; border: 2px solid var(--line); margin: .8rem 0 .3rem; } .progress span { display: block; height: 100%; width: 0; background: var(--accent2); transition: width .15s; }
 .gtable td, .gtable th { white-space: nowrap; } .good { color: var(--ok); } .bad { color: var(--bad); }
+
+/* accessibilità: movimento ridotto e bersagli di tocco grandi sugli schermi touch */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } .cardbtn.selectable:hover .spr, .cardbtn.chosen .spr { transform: none; } }
+@media (pointer: coarse), (max-width: 700px) { .ctrl select { min-height: 44px; } .btn, .btn.sm, .seg button, .tab, .mode, select, input[type=text], input[type=number], .linkbtn, .logo, summary { min-height: 44px; } summary { display: flex; align-items: center; } .adv summary, summary.ptitle { padding: .2rem 0; } .btn.sm { padding-top: .3rem; padding-bottom: .3rem; } .linkbtn { display: inline-flex; align-items: center; } }
+
+/* collegamento «salta al contenuto» (tastiera) e pannello dell'azione raggiungibile */
+.skip { position: absolute; left: 8px; top: -60px; z-index: 100; background: #fff; color: #14293a; padding: .6rem 1rem; border-radius: 8px; border: 3px solid #ffd54a; font-weight: 700; } .skip:focus { top: 8px; }
+#g-action:focus { outline: 3px solid #ffd54a; outline-offset: 2px; }
