@@ -1,0 +1,13 @@
+{
+  "name": "domani-piove-playtest",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Domani Piove — versione digitale per playtest (gioco vs AI, passa il telefono, AI vs AI, simulazioni)",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "data": "node tools/build-data.js",
+    "rules": "node tools/build-rules.js",
+    "sim": "node tools/sim.js",
+    "serve": "node tools/serve.js"
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "gioco": "Domani Piove",
+  "giocatori": [
+    2,
+    4
+  ],
+  "durata_min": [
+    45,
+    60
+  ],
+  "simboli_base": [
+    "sole",
+    "nuvolo",
+    "pioggia",
+    "vento",
+    "temporale",
+    "neve",
+    "nebbia"
+  ],
+  "gettoni_per_simbolo_pool": 10,
+  "fusioni": [
+    {
+      "nome": "Caldo Estremo",
+      "ricetta": [
+        "sole",
+        "sole"
+      ]
+    },
+    {
+      "nome": "Burrasca",
+      "ricetta": [
+        "vento",
+        "vento"
+      ]
+    },
+    {
+      "nome": "Alluvione",
+      "ricetta": [
+        "pioggia",
+        "pioggia"
+      ]
+    },
+    {
+      "nome": "Downburst",
+      "ricetta": [
+        "temporale",
+        "temporale"
+      ]
+    },
+    {
+      "nome": "Nevicata Estrema",
+      "ricetta": [
+        "neve",
+        "neve"
+      ]
+    },
+    {
+      "nome": "Tromba d'Aria",
+      "ricetta": [
+        "temporale",
+        "vento"
+      ]
+    },
+    {
+      "nome": "Grandine",
+      "ricetta": [
+        "temporale",
+        "sole"
+      ]
+    },
+    {
+      "nome": "Tormenta di Neve",
+      "ricetta": [
+        "neve",
+        "vento"
+      ]
+    }
+  ],
+  "fusioni_note": "Scattano solo impilando 2 simboli compatibili sulla stessa Carta Regione giocata. Nebbia e Nuvolo non hanno fusione.",
+  "round": {
+    "totale": 12,
+    "ora_inizio": "08:00",
+    "ora_fine": "20:00",
+    "carta_evento_alle": [
+      "11:00",
+      "14:00",
+      "17:00"
+    ]
+  },
+  "lavoratori": {
+    "base": 2,
+    "terzo_sbloccabile": true,
+    "costo_sblocco_pm": 5,
+    "piazzamento": "uno alla volta a rotazione; spazio occupato bloccato fino a fine round"
+  },
+  "spazi_azione": {
+    "sezione_1": [
+      "Gioca una carta",
+      "Compra una carta",
+      "Raccogli un simbolo meteo",
+      "Guadagna 1 Punto Meteo",
+      "Sblocca lavoratore"
+    ],
+    "sezione_2": [
+      "Doppia azione (2 azioni diverse di sezione 1, 2 lavoratori)",
+      "Azione ripetuta (stessa azione di sezione 1 due volte, 2 lavoratori)"
+    ]
+  },
+  "risorse_iniziali": {
+    "punti_meteo": 2,
+    "carte_regione_in_mano": 2,
+    "obiettivi_segreti": "pesca 2, tieni 1"
+  },
+  "mercato": {
+    "carte_scoperte": 5,
+    "mazzo_coperto": true,
+    "prezzi_pm": {
+      "neutra": 1,
+      "confine": 2,
+      "compensativa": 3,
+      "pesca_cieca": 2
+    }
+  },
+  "carte_regione": {
+    "max_giocata_per_regione": 1,
+    "simboli_stampati": false,
+    "limite_mano": null
+  },
+  "setup_previsione": "Pesca 3 Carte Previsione (una per area Nord/Centro/Sud e Isole), condivise, trasferite su gettoni sulla plancia centrale; le Carte Evento le modificano.",
+  "accuratezza": {
+    "totale_grezzo_max": 15,
+    "scaglioni": [
+      {
+        "da": 0,
+        "a": 0,
+        "esito": "Previsione mancata",
+        "punti": 0
+      },
+      {
+        "da": 1,
+        "a": 6,
+        "esito": "Parzialmente corretta",
+        "punti": 3
+      },
+      {
+        "da": 7,
+        "a": 10,
+        "esito": "Buona",
+        "punti": 6
+      },
+      {
+        "da": 11,
+        "a": 13,
+        "esito": "Molto accurata",
+        "punti": 10
+      },
+      {
+        "da": 14,
+        "a": 15,
+        "esito": "Perfetta",
+        "punti": 15
+      }
+    ]
+  },
+  "punteggio_finale": "Accuratezza + Coerenza Geografica (bonus confine/territorio +1 ciascuno + pattern) + Obiettivi Segreti",
+  "pattern_geografici": {
+    "sole": "Distesa: gruppo connesso di Sole adiacenti 2=1, 3=2, 4=4, 5=6, 6+=9",
+    "temporale": "Cella convettiva: +3 se >=2 Temporale adiacenti, +6 se >=3, isolato 0",
+    "pioggia": "Coda di pioggia: +1 per ogni Pioggia adiacente ad almeno un Temporale",
+    "neve": "Manto di quota: +4 fisso se esiste un gruppo di esattamente 2-3 Neve adiacenti",
+    "vento": "Ponte: +2 per ogni Vento adiacente ad almeno 2 simboli diversi tra loro",
+    "nuvolo": "Frangia: +1 per ogni Nuvolo adiacente ad almeno un simbolo diverso da Nuvolo",
+    "nebbia": "Sacca isolata: +2 per ogni Nebbia senza altra Nebbia adiacente",
+    "adiacenza": "contatto fisico tra carte sul tavolo",
+    "fusi": "una carta con fenomeno fuso non partecipa ai pattern dei simboli base"
+  },
+  "regioni_per_area": {
+    "nord": [
+      "Valle d'Aosta",
+      "Piemonte",
+      "Liguria",
+      "Lombardia",
+      "Trentino-Alto Adige",
+      "Veneto",
+      "Friuli-Venezia Giulia",
+      "Emilia-Romagna"
+    ],
+    "centro": [
+      "Toscana",
+      "Umbria",
+      "Marche",
+      "Lazio"
+    ],
+    "sud_isole": [
+      "Abruzzo",
+      "Molise",
+      "Campania",
+      "Puglia",
+      "Basilicata",
+      "Calabria",
+      "Sicilia",
+      "Sardegna"
+    ]
+  }
+}

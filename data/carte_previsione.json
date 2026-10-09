@@ -1,0 +1,1154 @@
+[
+  {
+    "id": "N1a",
+    "area": "nord",
+    "archetipo": 1,
+    "archetipo_nome": "Fronte siberiano/balcanico (Nord-est)",
+    "tipologia": "Maltempo pieno",
+    "titolo": "FRONTE SIBERIANO",
+    "testo": "Una massa d'aria gelida in discesa dai Balcani si scontra con l'umidità residua sull'alto Adriatico. Il fronte affonda deciso su Trentino-Alto Adige, Veneto, Friuli-Venezia Giulia ed Emilia-Romagna: temporali nel cuore del sistema, piogge diffuse e venti in rinforzo lungo tutto il margine della perturbazione.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Veneto",
+        "simbolo": "temporale",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Trentino-Alto Adige",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Friuli-Venezia Giulia",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Emilia-Romagna",
+        "simbolo": "vento",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "N1b",
+    "area": "nord",
+    "archetipo": 1,
+    "archetipo_nome": "Fronte siberiano/balcanico (Nord-est)",
+    "tipologia": "Bel tempo stabile",
+    "titolo": "ALTA PRESSIONE DAI BALCANI",
+    "testo": "L'anticiclone russo-siberiano si estende fin sull'alto Adriatico, portando cielo sereno e aria secca e fredda su tutto il quadrante nord-orientale. Nebbie residue solo nelle valli più interne al mattino.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Veneto",
+        "simbolo": "sole",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Trentino-Alto Adige",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Friuli-Venezia Giulia",
+        "simbolo": "nuvolo",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Emilia-Romagna",
+        "simbolo": "nebbia",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "N1c",
+    "area": "nord",
+    "archetipo": 1,
+    "archetipo_nome": "Fronte siberiano/balcanico (Nord-est)",
+    "tipologia": "Parziale/in transito",
+    "titolo": "CEDIMENTO DEL FRONTE",
+    "testo": "Il fronte freddo balcanico perde forza entrando in Val Padana: temporali residui solo sul Veneto orientale, mentre il resto del quadrante nord-est vede il cielo tornare rapidamente sereno o poco nuvoloso.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Veneto",
+        "simbolo": "temporale",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Trentino-Alto Adige",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Friuli-Venezia Giulia",
+        "simbolo": "nuvolo",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Emilia-Romagna",
+        "simbolo": "sole",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "N2a",
+    "area": "nord",
+    "archetipo": 2,
+    "archetipo_nome": "Fronte atlantico occidentale (Nord-ovest)",
+    "tipologia": "Maltempo pieno",
+    "titolo": "PERTURBAZIONE ATLANTICA",
+    "testo": "Una saccatura atlantica avanza da ovest e scarica precipitazioni diffuse su tutto il Piemonte, in intensificazione verso i rilievi alpini. Piogge abbondanti anche su Valle d'Aosta e Lombardia occidentale, mentre la Liguria vede rinforzarsi il vento di Libeccio in premessa al peggioramento.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Piemonte",
+        "simbolo": "temporale",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Valle d'Aosta",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Lombardia",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Liguria",
+        "simbolo": "vento",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "N2b",
+    "area": "nord",
+    "archetipo": 2,
+    "archetipo_nome": "Fronte atlantico occidentale (Nord-ovest)",
+    "tipologia": "Bel tempo stabile",
+    "titolo": "RIMONTA ANTICICLONICA ATLANTICA",
+    "testo": "L'alta pressione delle Azzorre si distende sul nord-ovest, garantendo cielo sereno su tutto il Piemonte e ampi soli anche sulle valli alpine. Qualche velatura in transito su Lombardia e Liguria, dove il mare mantiene temperature miti.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Piemonte",
+        "simbolo": "sole",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Valle d'Aosta",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Lombardia",
+        "simbolo": "nuvolo",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Liguria",
+        "simbolo": "nuvolo",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "N2c",
+    "area": "nord",
+    "archetipo": 2,
+    "archetipo_nome": "Fronte atlantico occidentale (Nord-ovest)",
+    "tipologia": "Parziale/in transito",
+    "titolo": "FRONTE IN ESAURIMENTO SULLE ALPI",
+    "testo": "La perturbazione atlantica si scarica quasi interamente contro la barriera alpina: piogge intense solo su Valle d'Aosta, mentre il fronte arriva ormai indebolito sul resto del Piemonte e delle regioni limitrofe, con cielo in miglioramento.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Valle d'Aosta",
+        "simbolo": "pioggia",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Piemonte",
+        "simbolo": "nuvolo",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Lombardia",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Liguria",
+        "simbolo": "sole",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "N3a",
+    "area": "nord",
+    "archetipo": 3,
+    "archetipo_nome": "Perturbazione dal Mar Ligure (Sud-ovest)",
+    "tipologia": "Maltempo pieno",
+    "titolo": "CICLONE LIGURE",
+    "testo": "Un minimo depressionario si forma sul Mar Ligure e richiama aria umida verso l'entroterra: temporali intensi sulla Liguria di levante, piogge diffuse su Piemonte ed Emilia-Romagna occidentale, nebbie dense in Val Padana lombarda al mattino.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Liguria",
+        "simbolo": "temporale",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Piemonte",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Emilia-Romagna",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Lombardia",
+        "simbolo": "nebbia",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "N3b",
+    "area": "nord",
+    "archetipo": 3,
+    "archetipo_nome": "Perturbazione dal Mar Ligure (Sud-ovest)",
+    "tipologia": "Bel tempo stabile",
+    "titolo": "PROMONTORIO LIGURE",
+    "testo": "Un promontorio di alta pressione si estende dal Mar Ligure verso l'entroterra, portando giornate serene e miti su tutta la costa e ampio soleggiamento anche nelle pianure interne di Piemonte ed Emilia-Romagna.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Liguria",
+        "simbolo": "sole",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Piemonte",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Emilia-Romagna",
+        "simbolo": "nuvolo",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Lombardia",
+        "simbolo": "nuvolo",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "N3c",
+    "area": "nord",
+    "archetipo": 3,
+    "archetipo_nome": "Perturbazione dal Mar Ligure (Sud-ovest)",
+    "tipologia": "Parziale/in transito",
+    "titolo": "ROVESCI SPARSI DAL TIRRENO",
+    "testo": "Il minimo ligure resta poco strutturato: rovesci intensi solo sulla costa di levante, mentre l'entroterra piemontese ed emiliano vede il tempo restare asciutto, salvo un po' di variabilità nel pomeriggio.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Liguria",
+        "simbolo": "temporale",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Piemonte",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Emilia-Romagna",
+        "simbolo": "nuvolo",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Lombardia",
+        "simbolo": "sole",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "N4a",
+    "area": "nord",
+    "archetipo": 4,
+    "archetipo_nome": "Discesa alpina centrale (Nord)",
+    "tipologia": "Maltempo pieno",
+    "titolo": "IRRUZIONE FREDDA ALPINA",
+    "testo": "Aria gelida in discesa dalle Alpi centrali porta un deciso calo termico: nevicate abbondanti sul Trentino-Alto Adige fin a quote medio-basse, neve mista a pioggia su Lombardia e Veneto, piogge intense sull'Emilia-Romagna dove l'aria fredda si scontra con l'umidità della pianura.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Trentino-Alto Adige",
+        "simbolo": "neve",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Lombardia",
+        "simbolo": "neve",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Veneto",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Emilia-Romagna",
+        "simbolo": "pioggia",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "N4b",
+    "area": "nord",
+    "archetipo": 4,
+    "archetipo_nome": "Discesa alpina centrale (Nord)",
+    "tipologia": "Bel tempo stabile",
+    "titolo": "CIELO TERSO SULLE ALPI",
+    "testo": "L'alta pressione post-frontale porta cielo terso e aria secca su tutto l'arco alpino centrale, con ottima visibilità sul Trentino-Alto Adige. Sole anche in pianura, con foschie mattutine in Val Padana.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Trentino-Alto Adige",
+        "simbolo": "sole",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Lombardia",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Veneto",
+        "simbolo": "nuvolo",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Emilia-Romagna",
+        "simbolo": "nebbia",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "N4c",
+    "area": "nord",
+    "archetipo": 4,
+    "archetipo_nome": "Discesa alpina centrale (Nord)",
+    "tipologia": "Parziale/in transito",
+    "titolo": "NEVE IN ESAURIMENTO SULLE DOLOMITI",
+    "testo": "L'irruzione fredda si esaurisce rapidamente scendendo verso sud: nevicate ancora consistenti solo sulle Dolomiti trentine, mentre pianura veneta ed emiliana tornano asciutte, con schiarite in estensione anche sulla Lombardia.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Trentino-Alto Adige",
+        "simbolo": "neve",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Lombardia",
+        "simbolo": "nuvolo",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Veneto",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Emilia-Romagna",
+        "simbolo": "sole",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "C1a",
+    "area": "centro",
+    "archetipo": 1,
+    "archetipo_nome": "Perturbazione adriatica (Est)",
+    "tipologia": "Maltempo pieno",
+    "titolo": "PERTURBAZIONE ADRIATICA",
+    "testo": "Una saccatura in approfondimento sul medio Adriatico investe in pieno le Marche con rovesci e temporali, mentre l'Umbria risente in modo più attenuato del passaggio perturbato con piogge diffuse.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Marche",
+        "simbolo": "temporale",
+        "punti": 3
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Umbria",
+        "simbolo": "pioggia",
+        "punti": 2
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "C1b",
+    "area": "centro",
+    "archetipo": 1,
+    "archetipo_nome": "Perturbazione adriatica (Est)",
+    "tipologia": "Bel tempo stabile",
+    "titolo": "ARIA STABILE DALL'ADRIATICO",
+    "testo": "L'alta pressione si distende dall'Adriatico verso l'entroterra: cielo sereno sulle Marche, qualche velatura in transito sull'Umbria nelle ore centrali della giornata.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Marche",
+        "simbolo": "sole",
+        "punti": 3
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Umbria",
+        "simbolo": "nuvolo",
+        "punti": 2
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "C1c",
+    "area": "centro",
+    "archetipo": 1,
+    "archetipo_nome": "Perturbazione adriatica (Est)",
+    "tipologia": "Parziale/in transito",
+    "titolo": "FRONTE IN ATTENUAZIONE VERSO L'INTERNO",
+    "testo": "Il fronte adriatico scarica la sua energia già lungo la costa marchigiana: temporali isolati solo sulle Marche, mentre l'Umbria resta ai margini del sistema con vento in rinforzo lungo il crinale appenninico.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Marche",
+        "simbolo": "temporale",
+        "punti": 3
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Umbria",
+        "simbolo": "vento",
+        "punti": 2
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "C2a",
+    "area": "centro",
+    "archetipo": 2,
+    "archetipo_nome": "Perturbazione tirrenica (Ovest)",
+    "tipologia": "Maltempo pieno",
+    "titolo": "PERTURBAZIONE TIRRENICA",
+    "testo": "Un minimo depressionario sul Tirreno centrale porta temporali diffusi sulla Toscana costiera, con piogge in estensione anche al Lazio nelle ore successive.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Toscana",
+        "simbolo": "temporale",
+        "punti": 3
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Lazio",
+        "simbolo": "pioggia",
+        "punti": 2
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "C2b",
+    "area": "centro",
+    "archetipo": 2,
+    "archetipo_nome": "Perturbazione tirrenica (Ovest)",
+    "tipologia": "Bel tempo stabile",
+    "titolo": "PROMONTORIO TIRRENICO",
+    "testo": "L'alta pressione delle Azzorre si estende sul Mar Tirreno, portando giornate serene sulla Toscana e ampio soleggiamento anche sul Lazio.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Toscana",
+        "simbolo": "sole",
+        "punti": 3
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Lazio",
+        "simbolo": "sole",
+        "punti": 2
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "C2c",
+    "area": "centro",
+    "archetipo": 2,
+    "archetipo_nome": "Perturbazione tirrenica (Ovest)",
+    "tipologia": "Parziale/in transito",
+    "titolo": "ROVESCI IN ESAURIMENTO SULLA COSTA",
+    "testo": "Il sistema tirrenico perde forza avvicinandosi alla costa: rovesci ancora attivi solo sulla Toscana, mentre il Lazio vede il cielo tornare rapidamente nuvoloso ma asciutto.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Toscana",
+        "simbolo": "temporale",
+        "punti": 3
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Lazio",
+        "simbolo": "nuvolo",
+        "punti": 2
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "C3a",
+    "area": "centro",
+    "archetipo": 3,
+    "archetipo_nome": "Discesa fredda settentrionale (Nord)",
+    "tipologia": "Maltempo pieno",
+    "titolo": "IRRUZIONE FREDDA DA NORD",
+    "testo": "Aria fredda in discesa dall'Appennino settentrionale porta un netto calo delle temperature: neve a quote collinari sulla Toscana interna, piogge intense sulle Marche dove l'aria fredda incontra l'umidità adriatica.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Toscana",
+        "simbolo": "neve",
+        "punti": 3
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Marche",
+        "simbolo": "pioggia",
+        "punti": 2
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "C3b",
+    "area": "centro",
+    "archetipo": 3,
+    "archetipo_nome": "Discesa fredda settentrionale (Nord)",
+    "tipologia": "Bel tempo stabile",
+    "titolo": "ARIA FREDDA E SECCA DA NORD",
+    "testo": "L'irruzione fredda porta anche aria secca e cielo terso: sole pieno sulla Toscana interna, qualche nuvola in transito sulle Marche.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Toscana",
+        "simbolo": "sole",
+        "punti": 3
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Marche",
+        "simbolo": "nuvolo",
+        "punti": 2
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "C3c",
+    "area": "centro",
+    "archetipo": 3,
+    "archetipo_nome": "Discesa fredda settentrionale (Nord)",
+    "tipologia": "Parziale/in transito",
+    "titolo": "NEVICATE IN ESAURIMENTO SULL'APPENNINO",
+    "testo": "L'aria fredda si esaurisce scendendo verso il versante adriatico: neve residua solo sull'Appennino toscano, mentre le Marche vedono il cielo schiarire, con banchi di nebbia al mattino in pianura.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Toscana",
+        "simbolo": "neve",
+        "punti": 3
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Marche",
+        "simbolo": "nebbia",
+        "punti": 2
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "C4a",
+    "area": "centro",
+    "archetipo": 4,
+    "archetipo_nome": "Richiamo caldo meridionale (Sud)",
+    "tipologia": "Maltempo pieno",
+    "titolo": "RICHIAMO CALDO-UMIDO DA SUD",
+    "testo": "Correnti calde e umide risalgono dal Mediterraneo centrale, generando temporali di calore sul Lazio nel pomeriggio e piogge intense in estensione anche all'Umbria.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Lazio",
+        "simbolo": "temporale",
+        "punti": 3
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Umbria",
+        "simbolo": "pioggia",
+        "punti": 2
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "C4b",
+    "area": "centro",
+    "archetipo": 4,
+    "archetipo_nome": "Richiamo caldo meridionale (Sud)",
+    "tipologia": "Bel tempo stabile",
+    "titolo": "CALDO STABILE DA SUD",
+    "testo": "Il richiamo caldo meridionale si esaurisce in un semplice rialzo termico: cielo sereno e clima mite sul Lazio, sole anche sull'Umbria con qualche velatura in serata.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Lazio",
+        "simbolo": "sole",
+        "punti": 3
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Umbria",
+        "simbolo": "nuvolo",
+        "punti": 2
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "C4c",
+    "area": "centro",
+    "archetipo": 4,
+    "archetipo_nome": "Richiamo caldo meridionale (Sud)",
+    "tipologia": "Parziale/in transito",
+    "titolo": "TEMPORALI DI CALORE ISOLATI",
+    "testo": "L'instabilità pomeridiana resta confinata al Lazio interno, dove si sviluppano temporali di calore isolati, mentre l'Umbria resta ai margini del sistema con cielo velato.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Lazio",
+        "simbolo": "temporale",
+        "punti": 3
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Umbria",
+        "simbolo": "nuvolo",
+        "punti": 2
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "S1a",
+    "area": "sud_isole",
+    "archetipo": 1,
+    "archetipo_nome": "Fronte adriatico-balcanico (Nord-est)",
+    "tipologia": "Maltempo pieno",
+    "titolo": "FRONTE ADRIATICO-BALCANICO",
+    "testo": "Una perturbazione proveniente dai Balcani scende lungo il medio-basso Adriatico: temporali intensi sull'Abruzzo costiero, piogge diffuse su Molise e Puglia settentrionale, rovesci in estensione anche alla Basilicata orientale.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Abruzzo",
+        "simbolo": "temporale",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Molise",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Puglia",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Basilicata",
+        "simbolo": "vento",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "S1b",
+    "area": "sud_isole",
+    "archetipo": 1,
+    "archetipo_nome": "Fronte adriatico-balcanico (Nord-est)",
+    "tipologia": "Bel tempo stabile",
+    "titolo": "ALTA PRESSIONE ADRIATICA",
+    "testo": "L'alta pressione si estende lungo tutto il versante adriatico: cielo sereno sull'Abruzzo, ampio soleggiamento anche su Molise e Puglia, qualche nuvola in transito sulla Basilicata interna.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Abruzzo",
+        "simbolo": "sole",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Molise",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Puglia",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Basilicata",
+        "simbolo": "nuvolo",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "S1c",
+    "area": "sud_isole",
+    "archetipo": 1,
+    "archetipo_nome": "Fronte adriatico-balcanico (Nord-est)",
+    "tipologia": "Parziale/in transito",
+    "titolo": "FRONTE IN ESAURIMENTO VERSO SUD",
+    "testo": "La perturbazione balcanica perde energia scendendo lungo la costa: temporali ancora attivi solo sull'Abruzzo, mentre Molise e Puglia vedono il cielo tornare stabile, con neve residua sui rilievi della Basilicata.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Abruzzo",
+        "simbolo": "temporale",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Molise",
+        "simbolo": "nuvolo",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Puglia",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Basilicata",
+        "simbolo": "neve",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "S2a",
+    "area": "sud_isole",
+    "archetipo": 2,
+    "archetipo_nome": "Ciclone mediterraneo occidentale (Ovest/sud-ovest)",
+    "tipologia": "Maltempo pieno",
+    "titolo": "CICLONE MEDITERRANEO OCCIDENTALE",
+    "testo": "Un ciclone si forma sul Mediterraneo occidentale e risale verso le coste tirreniche: temporali violenti sulla Sardegna, piogge intense su Sicilia occidentale, rovesci in estensione su Campania e Calabria tirrenica.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Sardegna",
+        "simbolo": "temporale",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Sicilia",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Campania",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Calabria",
+        "simbolo": "vento",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "S2b",
+    "area": "sud_isole",
+    "archetipo": 2,
+    "archetipo_nome": "Ciclone mediterraneo occidentale (Ovest/sud-ovest)",
+    "tipologia": "Bel tempo stabile",
+    "titolo": "PROMONTORIO SUL MEDITERRANEO OCCIDENTALE",
+    "testo": "L'alta pressione nordafricana si estende sul Mediterraneo occidentale: cielo sereno sulla Sardegna, sole pieno anche su Sicilia, Campania e Calabria tirrenica.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Sardegna",
+        "simbolo": "sole",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Sicilia",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Campania",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Calabria",
+        "simbolo": "nuvolo",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "S2c",
+    "area": "sud_isole",
+    "archetipo": 2,
+    "archetipo_nome": "Ciclone mediterraneo occidentale (Ovest/sud-ovest)",
+    "tipologia": "Parziale/in transito",
+    "titolo": "CICLONE IN INDEBOLIMENTO",
+    "testo": "Il ciclone mediterraneo si disorganizza avvicinandosi alle coste italiane: temporali residui solo sulla Sardegna, mentre Sicilia e Calabria vedono il tempo migliorare rapidamente e la Campania si risveglia con banchi di nebbia nelle pianure interne.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Sardegna",
+        "simbolo": "temporale",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Sicilia",
+        "simbolo": "nuvolo",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Campania",
+        "simbolo": "nebbia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Calabria",
+        "simbolo": "sole",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "S3a",
+    "area": "sud_isole",
+    "archetipo": 3,
+    "archetipo_nome": "Scirocco/correnti nord-africane (Sud-est)",
+    "tipologia": "Maltempo pieno",
+    "titolo": "SCIROCCO INTENSO",
+    "testo": "Forti correnti sciroccali risalgono dal Nord Africa: venti intensi e temporali sulla Sicilia meridionale, piogge portate dall'umidità in estensione su Calabria e Puglia, rovesci anche sulla Basilicata ionica.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Sicilia",
+        "simbolo": "temporale",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Calabria",
+        "simbolo": "vento",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Puglia",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Basilicata",
+        "simbolo": "pioggia",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "S3b",
+    "area": "sud_isole",
+    "archetipo": 3,
+    "archetipo_nome": "Scirocco/correnti nord-africane (Sud-est)",
+    "tipologia": "Bel tempo stabile",
+    "titolo": "CALDO SECCO DA SUD-EST",
+    "testo": "Le correnti nordafricane si esauriscono in un semplice richiamo caldo: cielo sereno e clima mite sulla Sicilia, sole anche su Calabria, Puglia e Basilicata.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Sicilia",
+        "simbolo": "sole",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Calabria",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Puglia",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Basilicata",
+        "simbolo": "nuvolo",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "S3c",
+    "area": "sud_isole",
+    "archetipo": 3,
+    "archetipo_nome": "Scirocco/correnti nord-africane (Sud-est)",
+    "tipologia": "Parziale/in transito",
+    "titolo": "VENTO IN ATTENUAZIONE",
+    "testo": "Lo scirocco perde intensità risalendo verso nord: vento ancora sostenuto solo sulla Sicilia, mentre Calabria, Puglia e Basilicata restano ai margini del sistema con cielo poco nuvoloso.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Sicilia",
+        "simbolo": "vento",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Calabria",
+        "simbolo": "nuvolo",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Puglia",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Basilicata",
+        "simbolo": "sole",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "S4a",
+    "area": "sud_isole",
+    "archetipo": 4,
+    "archetipo_nome": "Richiamo caldo tirrenico (Sud-ovest)",
+    "tipologia": "Maltempo pieno",
+    "titolo": "RICHIAMO CALDO-UMIDO TIRRENICO",
+    "testo": "Aria calda e umida risale dal Tirreno meridionale: temporali di calore sulla Campania nel pomeriggio, piogge in estensione su Basilicata e Calabria tirrenica, rovesci anche sulla Sicilia settentrionale.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Campania",
+        "simbolo": "temporale",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Basilicata",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Calabria",
+        "simbolo": "pioggia",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Sicilia",
+        "simbolo": "nuvolo",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "S4b",
+    "area": "sud_isole",
+    "archetipo": 4,
+    "archetipo_nome": "Richiamo caldo tirrenico (Sud-ovest)",
+    "tipologia": "Bel tempo stabile",
+    "titolo": "CALDO STABILE TIRRENICO",
+    "testo": "Il richiamo caldo si stabilizza senza generare instabilità: cielo sereno e clima mite sulla Campania, sole anche su Basilicata, Calabria e Sicilia.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Campania",
+        "simbolo": "sole",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Basilicata",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Calabria",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Sicilia",
+        "simbolo": "nuvolo",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  },
+  {
+    "id": "S4c",
+    "area": "sud_isole",
+    "archetipo": 4,
+    "archetipo_nome": "Richiamo caldo tirrenico (Sud-ovest)",
+    "tipologia": "Parziale/in transito",
+    "titolo": "TEMPORALI DI CALORE ISOLATI",
+    "testo": "L'instabilità pomeridiana resta confinata alla Campania interna, dove si sviluppano temporali isolati, mentre Basilicata e Calabria restano ai margini con cielo velato e la Sicilia risente delle raffiche di outflow in allontanamento dai temporali.",
+    "condizioni": [
+      {
+        "livello": "core",
+        "regione": "Campania",
+        "simbolo": "temporale",
+        "punti": 2
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Basilicata",
+        "simbolo": "nuvolo",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Calabria",
+        "simbolo": "sole",
+        "punti": 1
+      },
+      {
+        "livello": "secondaria",
+        "regione": "Sicilia",
+        "simbolo": "vento",
+        "punti": 1
+      }
+    ],
+    "max_punti": 5
+  }
+]

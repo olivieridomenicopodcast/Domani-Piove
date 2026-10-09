@@ -1,0 +1,697 @@
+[
+  {
+    "regione": "Valle d'Aosta",
+    "area": "nord",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Valle d'Aosta",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Piemonte"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Valle d'Aosta",
+    "area": "nord",
+    "variante": "compensativa",
+    "bonus": {
+      "tipo": "rete_estrema",
+      "se_giocata_una_di": [
+        "Friuli-Venezia Giulia",
+        "Calabria"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 3
+  },
+  {
+    "regione": "Piemonte",
+    "area": "nord",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Piemonte",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Lombardia"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Piemonte",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Liguria"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Liguria",
+    "area": "nord",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Liguria",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Lombardia"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Liguria",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Toscana"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Lombardia",
+    "area": "nord",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Lombardia",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Veneto"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Lombardia",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Emilia-Romagna"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Trentino-Alto Adige",
+    "area": "nord",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Trentino-Alto Adige",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Lombardia"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Trentino-Alto Adige",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Veneto"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Veneto",
+    "area": "nord",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Veneto",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Emilia-Romagna"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Veneto",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Trentino-Alto Adige"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Friuli-Venezia Giulia",
+    "area": "nord",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Friuli-Venezia Giulia",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Veneto"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Friuli-Venezia Giulia",
+    "area": "nord",
+    "variante": "compensativa",
+    "bonus": {
+      "tipo": "rete_estrema",
+      "se_giocata_una_di": [
+        "Valle d'Aosta",
+        "Calabria"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 3
+  },
+  {
+    "regione": "Emilia-Romagna",
+    "area": "nord",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Emilia-Romagna",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Piemonte"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Emilia-Romagna",
+    "area": "nord",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Liguria"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Toscana",
+    "area": "centro",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Toscana",
+    "area": "centro",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Emilia-Romagna"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Toscana",
+    "area": "centro",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Lazio"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Umbria",
+    "area": "centro",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Umbria",
+    "area": "centro",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Toscana"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Umbria",
+    "area": "centro",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Marche"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Marche",
+    "area": "centro",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Marche",
+    "area": "centro",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Emilia-Romagna"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Marche",
+    "area": "centro",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Toscana"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Lazio",
+    "area": "centro",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Lazio",
+    "area": "centro",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Umbria"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Lazio",
+    "area": "centro",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Abruzzo"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Abruzzo",
+    "area": "sud_isole",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Abruzzo",
+    "area": "sud_isole",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Marche"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Abruzzo",
+    "area": "sud_isole",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Molise"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Molise",
+    "area": "sud_isole",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Molise",
+    "area": "sud_isole",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Lazio"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Molise",
+    "area": "sud_isole",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Puglia"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Campania",
+    "area": "sud_isole",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Campania",
+    "area": "sud_isole",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Lazio"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Campania",
+    "area": "sud_isole",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Molise"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Puglia",
+    "area": "sud_isole",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Puglia",
+    "area": "sud_isole",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Campania"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Puglia",
+    "area": "sud_isole",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Basilicata"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Basilicata",
+    "area": "sud_isole",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Basilicata",
+    "area": "sud_isole",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Campania"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Basilicata",
+    "area": "sud_isole",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Calabria"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Calabria",
+    "area": "sud_isole",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Calabria",
+    "area": "sud_isole",
+    "variante": "confine",
+    "bonus": {
+      "tipo": "confine",
+      "verso": [
+        "Basilicata"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 2
+  },
+  {
+    "regione": "Calabria",
+    "area": "sud_isole",
+    "variante": "compensativa",
+    "bonus": {
+      "tipo": "rete_estrema",
+      "se_giocata_una_di": [
+        "Valle d'Aosta",
+        "Friuli-Venezia Giulia"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 3
+  },
+  {
+    "regione": "Sicilia",
+    "area": "sud_isole",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Sicilia",
+    "area": "sud_isole",
+    "variante": "compensativa",
+    "bonus": {
+      "tipo": "isole",
+      "se_giocata_una_di": [
+        "Sardegna"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 3
+  },
+  {
+    "regione": "Sardegna",
+    "area": "sud_isole",
+    "variante": "neutra",
+    "bonus": null,
+    "copie": 1,
+    "prezzo_pm": 1
+  },
+  {
+    "regione": "Sardegna",
+    "area": "sud_isole",
+    "variante": "compensativa",
+    "bonus": {
+      "tipo": "isole",
+      "se_giocata_una_di": [
+        "Sicilia"
+      ],
+      "punti": 1
+    },
+    "copie": 2,
+    "prezzo_pm": 3
+  }
+]

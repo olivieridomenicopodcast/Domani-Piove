@@ -1,0 +1,966 @@
+[
+  {
+    "id": 1,
+    "titolo": "Ondata di calore sahariana",
+    "testo": "AVVISO DI CRITICITÀ — Regione Sicilia. La Protezione Civile segnala un richiamo di aria calda dal Nord Africa in ulteriore intensificazione, con temperature in sensibile aumento su tutto il territorio regionale. Si raccomanda di limitare l'esposizione prolungata nelle ore centrali della giornata.",
+    "condizione": "se la previsione richiede già Sole in Sicilia, evolve in **Caldo Estremo**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Sicilia",
+    "fusione": "Caldo Estremo",
+    "ricetta_fusione": [
+      "sole",
+      "sole"
+    ],
+    "simbolo_richiesto": "sole"
+  },
+  {
+    "id": 2,
+    "titolo": "Fronte in stazionamento",
+    "testo": "AVVISO DI CRITICITÀ — Regione Emilia-Romagna. La Protezione Civile segnala un fronte perturbato in stazionamento sul settore, con precipitazioni che potrebbero risultare persistenti e localmente abbondanti. Si raccomanda attenzione nei pressi di corsi d'acqua e aree a rischio idrogeologico.",
+    "condizione": "se la previsione richiede già Pioggia in Emilia-Romagna, evolve in **Alluvione**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Emilia-Romagna",
+    "fusione": "Alluvione",
+    "ricetta_fusione": [
+      "pioggia",
+      "pioggia"
+    ],
+    "simbolo_richiesto": "pioggia"
+  },
+  {
+    "id": 3,
+    "titolo": "Convezione pomeridiana intensa",
+    "testo": "AVVISO DI CRITICITÀ — Regione Toscana. La Protezione Civile segnala condizioni favorevoli allo sviluppo di intensa attività convettiva nelle ore pomeridiane, con possibile formazione di precipitazioni a carattere violento. Si raccomanda prudenza per le attività all'aperto.",
+    "condizione": "se la previsione richiede già Temporale in Toscana, evolve in **Grandine**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Toscana",
+    "fusione": "Grandine",
+    "ricetta_fusione": [
+      "temporale",
+      "sole"
+    ],
+    "simbolo_richiesto": "temporale"
+  },
+  {
+    "id": 4,
+    "titolo": "Bora estrema",
+    "testo": "AVVISO DI CRITICITÀ — Regione Friuli-Venezia Giulia. La Protezione Civile segnala un violento rinforzo della Bora, con raffiche di burrasca in rapidissimo sviluppo su tutto il settore. Si raccomanda di evitare ogni spostamento non necessario nelle aree esposte.",
+    "condizione": "impone direttamente **Burrasca** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Friuli-Venezia Giulia",
+    "fusione": "Burrasca",
+    "ricetta_fusione": [
+      "vento",
+      "vento"
+    ]
+  },
+  {
+    "id": 5,
+    "titolo": "Downburst improvviso",
+    "testo": "AVVISO DI CRITICITÀ — Regione Campania. La Protezione Civile segnala lo sviluppo improvviso di un violento downburst, con raffiche discendenti di forte intensità e rischio di danni localizzati. Si raccomanda massima cautela e di ripararsi in luoghi sicuri.",
+    "condizione": "impone direttamente **Downburst** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Campania",
+    "fusione": "Downburst",
+    "ricetta_fusione": [
+      "temporale",
+      "temporale"
+    ]
+  },
+  {
+    "id": 6,
+    "titolo": "Nevicata da record",
+    "testo": "AVVISO DI CRITICITÀ — Regione Abruzzo. La Protezione Civile segnala l'arrivo di una nevicata di eccezionale intensità, con accumuli record previsti sui rilievi e possibili disagi alla viabilità. Si raccomanda di non intraprendere spostamenti se non strettamente necessari.",
+    "condizione": "impone direttamente **Nevicata Estrema** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Abruzzo",
+    "fusione": "Nevicata Estrema",
+    "ricetta_fusione": [
+      "neve",
+      "neve"
+    ]
+  },
+  {
+    "id": 7,
+    "titolo": "Bollettino confermato",
+    "testo": "BOLLETTINO ORDINARIO — nessuna criticità da segnalare sul territorio nazionale. La situazione meteorologica resta invariata rispetto al bollettino diffuso in apertura di giornata.",
+    "condizione": "nessun effetto.",
+    "categoria": "nessun_effetto",
+    "regione": null
+  },
+  {
+    "id": 8,
+    "titolo": "Fondi europei per il monitoraggio meteo",
+    "testo": "COMUNICATO — Il Dipartimento della Protezione Civile comunica l'assegnazione di fondi europei aggiuntivi destinati al potenziamento della rete di monitoraggio regionale.",
+    "condizione": "ogni giocatore guadagna 2 Punti Meteo.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 9,
+    "titolo": "Instabilità in rinforzo",
+    "testo": "AVVISO DI CRITICITÀ — Regione Puglia. La Protezione Civile segnala un progressivo rinforzo dei venti sul settore, in ulteriore intensificazione nelle prossime ore. Si raccomanda cautela nelle zone costiere e per la navigazione da diporto.",
+    "condizione": "se la previsione richiede già Vento in Puglia, evolve in **Burrasca**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Puglia",
+    "fusione": "Burrasca",
+    "ricetta_fusione": [
+      "vento",
+      "vento"
+    ],
+    "simbolo_richiesto": "vento"
+  },
+  {
+    "id": 10,
+    "titolo": "Cella temporalesca stazionaria",
+    "testo": "AVVISO DI CRITICITÀ — Regione Lombardia. La Protezione Civile segnala la formazione di una cella temporalesca a evoluzione lenta sul settore, con possibile persistenza di fenomeni intensi localizzati. Si raccomanda attenzione nelle aree soggette a rapido deflusso delle acque.",
+    "condizione": "se la previsione richiede già Temporale in Lombardia, evolve in **Downburst**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Lombardia",
+    "fusione": "Downburst",
+    "ricetta_fusione": [
+      "temporale",
+      "temporale"
+    ],
+    "simbolo_richiesto": "temporale"
+  },
+  {
+    "id": 11,
+    "titolo": "Ondata di neve intensa",
+    "testo": "AVVISO DI CRITICITÀ — Regione Trentino-Alto Adige. La Protezione Civile segnala un ulteriore intensificarsi delle nevicate in atto, con accumuli previsti in sensibile aumento sui rilievi. Si raccomanda di verificare la viabilità montana prima di ogni spostamento.",
+    "condizione": "se la previsione richiede già Neve in Trentino-Alto Adige, evolve in **Nevicata Estrema**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Trentino-Alto Adige",
+    "fusione": "Nevicata Estrema",
+    "ricetta_fusione": [
+      "neve",
+      "neve"
+    ],
+    "simbolo_richiesto": "neve"
+  },
+  {
+    "id": 12,
+    "titolo": "Grandinata violenta",
+    "testo": "AVVISO DI CRITICITÀ — Regione Umbria. La Protezione Civile segnala lo sviluppo di un violento fenomeno di grandine, legato a un'intensa cella convettiva in rapida evoluzione. Si raccomanda di ripararsi al chiuso e di allontanarsi da vetrate e strutture leggere.",
+    "condizione": "impone direttamente **Grandine** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Umbria",
+    "fusione": "Grandine",
+    "ricetta_fusione": [
+      "temporale",
+      "sole"
+    ]
+  },
+  {
+    "id": 13,
+    "titolo": "Ondata di calore estrema",
+    "testo": "AVVISO DI CRITICITÀ — Regione Calabria. La Protezione Civile segnala un'intensificazione dello scirocco che porta a un'ondata di caldo estremo su tutto il settore. Si raccomanda di evitare l'esposizione diretta al sole e di idratarsi frequentemente.",
+    "condizione": "impone direttamente **Caldo Estremo** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Calabria",
+    "fusione": "Caldo Estremo",
+    "ricetta_fusione": [
+      "sole",
+      "sole"
+    ]
+  },
+  {
+    "id": 14,
+    "titolo": "Alluvione improvvisa",
+    "testo": "AVVISO DI CRITICITÀ — Regione Sardegna. La Protezione Civile segnala l'arrivo di un sistema instabile dai quadranti occidentali, con rischio di alluvione improvvisa nelle aree più esposte. Si raccomanda massima attenzione nelle zone a rischio idrogeologico e nei pressi di corsi d'acqua.",
+    "condizione": "impone direttamente **Alluvione** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Sardegna",
+    "fusione": "Alluvione",
+    "ricetta_fusione": [
+      "pioggia",
+      "pioggia"
+    ]
+  },
+  {
+    "id": 15,
+    "titolo": "Radar in aggiornamento",
+    "testo": "BOLLETTINO ORDINARIO — la rete radar nazionale segnala una fase di aggiornamento tecnico. Il bollettino resta invariato per la presente ora di rilevazione.",
+    "condizione": "nessun effetto per questo round.",
+    "categoria": "nessun_effetto",
+    "regione": null
+  },
+  {
+    "id": 16,
+    "titolo": "Collaborazione con i canali locali",
+    "testo": "COMUNICATO — Rafforzata la collaborazione tra la Protezione Civile e i canali locali di informazione, con maggiore condivisione dei dati rilevati sul territorio.",
+    "condizione": "ogni giocatore pesca gratuitamente 1 Carta Regione dal mazzo coperto.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 17,
+    "titolo": "Instabilità sul crinale",
+    "testo": "AVVISO DI CRITICITÀ — Regione Marche. La Protezione Civile segnala un marcato rinforzo dei venti in quota lungo il crinale appenninico, con possibile innesco di fenomeni vorticosi localizzati. Si raccomanda massima cautela nelle aree collinari esposte.",
+    "condizione": "se la previsione richiede già Vento nelle Marche, evolve in **Tromba d'Aria**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Marche",
+    "fusione": "Tromba d'Aria",
+    "ricetta_fusione": [
+      "temporale",
+      "vento"
+    ],
+    "simbolo_richiesto": "vento"
+  },
+  {
+    "id": 18,
+    "titolo": "Discesa artica improvvisa",
+    "testo": "AVVISO DI CRITICITÀ — Regione Piemonte. La Protezione Civile segnala un rapido intensificarsi delle correnti in quota, con possibile evoluzione delle nevicate in atto verso fenomeni di forte intensità. Si raccomanda cautela negli spostamenti nelle zone montane e collinari.",
+    "condizione": "se la previsione richiede già Neve in Piemonte, evolve in **Tormenta di Neve**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Piemonte",
+    "fusione": "Tormenta di Neve",
+    "ricetta_fusione": [
+      "neve",
+      "vento"
+    ],
+    "simbolo_richiesto": "neve"
+  },
+  {
+    "id": 19,
+    "titolo": "Antenne al top",
+    "testo": "COMUNICATO — Le stazioni di rilevamento segnalano un'ottima ricezione dei dati in tempo reale su tutto il territorio nazionale.",
+    "condizione": "ogni giocatore raccoglie gratuitamente 1 simbolo meteo dal pool condiviso, senza usare un'azione.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 20,
+    "titolo": "Anticiclone nordafricano in rinforzo",
+    "testo": "AVVISO DI CRITICITÀ — Regione Puglia. La Protezione Civile segnala un ulteriore rinforzo dell'anticiclone nordafricano, con temperature in sensibile aumento su tutto il settore. Si raccomanda di evitare l'esposizione prolungata nelle ore più calde.",
+    "condizione": "se la previsione richiede già Sole in Puglia, evolve in **Caldo Estremo**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Puglia",
+    "fusione": "Caldo Estremo",
+    "ricetta_fusione": [
+      "sole",
+      "sole"
+    ],
+    "simbolo_richiesto": "sole"
+  },
+  {
+    "id": 21,
+    "titolo": "Ondata di calore in intensificazione",
+    "testo": "AVVISO DI CRITICITÀ — Regione Sardegna. La Protezione Civile segnala un'ondata di calore in ulteriore intensificazione, con valori termici ben oltre le medie del periodo. Si raccomanda di limitare l'attività fisica all'aperto.",
+    "condizione": "se la previsione richiede già Sole in Sardegna, evolve in **Caldo Estremo**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Sardegna",
+    "fusione": "Caldo Estremo",
+    "ricetta_fusione": [
+      "sole",
+      "sole"
+    ],
+    "simbolo_richiesto": "sole"
+  },
+  {
+    "id": 22,
+    "titolo": "Aria calda subtropicale in afflusso",
+    "testo": "AVVISO DI CRITICITÀ — Regione Basilicata. La Protezione Civile segnala un afflusso di aria calda di origine subtropicale, con temperature in netto aumento sulle aree interne. Si raccomanda particolare attenzione alle categorie più fragili.",
+    "condizione": "se la previsione richiede già Sole in Basilicata, evolve in **Caldo Estremo**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Basilicata",
+    "fusione": "Caldo Estremo",
+    "ricetta_fusione": [
+      "sole",
+      "sole"
+    ],
+    "simbolo_richiesto": "sole"
+  },
+  {
+    "id": 23,
+    "titolo": "Scirocco e caldo record",
+    "testo": "AVVISO DI CRITICITÀ — Regione Lazio. La Protezione Civile segnala un'intensificazione dello scirocco con valori di temperatura tra i più elevati della stagione. Si raccomanda di idratarsi frequentemente e di evitare l'esposizione diretta al sole.",
+    "condizione": "impone direttamente **Caldo Estremo** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Lazio",
+    "fusione": "Caldo Estremo",
+    "ricetta_fusione": [
+      "sole",
+      "sole"
+    ]
+  },
+  {
+    "id": 24,
+    "titolo": "Sistema perturbato persistente",
+    "testo": "AVVISO DI CRITICITÀ — Regione Liguria. La Protezione Civile segnala un sistema perturbato in stazionamento sul settore, con piogge diffuse e localmente molto intense. Si raccomanda la massima attenzione nelle aree a rischio idrogeologico e nei pressi dei torrenti.",
+    "condizione": "se la previsione richiede già Pioggia in Liguria, evolve in **Alluvione**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Liguria",
+    "fusione": "Alluvione",
+    "ricetta_fusione": [
+      "pioggia",
+      "pioggia"
+    ],
+    "simbolo_richiesto": "pioggia"
+  },
+  {
+    "id": 25,
+    "titolo": "Piogge diffuse in intensificazione",
+    "testo": "AVVISO DI CRITICITÀ — Regione Veneto. La Protezione Civile segnala un peggioramento delle condizioni meteorologiche con piogge diffuse e in intensificazione sull'intero settore. Si raccomanda attenzione nei pressi dei principali corsi d'acqua.",
+    "condizione": "se la previsione richiede già Pioggia in Veneto, evolve in **Alluvione**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Veneto",
+    "fusione": "Alluvione",
+    "ricetta_fusione": [
+      "pioggia",
+      "pioggia"
+    ],
+    "simbolo_richiesto": "pioggia"
+  },
+  {
+    "id": 26,
+    "titolo": "Fronte instabile in transito",
+    "testo": "AVVISO DI CRITICITÀ — Regione Marche. La Protezione Civile segnala il transito di un fronte instabile con precipitazioni abbondanti e persistenti sul settore. Si raccomanda massima prudenza nelle aree già colpite da dissesto idrogeologico.",
+    "condizione": "se la previsione richiede già Pioggia nelle Marche, evolve in **Alluvione**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Marche",
+    "fusione": "Alluvione",
+    "ricetta_fusione": [
+      "pioggia",
+      "pioggia"
+    ],
+    "simbolo_richiesto": "pioggia"
+  },
+  {
+    "id": 27,
+    "titolo": "Nubifragio improvviso",
+    "testo": "AVVISO DI CRITICITÀ — Regione Toscana. La Protezione Civile segnala l'arrivo di un nubifragio di forte intensità con rischio di rapido innalzamento dei corsi d'acqua. Si raccomanda di evitare sottopassi e aree depresse.",
+    "condizione": "impone direttamente **Alluvione** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Toscana",
+    "fusione": "Alluvione",
+    "ricetta_fusione": [
+      "pioggia",
+      "pioggia"
+    ]
+  },
+  {
+    "id": 28,
+    "titolo": "Piena improvvisa",
+    "testo": "AVVISO DI CRITICITÀ — Regione Sicilia. La Protezione Civile segnala un rapido peggioramento delle condizioni meteorologiche con rischio di piena improvvisa nei bacini minori. Si raccomanda di allontanarsi dalle zone golenali.",
+    "condizione": "impone direttamente **Alluvione** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Sicilia",
+    "fusione": "Alluvione",
+    "ricetta_fusione": [
+      "pioggia",
+      "pioggia"
+    ]
+  },
+  {
+    "id": 29,
+    "titolo": "Instabilità in intensificazione",
+    "testo": "AVVISO DI CRITICITÀ — Regione Veneto. La Protezione Civile segnala la formazione di celle temporalesche in rapido sviluppo sulla pianura, con rischio di grandinate di forte intensità nelle prossime ore. Si raccomanda di riparare i veicoli e le coltivazioni più esposte.",
+    "condizione": "se la previsione richiede già Temporale in Veneto, evolve in **Grandine**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Veneto",
+    "fusione": "Grandine",
+    "ricetta_fusione": [
+      "temporale",
+      "sole"
+    ],
+    "simbolo_richiesto": "temporale"
+  },
+  {
+    "id": 30,
+    "titolo": "Nuclei convettivi in rapido sviluppo",
+    "testo": "AVVISO DI CRITICITÀ — Regione Emilia-Romagna. La Protezione Civile segnala lo sviluppo di nuclei temporaleschi particolarmente organizzati sulla pianura, con grandinate di grosse dimensioni non escluse. Si raccomanda di non sostare sotto alberi o strutture precarie.",
+    "condizione": "se la previsione richiede già Temporale in Emilia-Romagna, evolve in **Grandine**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Emilia-Romagna",
+    "fusione": "Grandine",
+    "ricetta_fusione": [
+      "temporale",
+      "sole"
+    ],
+    "simbolo_richiesto": "temporale"
+  },
+  {
+    "id": 31,
+    "titolo": "Cella grandinigena in transito",
+    "testo": "AVVISO DI CRITICITÀ — Regione Piemonte. La Protezione Civile segnala il transito di una cella temporalesca associata a intensa attività grandinigena sul settore pianeggiante. Si raccomanda la messa al riparo di veicoli e strutture leggere.",
+    "condizione": "se la previsione richiede già Temporale in Piemonte, evolve in **Grandine**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Piemonte",
+    "fusione": "Grandine",
+    "ricetta_fusione": [
+      "temporale",
+      "sole"
+    ],
+    "simbolo_richiesto": "temporale"
+  },
+  {
+    "id": 32,
+    "titolo": "Grandinata di forte intensità",
+    "testo": "AVVISO DI CRITICITÀ — Regione Lombardia. La Protezione Civile segnala l'arrivo improvviso di una violenta grandinata associata a un sistema convettivo in rapida organizzazione. Si raccomanda di allontanarsi da vetrate e coperture non protette.",
+    "condizione": "impone direttamente **Grandine** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Lombardia",
+    "fusione": "Grandine",
+    "ricetta_fusione": [
+      "temporale",
+      "sole"
+    ]
+  },
+  {
+    "id": 33,
+    "titolo": "Grandine da nucleo isolato",
+    "testo": "AVVISO DI CRITICITÀ — Regione Basilicata. La Protezione Civile segnala lo sviluppo isolato ma intenso di un nucleo temporalesco associato a grandine di medie-grandi dimensioni sulle aree interne. Si raccomanda cautela per le attività agricole all'aperto.",
+    "condizione": "impone direttamente **Grandine** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Basilicata",
+    "fusione": "Grandine",
+    "ricetta_fusione": [
+      "temporale",
+      "sole"
+    ]
+  },
+  {
+    "id": 34,
+    "titolo": "Vortice in rapido sviluppo",
+    "testo": "AVVISO DI CRITICITÀ — Regione Sicilia. La Protezione Civile segnala condizioni favorevoli allo sviluppo di vortici localizzati associati a un marcato rinforzo del vento. Si raccomanda cautela nelle aree costiere esposte.",
+    "condizione": "se la previsione richiede già Vento in Sicilia, evolve in **Tromba d'Aria**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Sicilia",
+    "fusione": "Tromba d'Aria",
+    "ricetta_fusione": [
+      "temporale",
+      "vento"
+    ],
+    "simbolo_richiesto": "vento"
+  },
+  {
+    "id": 35,
+    "titolo": "Instabilità costiera in rinforzo",
+    "testo": "AVVISO DI CRITICITÀ — Regione Puglia. La Protezione Civile segnala un progressivo rinforzo del vento lungo la fascia costiera, con possibile innesco di fenomeni vorticosi localizzati. Si raccomanda massima cautela per la navigazione e le attività balneari.",
+    "condizione": "se la previsione richiede già Vento in Puglia, evolve in **Tromba d'Aria**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Puglia",
+    "fusione": "Tromba d'Aria",
+    "ricetta_fusione": [
+      "temporale",
+      "vento"
+    ],
+    "simbolo_richiesto": "vento"
+  },
+  {
+    "id": 36,
+    "titolo": "Raffiche in intensificazione",
+    "testo": "AVVISO DI CRITICITÀ — Regione Calabria. La Protezione Civile segnala un'intensificazione delle raffiche di vento lungo il litorale, con condizioni favorevoli alla formazione di trombe marine in prossimità della costa. Si raccomanda di allontanarsi dalla riva.",
+    "condizione": "se la previsione richiede già Vento in Calabria, evolve in **Tromba d'Aria**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Calabria",
+    "fusione": "Tromba d'Aria",
+    "ricetta_fusione": [
+      "temporale",
+      "vento"
+    ],
+    "simbolo_richiesto": "vento"
+  },
+  {
+    "id": 37,
+    "titolo": "Tromba d'aria improvvisa",
+    "testo": "AVVISO DI CRITICITÀ — Regione Molise. La Protezione Civile segnala la formazione improvvisa di una tromba d'aria lungo la fascia costiera. Si raccomanda di ripararsi immediatamente in luogo sicuro.",
+    "condizione": "impone direttamente **Tromba d'Aria** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Molise",
+    "fusione": "Tromba d'Aria",
+    "ricetta_fusione": [
+      "temporale",
+      "vento"
+    ]
+  },
+  {
+    "id": 38,
+    "titolo": "Tromba marina in avvicinamento",
+    "testo": "AVVISO DI CRITICITÀ — Regione Sardegna. La Protezione Civile segnala l'avvicinamento alla costa di una tromba marina di forte intensità. Si raccomanda di allontanarsi immediatamente dalle zone portuali e dalla battigia.",
+    "condizione": "impone direttamente **Tromba d'Aria** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Sardegna",
+    "fusione": "Tromba d'Aria",
+    "ricetta_fusione": [
+      "temporale",
+      "vento"
+    ]
+  },
+  {
+    "id": 39,
+    "titolo": "Maestrale in rinforzo",
+    "testo": "AVVISO DI CRITICITÀ — Regione Sardegna. La Protezione Civile segnala un marcato rinforzo del Maestrale, con mare molto agitato lungo le coste occidentali. Si raccomanda di evitare la navigazione da diporto.",
+    "condizione": "se la previsione richiede già Vento in Sardegna, evolve in **Burrasca**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Sardegna",
+    "fusione": "Burrasca",
+    "ricetta_fusione": [
+      "vento",
+      "vento"
+    ],
+    "simbolo_richiesto": "vento"
+  },
+  {
+    "id": 40,
+    "titolo": "Libeccio in intensificazione",
+    "testo": "AVVISO DI CRITICITÀ — Regione Liguria. La Protezione Civile segnala un'intensificazione del Libeccio, con mareggiate e raffiche di burrasca lungo l'intero litorale. Si raccomanda di allontanarsi dal lungomare e dalle strutture portuali.",
+    "condizione": "se la previsione richiede già Vento in Liguria, evolve in **Burrasca**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Liguria",
+    "fusione": "Burrasca",
+    "ricetta_fusione": [
+      "vento",
+      "vento"
+    ],
+    "simbolo_richiesto": "vento"
+  },
+  {
+    "id": 41,
+    "titolo": "Vento di burrasca improvviso",
+    "testo": "AVVISO DI CRITICITÀ — Regione Calabria. La Protezione Civile segnala un improvviso e violento rinforzo del vento su entrambi i versanti. Si raccomanda di assicurare oggetti e strutture leggere all'aperto.",
+    "condizione": "impone direttamente **Burrasca** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Calabria",
+    "fusione": "Burrasca",
+    "ricetta_fusione": [
+      "vento",
+      "vento"
+    ]
+  },
+  {
+    "id": 42,
+    "titolo": "Bora di ritorno",
+    "testo": "AVVISO DI CRITICITÀ — Regione Marche. La Protezione Civile segnala l'arrivo di un flusso di aria fredda associato a raffiche di burrasca lungo la costa adriatica. Si raccomanda cautela per la viabilità nelle zone esposte.",
+    "condizione": "impone direttamente **Burrasca** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Marche",
+    "fusione": "Burrasca",
+    "ricetta_fusione": [
+      "vento",
+      "vento"
+    ]
+  },
+  {
+    "id": 43,
+    "titolo": "Cella temporalesca organizzata",
+    "testo": "AVVISO DI CRITICITÀ — Regione Veneto. La Protezione Civile segnala lo sviluppo di una cella temporalesca fortemente organizzata, con rischio di raffiche discendenti di forte intensità. Si raccomanda di non sostare in aree alberate o vicino a strutture precarie.",
+    "condizione": "se la previsione richiede già Temporale in Veneto, evolve in **Downburst**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Veneto",
+    "fusione": "Downburst",
+    "ricetta_fusione": [
+      "temporale",
+      "temporale"
+    ],
+    "simbolo_richiesto": "temporale"
+  },
+  {
+    "id": 44,
+    "titolo": "Sistema convettivo in evoluzione",
+    "testo": "AVVISO DI CRITICITÀ — Regione Piemonte. La Protezione Civile segnala l'evoluzione di un sistema convettivo verso fenomeni di forte intensità, con possibili raffiche discendenti localizzate. Si raccomanda attenzione nelle aree pianeggianti esposte.",
+    "condizione": "se la previsione richiede già Temporale in Piemonte, evolve in **Downburst**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Piemonte",
+    "fusione": "Downburst",
+    "ricetta_fusione": [
+      "temporale",
+      "temporale"
+    ],
+    "simbolo_richiesto": "temporale"
+  },
+  {
+    "id": 45,
+    "titolo": "Nucleo temporalesco in approfondimento",
+    "testo": "AVVISO DI CRITICITÀ — Regione Umbria. La Protezione Civile segnala l'approfondimento di un nucleo temporalesco con possibile sviluppo di raffiche discendenti localmente molto intense. Si raccomanda prudenza per le attività all'aperto.",
+    "condizione": "se la previsione richiede già Temporale in Umbria, evolve in **Downburst**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Umbria",
+    "fusione": "Downburst",
+    "ricetta_fusione": [
+      "temporale",
+      "temporale"
+    ],
+    "simbolo_richiesto": "temporale"
+  },
+  {
+    "id": 46,
+    "titolo": "Downburst in rapido sviluppo",
+    "testo": "AVVISO DI CRITICITÀ — Regione Emilia-Romagna. La Protezione Civile segnala lo sviluppo rapido e violento di un downburst associato a un sistema temporalesco in evoluzione sulla pianura. Si raccomanda massima cautela e di ripararsi in luoghi sicuri.",
+    "condizione": "impone direttamente **Downburst** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Emilia-Romagna",
+    "fusione": "Downburst",
+    "ricetta_fusione": [
+      "temporale",
+      "temporale"
+    ]
+  },
+  {
+    "id": 47,
+    "titolo": "Correnti fredde in intensificazione",
+    "testo": "AVVISO DI CRITICITÀ — Regione Valle d'Aosta. La Protezione Civile segnala un'intensificazione delle correnti fredde in quota, con nevicate previste in ulteriore rinforzo sui settori alpini. Si raccomanda di verificare le condizioni della viabilità montana prima di ogni spostamento.",
+    "condizione": "se la previsione richiede già Neve in Valle d'Aosta, evolve in **Nevicata Estrema**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Valle d'Aosta",
+    "fusione": "Nevicata Estrema",
+    "ricetta_fusione": [
+      "neve",
+      "neve"
+    ],
+    "simbolo_richiesto": "neve"
+  },
+  {
+    "id": 48,
+    "titolo": "Accumuli in rapido aumento",
+    "testo": "AVVISO DI CRITICITÀ — Regione Umbria. La Protezione Civile segnala un rapido aumento degli accumuli nevosi sui rilievi appenninici, con possibili disagi alla circolazione. Si raccomanda l'uso di pneumatici invernali o catene a bordo.",
+    "condizione": "se la previsione richiede già Neve in Umbria, evolve in **Nevicata Estrema**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Umbria",
+    "fusione": "Nevicata Estrema",
+    "ricetta_fusione": [
+      "neve",
+      "neve"
+    ],
+    "simbolo_richiesto": "neve"
+  },
+  {
+    "id": 49,
+    "titolo": "Nevicate in intensificazione sull'Appennino",
+    "testo": "AVVISO DI CRITICITÀ — Regione Molise. La Protezione Civile segnala un'intensificazione delle nevicate sul settore appenninico, con accumuli in sensibile aumento oltre i 700 metri. Si raccomanda prudenza per gli spostamenti nelle aree interne.",
+    "condizione": "se la previsione richiede già Neve in Molise, evolve in **Nevicata Estrema**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Molise",
+    "fusione": "Nevicata Estrema",
+    "ricetta_fusione": [
+      "neve",
+      "neve"
+    ],
+    "simbolo_richiesto": "neve"
+  },
+  {
+    "id": 50,
+    "titolo": "Nevicata eccezionale",
+    "testo": "AVVISO DI CRITICITÀ — Regione Basilicata. La Protezione Civile segnala l'arrivo di una nevicata di eccezionale intensità sulle aree interne e appenniniche. Si raccomanda di evitare spostamenti non necessari nelle zone montane.",
+    "condizione": "impone direttamente **Nevicata Estrema** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Basilicata",
+    "fusione": "Nevicata Estrema",
+    "ricetta_fusione": [
+      "neve",
+      "neve"
+    ]
+  },
+  {
+    "id": 51,
+    "titolo": "Bufera in quota",
+    "testo": "AVVISO DI CRITICITÀ — Regione Valle d'Aosta. La Protezione Civile segnala un marcato rinforzo del vento in quota abbinato a intense nevicate, con condizioni di bufera sui settori più elevati. Si raccomanda di evitare ogni spostamento in alta montagna.",
+    "condizione": "se la previsione richiede già Neve in Valle d'Aosta, evolve in **Tormenta di Neve**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Valle d'Aosta",
+    "fusione": "Tormenta di Neve",
+    "ricetta_fusione": [
+      "neve",
+      "vento"
+    ],
+    "simbolo_richiesto": "neve"
+  },
+  {
+    "id": 52,
+    "titolo": "Vento e neve in combinazione",
+    "testo": "AVVISO DI CRITICITÀ — Regione Trentino-Alto Adige. La Protezione Civile segnala la combinazione di forti raffiche di vento e nevicate intense sui settori dolomitici, con visibilità fortemente ridotta. Si raccomanda di rinviare le escursioni in quota.",
+    "condizione": "se la previsione richiede già Neve in Trentino-Alto Adige, evolve in **Tormenta di Neve**. Altrimenti nessun effetto.",
+    "categoria": "fenomeno",
+    "tipo": "A",
+    "regione": "Trentino-Alto Adige",
+    "fusione": "Tormenta di Neve",
+    "ricetta_fusione": [
+      "neve",
+      "vento"
+    ],
+    "simbolo_richiesto": "neve"
+  },
+  {
+    "id": 53,
+    "titolo": "Tormenta improvvisa in quota",
+    "testo": "AVVISO DI CRITICITÀ — Regione Lombardia. La Protezione Civile segnala l'insorgere improvviso di una tormenta di neve sui settori alpini, con visibilità quasi nulla. Si raccomanda la chiusura preventiva dei valichi più esposti.",
+    "condizione": "impone direttamente **Tormenta di Neve** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Lombardia",
+    "fusione": "Tormenta di Neve",
+    "ricetta_fusione": [
+      "neve",
+      "vento"
+    ]
+  },
+  {
+    "id": 54,
+    "titolo": "Bufera sul Gran Sasso",
+    "testo": "AVVISO DI CRITICITÀ — Regione Abruzzo. La Protezione Civile segnala l'arrivo di una violenta tormenta di neve sui rilievi appenninici, con accumuli e riduzione della visibilità in rapido peggioramento. Si raccomanda la massima cautela per chi si trova in quota.",
+    "condizione": "impone direttamente **Tormenta di Neve** sulla regione, a prescindere da cosa richiedeva prima.",
+    "categoria": "fenomeno",
+    "tipo": "B",
+    "regione": "Abruzzo",
+    "fusione": "Tormenta di Neve",
+    "ricetta_fusione": [
+      "neve",
+      "vento"
+    ]
+  },
+  {
+    "id": 55,
+    "titolo": "Bollettino stabile",
+    "testo": "BOLLETTINO ORDINARIO — le condizioni meteorologiche restano nella norma su tutto il territorio nazionale, senza elementi di criticità significativi da segnalare per le prossime ore.",
+    "condizione": "nessun effetto.",
+    "categoria": "nessun_effetto",
+    "regione": null
+  },
+  {
+    "id": 56,
+    "titolo": "Bollettino aggiornato",
+    "testo": "BOLLETTINO ORDINARIO — il bollettino diffuso in precedenza viene confermato senza variazioni su tutto il territorio nazionale.",
+    "condizione": "nessun effetto.",
+    "categoria": "nessun_effetto",
+    "regione": null
+  },
+  {
+    "id": 57,
+    "titolo": "Nessuna variazione",
+    "testo": "BOLLETTINO ORDINARIO — non si registrano variazioni significative rispetto alle ultime rilevazioni disponibili su scala nazionale.",
+    "condizione": "nessun effetto.",
+    "categoria": "nessun_effetto",
+    "regione": null
+  },
+  {
+    "id": 58,
+    "titolo": "Quadro meteorologico stabile",
+    "testo": "BOLLETTINO ORDINARIO — il quadro meteorologico resta stabile su tutto il territorio nazionale, senza elementi di criticità da segnalare.",
+    "condizione": "nessun effetto.",
+    "categoria": "nessun_effetto",
+    "regione": null
+  },
+  {
+    "id": 59,
+    "titolo": "Rete di monitoraggio in verifica",
+    "testo": "BOLLETTINO ORDINARIO — la rete di monitoraggio nazionale segnala una fase di verifica strumentale. Il bollettino resta invariato per la presente ora di rilevazione.",
+    "condizione": "nessun effetto per questo round.",
+    "categoria": "nessun_effetto",
+    "regione": null
+  },
+  {
+    "id": 60,
+    "titolo": "Situazione invariata",
+    "testo": "COMUNICATO — la situazione meteorologica risulta invariata rispetto al bollettino diffuso in apertura di giornata.",
+    "condizione": "nessun effetto.",
+    "categoria": "nessun_effetto",
+    "regione": null
+  },
+  {
+    "id": 61,
+    "titolo": "Aggiornamento di routine",
+    "testo": "COMUNICATO — il presente aggiornamento non introduce variazioni rispetto al bollettino precedente.",
+    "condizione": "nessun effetto.",
+    "categoria": "nessun_effetto",
+    "regione": null
+  },
+  {
+    "id": 62,
+    "titolo": "Manutenzione stazioni al suolo",
+    "testo": "COMUNICATO — Sono in corso interventi di manutenzione ordinaria sulla rete delle stazioni di rilevamento al suolo. Nessuna variazione è prevista per il bollettino corrente.",
+    "condizione": "nessun effetto per questo round.",
+    "categoria": "nessun_effetto",
+    "regione": null
+  },
+  {
+    "id": 63,
+    "titolo": "Fondi per la prevenzione",
+    "testo": "COMUNICATO — Il Dipartimento della Protezione Civile comunica lo stanziamento di nuovi fondi per la prevenzione del rischio meteo-idrogeologico sul territorio nazionale.",
+    "condizione": "ogni giocatore guadagna 2 Punti Meteo.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 64,
+    "titolo": "Volontari in campo",
+    "testo": "COMUNICATO — Le organizzazioni di volontariato della Protezione Civile intensificano la propria attività di monitoraggio sul territorio, migliorando la qualità dei dati raccolti.",
+    "condizione": "ogni giocatore pesca gratuitamente 1 Carta Regione dal mazzo coperto.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 65,
+    "titolo": "Nuova centralina installata",
+    "testo": "COMUNICATO — È stata attivata una nuova centralina di rilevamento, che amplia la copertura dei dati meteo disponibili in tempo reale.",
+    "condizione": "ogni giocatore raccoglie gratuitamente 1 simbolo meteo dal pool condiviso, senza usare un'azione.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 66,
+    "titolo": "Aggiornamento dei modelli previsionali",
+    "testo": "COMUNICATO — Il Dipartimento della Protezione Civile comunica l'aggiornamento dei modelli di calcolo previsionale, con un affinamento della capacità di anticipare i fenomeni in sviluppo.",
+    "condizione": "il giocatore che pesca questa carta guarda in anticipo la prossima Carta Evento del mazzo, senza rivelarla agli altri.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 67,
+    "titolo": "Collaborazione internazionale",
+    "testo": "COMUNICATO — Rafforzata la collaborazione con i servizi meteorologici internazionali, con un più rapido scambio di dati satellitari tra le agenzie.",
+    "condizione": "il giocatore che pesca questa carta può scartare il proprio Obiettivo Segreto e pescarne uno nuovo.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 68,
+    "titolo": "Cielo sereno su tutta la Penisola",
+    "testo": "BOLLETTINO ORDINARIO — condizioni di stabilità diffusa su tutta la Penisola, con cielo sereno o poco nuvoloso quasi ovunque. Giornata favorevole per le attività all'aperto.",
+    "condizione": "ogni giocatore guadagna 1 Punto Meteo e pesca gratuitamente 1 simbolo meteo dal pool condiviso.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 69,
+    "titolo": "Contributo ordinario",
+    "testo": "COMUNICATO — Il Dipartimento della Protezione Civile comunica l'erogazione di un contributo ordinario a supporto delle attività di monitoraggio regionale.",
+    "condizione": "ogni giocatore guadagna 1 Punto Meteo.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 70,
+    "titolo": "Premio per la segnalazione tempestiva",
+    "testo": "COMUNICATO — Il Dipartimento della Protezione Civile riconosce un premio al centro di monitoraggio che ha segnalato per primo l'evoluzione delle condizioni in atto.",
+    "condizione": "il giocatore che pesca questa carta guadagna 3 Punti Meteo.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 71,
+    "titolo": "Archivio regionale consultabile",
+    "testo": "COMUNICATO — Viene resa consultabile una porzione aggiornata dell'archivio delle rilevazioni regionali.",
+    "condizione": "il giocatore che pesca questa carta pesca 2 Carte Regione dal mazzo coperto e ne tiene 1 a scelta, scartando l'altra.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 72,
+    "titolo": "Doppia rilevazione",
+    "testo": "COMUNICATO — La rete di monitoraggio segnala una doppia finestra di rilevazione utile nelle prossime ore.",
+    "condizione": "ogni giocatore raccoglie gratuitamente 2 simboli meteo dal pool condiviso (anche di tipo diverso), senza usare un'azione.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 73,
+    "titolo": "Incentivo alla raccolta dati",
+    "testo": "COMUNICATO — Il Dipartimento della Protezione Civile promuove un incentivo alla raccolta dati sul territorio.",
+    "condizione": "ogni giocatore pesca gratuitamente 1 Carta Regione dal mazzo coperto e guadagna 1 Punto Meteo.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 74,
+    "titolo": "Potenziamento del centro operativo",
+    "testo": "COMUNICATO — Viene approvato il potenziamento del centro operativo del giocatore che ha coordinato la rilevazione più recente.",
+    "condizione": "il giocatore che pesca questa carta, se non l'ha già fatto, sblocca gratuitamente il proprio terzo lavoratore per il resto della partita (senza pagare il costo previsto).",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 75,
+    "titolo": "Riconoscimento per l'archivio raccolto",
+    "testo": "COMUNICATO — Viene riconosciuto il valore dell'archivio dati raccolto dal centro di monitoraggio più attivo.",
+    "condizione": "il giocatore che pesca questa carta guadagna 1 Punto Meteo per ogni Carta Regione che ha in mano.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 76,
+    "titolo": "Ricognizione aerea",
+    "testo": "COMUNICATO — Un volo di ricognizione della Protezione Civile fornisce dati aggiornati su una porzione dell'archivio regionale non ancora consultata.",
+    "condizione": "il giocatore che pesca questa carta guarda le prime 3 Carte Regione del mazzo coperto, ne tiene 1 a scelta e rimette le altre due in fondo al mazzo, nell'ordine che preferisce.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 77,
+    "titolo": "Rilevazione anticipata",
+    "testo": "COMUNICATO — Una rilevazione anticipata rende disponibile un dato aggiuntivo senza impegnare ulteriore personale sul campo.",
+    "condizione": "il giocatore che pesca questa carta esegue gratuitamente l'azione \"Raccogli un simbolo meteo\", senza occupare uno spazio della plancia né un proprio lavoratore.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 78,
+    "titolo": "Scambio di dati regionali",
+    "testo": "COMUNICATO — Rafforzato lo scambio di dati tra centri di monitoraggio regionali limitrofi.",
+    "condizione": "il giocatore che pesca questa carta può scambiare 1 Carta Regione della propria mano con 1 Carta Regione a scelta tra quelle scoperte sul mercato, se disponibile.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 79,
+    "titolo": "Revisione dei dati raccolti",
+    "testo": "COMUNICATO — Il Dipartimento della Protezione Civile autorizza una revisione dei dati raccolti dai centri di monitoraggio regionali.",
+    "condizione": "ogni giocatore guadagna 1 Punto Meteo e può scartare 1 Carta Regione dalla propria mano per pescarne una nuova dal mazzo coperto.",
+    "categoria": "positiva",
+    "regione": null
+  },
+  {
+    "id": 80,
+    "titolo": "Bollettino di cortesia",
+    "testo": "BOLLETTINO ORDINARIO — condizioni favorevoli su tutto il territorio nazionale, con dati di rilevazione completi e affidabili per l'intera giornata.",
+    "condizione": "ogni giocatore raccoglie gratuitamente 1 simbolo meteo dal pool condiviso e guadagna 1 Punto Meteo.",
+    "categoria": "positiva",
+    "regione": null
+  }
+]
