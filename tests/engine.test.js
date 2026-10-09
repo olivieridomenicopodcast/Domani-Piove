@@ -204,7 +204,7 @@ test('gioca (forma dell\'Italia): ogni regione ha una sola casella fissa; nessun
   const v = p.table.find((e) => FF.regionOf(e) === 'Veneto');
   assert.deepEqual(FF.neighborsOf(p.table, v).map(FF.regionOf), ['Trentino-Alto Adige']);
 });
-test('simbolo: massimo 2 per carta, il 2° compatibile fonde in automatico, serve una carta giocata', () => {
+test('simbolo: 1 per carta, il 2° solo se forma una fusione (e fonde in automatico), serve una carta giocata', () => {
   const g = newGame(), p = g.s.players[0];
   assert.equal(g.legalAction(0, 'simbolo'), false);
   p.table = [cell('Veneto', 0, 0, [])];
@@ -214,8 +214,13 @@ test('simbolo: massimo 2 per carta, il 2° compatibile fonde in automatico, serv
   assert.equal(g.legalAction(0, 'simbolo'), false);         // carta piena
   p.table.push(cell('Lombardia', 1, 0, [], regId('Lombardia', 'neutra')));
   FF.drive(g.actSymbol(0), pick((o) => o.sym === 'nuvolo' && o.idx === 1), g);
-  FF.drive(g.actSymbol(0), pick((o) => o.sym === 'sole' && o.idx === 1), g);
-  assert.equal(p.table[1].fusion, null); assert.equal(p.table[1].sym.length, 2);       // Nuvolo+Sole non fondono, la carta è piena
+  assert.ok(!g.symbolOptions(0).some((o) => o.idx === 1)); assert.equal(p.table[1].sym.length, 1);   // Nuvolo non forma fusioni con niente: la carta è chiusa
+  // su una carta con Temporale si può aggiungere solo ciò che fa fusione (Temporale, Vento, Sole)
+  p.table.push(cell('Lazio', 2, 0, ['temporale'], regId('Lazio', 'neutra')));
+  assert.deepEqual(g.symbolOptions(0).filter((o) => o.idx === 2).map((o) => o.sym).sort(), ['sole', 'temporale', 'vento']);
+  // variante vecchia (solo per esperimenti): due simboli qualsiasi
+  const g2 = newGame({ rules: { secondSymbolOnlyFusion: false } }); g2.s.players[0].table = [cell('Veneto', 0, 0, ['nuvolo'])];
+  assert.ok(g2.symbolOptions(0).some((o) => o.sym === 'sole'));
   // pool esaurito: il simbolo non si può più scegliere
   g.s.pool.neve = 0; assert.ok(!g.symbolOptions(0).some((o) => o.sym === 'neve'));
 });

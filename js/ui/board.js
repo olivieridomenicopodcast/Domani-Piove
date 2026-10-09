@@ -32,7 +32,8 @@
       case 'compra': return p.pm < 1 ? 'Non hai PM (la carta più economica costa 1)' : 'Nessuna carta acquistabile con i tuoi PM';
       case 'simbolo':
         if (!p.table.length) return 'Prima gioca una Carta Regione';
-        if (!p.table.some((e) => e.sym.length < R.maxSymbolsPerCard)) return `Tutte le tue carte hanno già ${R.maxSymbolsPerCard} simboli`;
+        if (!p.table.some((e) => e.sym.length < R.maxSymbolsPerCard)) return 'Tutte le tue carte hanno già una fusione';
+        if (R.secondSymbolOnlyFusion && p.table.every((e) => e.sym.length)) return 'Ogni tua carta ha già un simbolo (il secondo si può mettere solo per fare una fusione, e ora il pool non lo permette)';
         return 'Il pool dei simboli è esaurito';
       case 'sblocca':
         if (p.workers >= 3) return 'Hai già il 3° lavoratore';

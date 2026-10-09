@@ -67,7 +67,7 @@ Uno spazio occupato è **bloccato fino alla fine del round**.
 
 ## 6. Simboli e fusioni
 - «Raccogli un simbolo» = prendi un gettone dal pool e **mettilo subito su una tua carta già giocata**. Non si sposta. Senza carte giocate (o con tutte piene) lo spazio non è usabile. [chiarito]
-- **Una carta porta al massimo 2 simboli.** [chiarito]
+- **Una carta porta 1 simbolo.** Un **secondo simbolo si può mettere solo se forma una fusione** con il primo (due simboli diversi che non fondono, per esempio Nuvolo + Nebbia, non possono stare sulla stessa carta). Quindi i simboli sono una scelta: o servono alla previsione o servono ai pattern. [chiarito con Niky]
 - **La fusione è automatica**: quando i 2 simboli sono compatibili, la carta diventa quel fenomeno e **conta solo come la fusione** (non più come i simboli base). [chiarito]
 
 | Fusione | Simboli |
@@ -81,7 +81,7 @@ Uno spazio occupato è **bloccato fino alla fine del round**.
 | Grandine | Temporale + Sole |
 | Tormenta di Neve | Neve + Vento |
 
-Nuvolo e Nebbia non hanno fusione. Due simboli non compatibili (es. Sole + Nuvolo) restano semplicemente sulla carta, che è piena. Se il pool di un simbolo è finito, non si può scegliere.
+Nuvolo e Nebbia non hanno fusione: una carta con Nuvolo o Nebbia resta con quel simbolo e non può ricevere altro. Una fusione serve soprattutto quando un Evento trasforma il bersaglio della previsione in un fenomeno estremo. Se il pool di un simbolo è finito, non si può scegliere. Se non c'è nessuna carta dove un simbolo si possa mettere, lo spazio «Raccogli un simbolo» non è usabile.
 
 ## 7. Le Carte Evento
 Riguardano **solo il Fenomeno** (le fusioni): modificano il **bersaglio** sulla plancia. La carta si attiva solo se la regione nominata è tra quelle toccate dalla Previsione corrente della sua area (Core o Secondaria).
@@ -126,34 +126,34 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 - **Tre fasce di punti: facile 3 · media 5 · difficile 8.** Non c'entrano mai con la previsione. [chiarito]
 - «**Carta con il simbolo X**» = carta che porta quel simbolo e non è fusa (come per i pattern). «**Vicine**» = caselle che si toccano a croce sulla mappa. «**Tipi di simbolo**» = i tipi diversi presenti sul tuo tavolo, contando tutti i simboli. [interpretazione]
 - L'Evento «Collaborazione internazionale» ti permette di scartare il tuo Obiettivo e pescarne uno nuovo dal mazzo (senza guardarlo prima). [chiarito]
-- Il mazzo ha **24 carte** (9 Territorio · 6 Simboli · 3 Pattern · 6 Risorse e azioni). Soglie e fasce sono valori di partenza **[da misurare]**: l'ultima colonna è quanto spesso li raggiunge un giocatore AI Difficile che li ha scelti e ci punta (600 partite, 2 giocatori).
+- Il mazzo ha **24 carte** (9 Territorio · 6 Simboli · 3 Pattern · 6 Risorse e azioni). Soglie e fasce sono valori di partenza **[da misurare]**: l'ultima colonna è quanto spesso li raggiunge un giocatore AI Difficile che li ha scelti e ci punta (1200 giocatori-partita, 2 giocatori).
 
 | # | Titolo | Condizione | Punti | Fascia | Riuscita misurata |
 |---|---|---|---|---|---|
-| T1 | **Tutto lo Stivale** | Almeno 1 regione in ognuna delle 3 aree (Nord, Centro, Sud e Isole). | 3 | facile | 74% |
-| T2 | **Pianura Padana** | Almeno 3 regioni del Nord. | 5 | media | 43% |
+| T1 | **Tutto lo Stivale** | Almeno 1 regione in ognuna delle 3 aree (Nord, Centro, Sud e Isole). | 3 | facile | 73% |
+| T2 | **Pianura Padana** | Almeno 3 regioni del Nord. | 5 | media | 48% |
 | T3 | **Dorsale appenninica** | Almeno 2 regioni del Centro. | 5 | media | 46% |
-| T4 | **Mediterraneo** | Almeno 3 regioni di Sud e Isole. | 5 | media | 32% |
-| T5 | **Rete fitta** | Almeno 2 bonus di confine attivi. | 5 | media | 57% |
-| T6 | **Estremo Sud e Isole** | Almeno una tra Calabria, Sicilia e Sardegna. | 3 | facile | 52% |
-| T7 | **Costa tirrenica** | Almeno 3 tra Liguria, Toscana, Lazio, Campania, Calabria, Sicilia e Sardegna. | 5 | media | 39% |
-| T8 | **Costa adriatica** | Almeno 3 tra Friuli-Venezia Giulia, Veneto, Emilia-Romagna, Marche, Abruzzo, Molise e Puglia. | 5 | media | 16% |
-| T9 | **Arco alpino** | Almeno 3 tra Valle d'Aosta, Piemonte, Lombardia, Trentino-Alto Adige, Veneto e Friuli-Venezia Giulia. | 5 | media | 17% |
-| S1 | **Cinque fenomeni** | 5 tipi di simbolo diversi sul tuo tavolo. | 3 | facile | 84% |
-| S2 | **Carte piene** | 5 carte con 2 simboli ciascuna. | 5 | media | 45% |
-| S3 | **Tempo stabile** | 4 carte con lo stesso simbolo. | 3 | facile | 70% |
-| S4 | **Neve a bassa quota** | 2 carte con Neve. | 5 | media | 48% |
-| S5 | **Tutti i fenomeni in campo** | Tutti e 7 i tipi di simbolo sul tuo tavolo. | 8 | difficile | 11% |
-| S6 | **Raffiche di vento** | 2 carte con Vento. | 3 | facile | — |
-| P1 | **Nebbia a banchi** | 4 carte con Nebbia, nessuna accanto a un’altra Nebbia. | 3 | facile | 41% |
-| P2 | **Cella temporalesca** | 2 carte con Temporale vicine tra loro. | 5 | media | 29% |
-| P3 | **Alta pressione estesa** | 3 carte con Sole vicine tra loro. | 8 | difficile | 14% |
-| R1 | **Mano vuota** | Nessuna Carta Regione in mano a fine partita. | 3 | facile | 99% |
-| R2 | **Economia di guerra** | 7 o più PM e nessuna Carta Regione in mano. | 5 | media | 57% |
-| R3 | **Cassaforte** | 9 o più PM a fine partita. | 5 | media | 48% |
-| R4 | **Tavolo grande** | 6 o più carte sul tuo tavolo. | 5 | media | 31% |
-| R5 | **Squadra al completo** | Hai il 3° lavoratore. | 8 | difficile | 8% |
-| R6 | **Cantiere** | 11 o più simboli sul tuo tavolo. | 8 | difficile | 15% |
+| T4 | **Mediterraneo** | Almeno 3 regioni di Sud e Isole. | 5 | media | 52% |
+| T5 | **Rete fitta** | Almeno 3 bonus di confine attivi. | 5 | media | 19% |
+| T6 | **Estremo Sud e Isole** | Almeno una tra Calabria, Sicilia e Sardegna. | 3 | facile | 73% |
+| T7 | **Costa tirrenica** | Almeno 3 tra Liguria, Toscana, Lazio, Campania, Calabria, Sicilia e Sardegna. | 5 | media | 9% |
+| T8 | **Costa adriatica** | Almeno 3 tra Friuli-Venezia Giulia, Veneto, Emilia-Romagna, Marche, Abruzzo, Molise e Puglia. | 5 | media | 32% |
+| T9 | **Arco alpino** | Almeno 3 tra Valle d'Aosta, Piemonte, Liguria, Lombardia, Trentino-Alto Adige, Veneto e Friuli-Venezia Giulia. | 5 | media | 36% |
+| S1 | **Quattro fenomeni** | 4 tipi di simbolo diversi sul tuo tavolo. | 3 | facile | 71% |
+| S2 | **Tempo a coppie** | Due tipi di simbolo, ognuno su almeno 2 carte. | 3 | facile | 83% |
+| S3 | **Tempo stabile** | 4 carte con lo stesso simbolo. | 3 | facile | 25% |
+| S4 | **Neve a bassa quota** | 2 carte con Neve. | 8 | difficile | 27% |
+| S5 | **Sei fenomeni** | 6 tipi di simbolo diversi sul tuo tavolo. | 8 | difficile | 6% |
+| S6 | **Precipitazioni sparse** | 2 carte con Pioggia, Temporale o Neve (anche miste). | 3 | facile | — (la AI non lo sceglie: 37% per caso) |
+| P1 | **Nebbia a banchi** | 4 carte con Nebbia, nessuna accanto a un’altra Nebbia. | 3 | facile | — (la AI non lo sceglie: 17% per caso) |
+| P2 | **Cella temporalesca** | 2 carte con Temporale vicine tra loro. | 5 | media | — (la AI non lo sceglie: 20% per caso) |
+| P3 | **Massa d’aria uniforme** | 3 carte vicine con lo stesso simbolo. | 8 | difficile | 20% |
+| R1 | **Mano vuota** | Nessuna Carta Regione in mano a fine partita. | 3 | facile | 100% |
+| R2 | **Economia di guerra** | 7 o più PM e nessuna Carta Regione in mano. | 5 | media | 41% |
+| R3 | **Cassaforte** | 9 o più PM a fine partita. | 5 | media | 61% |
+| R4 | **Tavolo grande** | 7 o più carte sul tuo tavolo. | 5 | media | 17% |
+| R5 | **Squadra al completo** | Hai il 3° lavoratore. | 8 | difficile | 10% |
+| R6 | **Tavolo attrezzato** | Almeno 6 carte sul tavolo, tutte con un simbolo. | 5 | media | 48% |
 
 *La riuscita è alta per le carte che la AI sa inseguire (PM, mano vuota) e bassa per quelle che dipendono dalla fortuna (Tutti i fenomeni, Alta pressione, Squadra al completo): vanno viste al playtest con persone vere.*
 
@@ -161,14 +161,14 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 Più punti totali; a parità più punti di Accuratezza, poi più Accuratezza grezza, poi più Coerenza, poi più PM; se ancora pari: pari merito.
 
 ## 9. Parametri (modificabili dall'app per fare esperimenti)
-`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 · `sez2OccupiesSez1` no · `mapMode` italia (variante `libera` = griglia libera a contatto, solo per esperimenti) · `borderPoints` 1 · `eventDrawer` segnalino che passa di mano (variante `first` = il primo giocatore del round, solo per esperimenti) · `objectives` sì (variante no = senza Obiettivi, solo per esperimenti) · `startPMBonus` 0 al primo giocatore e +1 PM a tutti gli altri.
+`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 (solo per le fusioni) · `secondSymbolOnlyFusion` sì · `sez2OccupiesSez1` no · `mapMode` italia (variante `libera` = griglia libera a contatto, solo per esperimenti) · `borderPoints` 1 · `eventDrawer` segnalino che passa di mano (variante `first` = il primo giocatore del round, solo per esperimenti) · `objectives` sì (variante no = senza Obiettivi, solo per esperimenti) · `startPMBonus` 0 al primo giocatore e +1 PM a tutti gli altri.
 
 ## 10. Differenze rispetto al Concept v9 originale
 | Tema | Concept v9 | Questa versione |
 |---|---|---|
 | Adiacenza | «contatto fisico», uguale per confine e pattern | Pattern: caselle che si toccano a croce sulla mappa d'Italia. Bonus di confine: solo possesso della regione |
 | Posizione delle carte | disposte liberamente | Mappa d'Italia: casella fissa per regione, ferme dopo averle giocate |
-| Simboli | «appoggiati/impilati» sulla carta | Subito su una carta giocata, max 2, non si spostano |
+| Simboli | «appoggiati/impilati» sulla carta | Subito su una carta giocata, non si spostano; 1 per carta, il 2° solo per fare una fusione |
 | Fusione | «scatta impilando 2 simboli» | Automatica; la carta conta solo come la fusione |
 | Piazzamento | «uno alla volta a rotazione» e «continua a piazzare» | Rotazione stretta; chi passa è fuori dal round |
 | Pattern Temporale | ambiguo (per carta o per gruppo) | Per gruppo |

@@ -66,7 +66,7 @@
     return SM[SM.length - 1][1];
   }
   // quanti simboli mancano su una carta per soddisfare req (−1 = impossibile: simboli sbagliati o carta piena/fusa)
-  function symbolsNeeded(sym, fusion, req, M) {
+  function symbolsNeeded(sym, fusion, req, M, only) {
     if (fusion) return -1;
     if (FF.isFusionName(req)) {
       const rem = FF.FUSIONS.find((f) => f.name === req).recipe.slice();
@@ -75,6 +75,7 @@
     }
     if (sym.indexOf(req) >= 0) return 0;
     if (sym.length >= M) return -1;
+    if (only && sym.length) return -1;                              // un 2° simbolo diverso non si può mettere: solo per fare una fusione
     if (sym.length === 1 && FF.fusionOf([sym[0], req])) return -1;
     return 1;
   }
@@ -94,9 +95,9 @@
       if (FF.condMet(table, c)) { raw += c.punti; continue; }
       const idx = table.findIndex((e) => FF.regionOf(e) === c.regione), e = idx >= 0 ? table[idx] : null;
       let need, buy = false;
-      if (e) { const n = symbolsNeeded(e.sym, e.fusion, c.req, M); if (n < 0) continue; need = n; }
+      if (e) { const n = symbolsNeeded(e.sym, e.fusion, c.req, M, g.rules.secondSymbolOnlyFusion); if (n < 0) continue; need = n; }
       else {
-        const n = symbolsNeeded([], null, c.req, M); if (n < 0) continue;
+        const n = symbolsNeeded([], null, c.req, M, g.rules.secondSymbolOnlyFusion); if (n < 0) continue;
         const inHand = p.hand.some((id) => regionName(id) === c.regione);
         need = n + 1 + (inHand ? 0 : 1); buy = !inHand;
         if (buy && !inMarket.has(c.regione)) need += P.noMarketCost - 1;   // non c'è in mercato: serve fortuna (pesca alla cieca)

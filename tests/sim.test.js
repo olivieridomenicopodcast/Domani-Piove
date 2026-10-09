@@ -13,7 +13,7 @@ test('profili: ogni profilo (anche gli estremi) gioca una partita completa a 2, 
 });
 test('prove estreme: le strategie sbagliate di proposito PERDONO contro la AI normale (A vince ben oltre 1/N)', () => {
   for (const key of ['random', 'accumulatore', 'passivo', 'fedelta', 'pattern']) {
-    const a = Sim.run({ games: 60, seed: 'ext-' + key, a: 'hard', b: key, players: 2 }), ci = Sim.wilson(a.aWins, a.n);
+    const a = Sim.run({ games: 100, seed: 'ext-' + key, a: 'hard', b: key, players: 2 }), ci = Sim.wilson(a.aWins, a.n);
     assert.ok(ci[0] > 0.5, `${key}: A deve vincere nettamente, invece ${a.aWins}/${a.n}`);
   }
 });

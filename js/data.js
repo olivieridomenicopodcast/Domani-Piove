@@ -37,7 +37,8 @@
     marketSize: 5,
     blindPrice: 2,
     poolPerSymbol: 10,
-    maxSymbolsPerCard: 2,       // [chiarito con Niky] una carta porta al massimo 2 simboli (una fusione = 2 simboli)
+    maxSymbolsPerCard: 2,       // una carta porta 1 simbolo; il 2° si può mettere solo se forma una fusione (2 simboli = fusione)
+    secondSymbolOnlyFusion: true, // [chiarito con Niky] niente 2 simboli diversi sulla stessa carta: il 2° c'è solo per fare una fusione (false = variante vecchia, solo per esperimenti)
     sez2OccupiesSez1: false,    // [DA MISURARE] la Sezione 2 occupa anche gli spazi della Sezione 1 corrispondenti?
     nebbiaNeedsNeighbor: false, // [variante da misurare] la Nebbia punta solo se ha almeno una carta vicina (altrimenti con la mappa fissa è quasi sempre «isolata»)
     objectives: true,           // [chiarito] Obiettivi Segreti: pesca 2, tieni 1, 3 fasce (3/5/8), 0 se non raggiunto (false = senza, solo per esperimenti)
@@ -220,31 +221,31 @@
     ['T2', 'territorio', 'Pianura Padana', 'Almeno 3 regioni del Nord.', 5, countArea('nord'), 3],
     ['T3', 'territorio', 'Dorsale appenninica', 'Almeno 2 regioni del Centro.', 5, countArea('centro'), 2],
     ['T4', 'territorio', 'Mediterraneo', 'Almeno 3 regioni di Sud e Isole.', 5, countArea('sud_isole'), 3],
-    ['T5', 'territorio', 'Rete fitta', 'Almeno 2 bonus di confine attivi.', 5, (p, R) => FF.borderScore(p.table, R).items.length, 2],
+    ['T5', 'territorio', 'Rete fitta', 'Almeno 3 bonus di confine attivi.', 5, (p, R) => FF.borderScore(p.table, R).items.length, 3],
     ['T6', 'territorio', 'Estremo Sud e Isole', 'Almeno una tra Calabria, Sicilia e Sardegna.', 3, countRegs(['Calabria', 'Sicilia', 'Sardegna']), 1],
     ['T7', 'territorio', 'Costa tirrenica', 'Almeno 3 tra Liguria, Toscana, Lazio, Campania, Calabria, Sicilia e Sardegna.', 5, countRegs(['Liguria', 'Toscana', 'Lazio', 'Campania', 'Calabria', 'Sicilia', 'Sardegna']), 3],
     ['T8', 'territorio', 'Costa adriatica', 'Almeno 3 tra Friuli-Venezia Giulia, Veneto, Emilia-Romagna, Marche, Abruzzo, Molise e Puglia.', 5, countRegs(['Friuli-Venezia Giulia', 'Veneto', 'Emilia-Romagna', 'Marche', 'Abruzzo', 'Molise', 'Puglia']), 3],
-    ['T9', 'territorio', 'Arco alpino', "Almeno 3 tra Valle d'Aosta, Piemonte, Lombardia, Trentino-Alto Adige, Veneto e Friuli-Venezia Giulia.", 5, countRegs(["Valle d'Aosta", 'Piemonte', 'Lombardia', 'Trentino-Alto Adige', 'Veneto', 'Friuli-Venezia Giulia']), 3],
-    ['S1', 'simboli', 'Cinque fenomeni', '5 tipi di simbolo diversi sul tuo tavolo.', 3, typesOnTable, 5],
-    ['S2', 'simboli', 'Carte piene', '5 carte con 2 simboli ciascuna.', 5, (p) => p.table.filter((e) => e.sym.length >= 2).length, 5],
+    ['T9', 'territorio', 'Arco alpino', "Almeno 3 tra Valle d'Aosta, Piemonte, Liguria, Lombardia, Trentino-Alto Adige, Veneto e Friuli-Venezia Giulia.", 5, countRegs(["Valle d'Aosta", 'Piemonte', 'Liguria', 'Lombardia', 'Trentino-Alto Adige', 'Veneto', 'Friuli-Venezia Giulia']), 3],
+    ['S1', 'simboli', 'Quattro fenomeni', '4 tipi di simbolo diversi sul tuo tavolo.', 3, typesOnTable, 4],
+    ['S2', 'simboli', 'Tempo a coppie', 'Due tipi di simbolo, ognuno su almeno 2 carte.', 3, (p) => FF.SYMBOLS.filter((x) => cardsWith(x)(p) >= 2).length, 2],
     ['S3', 'simboli', 'Tempo stabile', '4 carte con lo stesso simbolo.', 3, (p) => FF.SYMBOLS.reduce((m, x) => Math.max(m, cardsWith(x)(p)), 0), 4],
-    ['S4', 'simboli', 'Neve a bassa quota', '2 carte con Neve.', 5, cardsWith('neve'), 2],
-    ['S5', 'simboli', 'Tutti i fenomeni in campo', 'Tutti e 7 i tipi di simbolo sul tuo tavolo.', 8, typesOnTable, 7],
-    ['S6', 'simboli', 'Raffiche di vento', '2 carte con Vento.', 3, cardsWith('vento'), 2],
+    ['S4', 'simboli', 'Neve a bassa quota', '2 carte con Neve.', 8, cardsWith('neve'), 2],
+    ['S5', 'simboli', 'Sei fenomeni', '6 tipi di simbolo diversi sul tuo tavolo.', 8, typesOnTable, 6],
+    ['S6', 'simboli', 'Precipitazioni sparse', '2 carte con Pioggia, Temporale o Neve (anche miste).', 3, (p) => symEntries(p).filter((e) => e.sym.some((x) => x === 'pioggia' || x === 'temporale' || x === 'neve')).length, 2],
     ['P1', 'pattern', 'Nebbia a banchi', '4 carte con Nebbia, nessuna accanto a un’altra Nebbia.', 3, (p) => { const t = symEntries(p).filter((e) => e.sym.indexOf('nebbia') >= 0); return t.filter((e) => !FF.neighborsOf(t, e).length).length; }, 4],
     ['P2', 'pattern', 'Cella temporalesca', '2 carte con Temporale vicine tra loro.', 5, maxGroup('temporale'), 2],
-    ['P3', 'pattern', 'Alta pressione estesa', '3 carte con Sole vicine tra loro.', 8, maxGroup('sole'), 3],
+    ['P3', 'pattern', 'Massa d\u2019aria uniforme', '3 carte vicine con lo stesso simbolo.', 8, (p) => FF.SYMBOLS.reduce((m, x) => Math.max(m, maxGroup(x)(p)), 0), 3],
     ['R1', 'risorse', 'Mano vuota', 'Nessuna Carta Regione in mano a fine partita.', 3, (p) => (p.hand.length ? 0 : 1), 1, (p) => 1 / (1 + p.hand.length)],
     ['R2', 'risorse', 'Economia di guerra', '7 o più PM e nessuna Carta Regione in mano.', 5, (p) => (p.pm >= 7 && !p.hand.length ? 1 : 0), 1, (p) => Math.min(1, p.pm / 7) / (1 + p.hand.length)],
     ['R3', 'risorse', 'Cassaforte', '9 o più PM a fine partita.', 5, (p) => p.pm, 9],
-    ['R4', 'risorse', 'Tavolo grande', '6 o più carte sul tuo tavolo.', 5, (p) => p.table.length, 6],
+    ['R4', 'risorse', 'Tavolo grande', '7 o più carte sul tuo tavolo.', 5, (p) => p.table.length, 7],
     ['R5', 'risorse', 'Squadra al completo', 'Hai il 3° lavoratore.', 8, (p) => (p.workers >= 3 || p.pendingWorker ? 1 : 0), 1],
-    ['R6', 'risorse', 'Cantiere', '11 o più simboli sul tuo tavolo.', 8, (p) => p.table.reduce((n, e) => n + e.sym.length, 0), 11]
+    ['R6', 'risorse', 'Tavolo attrezzato', 'Almeno 6 carte sul tavolo, tutte con un simbolo.', 5, (p) => (p.table.length && p.table.every((e) => e.sym.length) ? p.table.length : 0), 6, (p) => p.table.filter((e) => e.sym.length).length / Math.max(6, p.table.length)]
   ];
 
   FF.OBJECTIVE_TYPES = { territorio: 'Territorio', simboli: 'Simboli', pattern: 'Pattern', risorse: 'Risorse e azioni' };
   FF.OBJECTIVES = OBJ.map((o) => ({ id: o[0], tipo: o[1], titolo: o[2], testo: o[3], pts: o[4], val: o[5], need: o[6], prog: o[7] || null }));
-  FF.OBJ_RATE = {"T1":0.74,"T2":0.43,"T3":0.46,"T4":0.32,"T5":0.57,"T6":0.52,"T7":0.39,"T8":0.16,"T9":0.15,"S1":0.84,"S2":0.45,"S3":0.7,"S4":0.48,"S5":0.11,"S6":0.31,"P1":0.41,"P2":0.29,"P3":0.14,"R1":0.99,"R2":0.57,"R3":0.48,"R4":0.31,"R5":0.08,"R6":0.15};   // probabilità stimate (misurate con tools/obiettivi.js) che l'AI usa per scegliere/cambiare obiettivo
+  FF.OBJ_RATE = {"T1":0.73,"T2":0.48,"T3":0.46,"T4":0.52,"T5":0.19,"T6":0.73,"T7":0.09,"T8":0.32,"T9":0.36,"S1":0.71,"S2":0.83,"S3":0.25,"S4":0.27,"S5":0.06,"S6":0.37,"P1":0.17,"P2":0.2,"P3":0.2,"R1":1,"R2":0.41,"R3":0.61,"R4":0.17,"R5":0.1,"R6":0.48};   // probabilità stimate (misurate con tools/obiettivi.js) che l'AI usa per scegliere/cambiare obiettivo
   FF.OBJECTIVE_IDS = FF.OBJECTIVES.map((o) => o.id);
   FF.OBJ = {}; FF.OBJECTIVES.forEach((o) => { FF.OBJ[o.id] = o; });
   FF.objectiveMet = (id, p, R) => { const o = FF.OBJ[id]; return !!o && o.val(p, R || FF.DEFAULT_RULES) >= o.need; };

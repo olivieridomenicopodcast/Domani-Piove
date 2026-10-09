@@ -34,34 +34,41 @@ test('obiettivi di territorio: conta le regioni giuste', () => {
   assert.equal(met('T8', P(['Marche', 'Abruzzo', 'Veneto'].map((r) => cell(r)))), true);
   assert.equal(met('T8', P(['Marche', 'Abruzzo', 'Lazio'].map((r) => cell(r)))), false);
   assert.equal(met('T9', P(["Valle d'Aosta", 'Piemonte', 'Veneto'].map((r) => cell(r)))), true);
-  assert.equal(met('T9', P(["Valle d'Aosta", 'Piemonte', 'Liguria'].map((r) => cell(r)))), false);
+  assert.equal(met('T9', P(["Valle d'Aosta", 'Piemonte', 'Lazio'].map((r) => cell(r)))), false);
 });
 test('obiettivi di simboli: le carte fuse non contano come carte con il simbolo', () => {
   assert.equal(met('S4', P([cell('Veneto', ['neve']), cell('Lazio', ['neve'])])), true);
   assert.equal(met('S4', P([cell('Veneto', ['neve', 'neve']), cell('Lazio', ['neve'])])), false);     // la prima è Nevicata Estrema: fusa
-  assert.equal(met('S6', P(['Veneto', 'Lazio'].map((r) => cell(r, ['vento'])))), true);
   assert.equal(met('S3', P(['Veneto', 'Lazio', 'Puglia', 'Umbria'].map((r) => cell(r, ['sole'])))), true);
-  assert.equal(met('S1', P([cell('Veneto', ['sole', 'nuvolo']), cell('Lazio', ['pioggia', 'vento']), cell('Puglia', ['neve'])])), true);
-  assert.equal(met('S5', P([cell('Veneto', ['sole', 'nuvolo']), cell('Lazio', ['pioggia', 'vento']), cell('Puglia', ['neve', 'nebbia']), cell('Umbria', ['temporale'])])), true);
-  assert.equal(met('S5', P([cell('Veneto', ['sole', 'nuvolo']), cell('Lazio', ['pioggia', 'vento']), cell('Puglia', ['neve', 'nebbia'])])), false);   // 6 tipi su 7
-  assert.equal(met('S2', P(['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia'].map((r) => cell(r, ['sole', 'nuvolo'])))), true);
+  assert.equal(met('S1', P([cell('Veneto', ['sole']), cell('Lazio', ['pioggia']), cell('Puglia', ['neve']), cell('Umbria', ['vento'])])), true);
+  assert.equal(met('S1', P([cell('Veneto', ['sole']), cell('Lazio', ['pioggia']), cell('Puglia', ['neve']), cell('Umbria', ['neve'])])), false);
+  assert.equal(met('S5', P(['sole', 'nuvolo', 'pioggia', 'vento', 'neve', 'nebbia'].map((x, k) => cell(['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana'][k], [x])))), true);
+  assert.equal(met('S5', P(['sole', 'nuvolo', 'pioggia', 'vento', 'neve', 'neve'].map((x, k) => cell(['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana'][k], [x])))), false);
+  assert.equal(met('S2', P([cell('Veneto', ['sole']), cell('Lazio', ['sole']), cell('Puglia', ['neve']), cell('Umbria', ['neve'])])), true);
+  assert.equal(met('S2', P([cell('Veneto', ['sole']), cell('Lazio', ['sole']), cell('Puglia', ['neve'])])), false);
 });
 test('obiettivi di pattern: usano l\'adiacenza della mappa d\'Italia', () => {
   // Veneto-Lombardia si toccano, Veneto-Sicilia no
   assert.equal(met('P2', P(['Veneto', 'Lombardia'].map((r) => cell(r, ['temporale'])))), true);
   assert.equal(met('P2', P(['Veneto', 'Sicilia'].map((r) => cell(r, ['temporale'])))), false);
-  assert.equal(met('P3', P(['Toscana', 'Umbria', 'Lazio'].map((r) => cell(r, ['sole'])))), true);
-  assert.equal(met('P1', P(['Veneto', 'Sicilia', 'Sardegna', 'Lazio'].map((r) => cell(r, ['nebbia'])))), true);
+    assert.equal(met('P1', P(['Veneto', 'Sicilia', 'Sardegna', 'Lazio'].map((r) => cell(r, ['nebbia'])))), true);
   assert.equal(met('P1', P(['Veneto', 'Lombardia', 'Sicilia', 'Sardegna'].map((r) => cell(r, ['nebbia'])))), false);   // due Nebbia si toccano: ne restano 2 isolate
 });
 test('obiettivi di risorse: mano, PM, tavolo, lavoratore, simboli', () => {
   assert.equal(met('R1', P([], { hand: [] })), true); assert.equal(met('R1', P([], { hand: [1] })), false);
   assert.equal(met('R2', P([], { pm: 7 })), true); assert.equal(met('R2', P([], { pm: 6 })), false); assert.equal(met('R2', P([], { pm: 5, hand: [1] })), false);
   assert.equal(met('R3', P([], { pm: 9 })), true); assert.equal(met('R3', P([], { pm: 8 })), false);
-  assert.equal(met('R4', P(['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana'].map((r) => cell(r)))), true);
+  assert.equal(met('R4', P(['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana'].map((r) => cell(r)))), false);
+  assert.equal(met('R4', P(['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana', 'Marche'].map((r) => cell(r)))), true);
   assert.equal(met('R5', P([], { workers: 3 })), true); assert.equal(met('R5', P([], { workers: 2 })), false);
-  assert.equal(met('R6', P(['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana'].map((r, i) => cell(r, i < 5 ? ['sole', 'nuvolo'] : ['vento'])))), true);   // 11 simboli
-  assert.equal(met('R6', P(['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana'].map((r, i) => cell(r, i < 4 ? ['sole', 'nuvolo'] : ['vento'])))), false);   // 10
+  const six = ['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana'];
+  assert.equal(met('R6', P(six.map((r) => cell(r, ['vento'])))), true);
+  assert.equal(met('R6', P(six.map((r, i) => cell(r, i ? ['vento'] : [])))), false);      // una carta spoglia
+  assert.equal(met('R6', P(six.slice(0, 5).map((r) => cell(r, ['vento'])))), false);      // solo 5 carte
+  assert.equal(met('S6', P([cell('Veneto', ['pioggia']), cell('Lazio', ['neve'])])), true);
+  assert.equal(met('S6', P([cell('Veneto', ['pioggia']), cell('Lazio', ['sole'])])), false);
+  assert.equal(met('P3', P(['Toscana', 'Umbria', 'Lazio'].map((r) => cell(r, ['pioggia'])))), true);
+  assert.equal(met('P3', P([cell('Toscana', ['pioggia']), cell('Umbria', ['sole']), cell('Lazio', ['pioggia'])])), false);
 });
 
 test('obiettivi: ogni giocatore ne riceve 2 diversi e ne tiene 1 (decisione a inizio partita, a partire dal primo giocatore)', () => {

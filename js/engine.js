@@ -225,7 +225,8 @@
     }
     symbolOptions(pid) {
       const p = this.s.players[pid], out = [], M = this.rules.maxSymbolsPerCard;
-      p.table.forEach((e, idx) => { if (e.sym.length < M) FF.SYMBOLS.forEach((x) => { if (this.s.pool[x] > 0) out.push({ sym: x, idx }); }); });
+      const only = this.rules.secondSymbolOnlyFusion;
+      p.table.forEach((e, idx) => { if (e.sym.length < M) FF.SYMBOLS.forEach((x) => { if (this.s.pool[x] > 0 && (!only || !e.sym.length || FF.fusionOf([e.sym[0], x]))) out.push({ sym: x, idx }); }); });
       return out;
     }
     legalAction(pid, a) {
