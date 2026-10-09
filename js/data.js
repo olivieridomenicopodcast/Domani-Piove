@@ -39,6 +39,7 @@
     poolPerSymbol: 10,
     maxSymbolsPerCard: 2,       // [chiarito con Niky] una carta porta al massimo 2 simboli (una fusione = 2 simboli)
     sez2OccupiesSez1: false,    // [DA MISURARE] la Sezione 2 occupa anche gli spazi della Sezione 1 corrispondenti?
+    nebbiaNeedsNeighbor: false, // [variante da misurare] la Nebbia punta solo se ha almeno una carta vicina (altrimenti con la mappa fissa è quasi sempre «isolata»)
     objectives: true,           // [chiarito] Obiettivi Segreti: pesca 2, tieni 1, 3 fasce (3/5/8), 0 se non raggiunto (false = senza, solo per esperimenti)
     mapMode: 'italia',              // [chiarito] ogni regione ha il suo posto fisso sulla forma dell'Italia (variante 'libera' = griglia libera, solo per esperimenti)
     requireAdjacentPlacement: true, // [chiarito] ogni nuova carta si gioca a contatto ortogonale con una già giocata
@@ -169,7 +170,7 @@
     for (const e of table) if (effSym(e).indexOf('nuvolo') >= 0 && FF.neighborsOf(table, e).some((n) => effSym(n).some((s) => s !== 'nuvolo'))) by.nuvolo += P.nuvolo;
     // Nebbia — Sacca isolata: +2 per ogni carta Nebbia senza altra Nebbia adiacente
     by.nebbia = 0;
-    for (const e of table) if (effSym(e).indexOf('nebbia') >= 0 && !FF.neighborsOf(table, e).some((n) => effSym(n).indexOf('nebbia') >= 0)) by.nebbia += P.nebbia;
+    for (const e of table) if (effSym(e).indexOf('nebbia') >= 0 && !FF.neighborsOf(table, e).some((n) => effSym(n).indexOf('nebbia') >= 0) && (!(rules || FF.DEFAULT_RULES).nebbiaNeedsNeighbor || FF.neighborsOf(table, e).length)) by.nebbia += P.nebbia;   // nebbiaNeedsNeighbor: variante da misurare (la sacca deve stare in mezzo ad altre carte)
     let total = 0; FF.SYMBOLS.forEach((s) => { total += by[s]; });
     return { total, by };
   };
