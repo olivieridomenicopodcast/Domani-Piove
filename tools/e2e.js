@@ -2,7 +2,7 @@
 /* Prova nel browser: gioca una partita completa con un "bot" che clicca l'interfaccia, raccoglie errori di console,
    controlla che la pagina non scorra in orizzontale e fa screenshot dei momenti principali.
    Uso: NODE_PATH=/opt/node-tools/node_modules node tools/e2e.js [--url http://localhost:8123/] [--mode ai|hotseat|watch]
-        [--seed x] [--out cartella] [--mobile] [--players 2|3|4] */
+        [--seed x] [--out cartella] [--mobile] [--players 2|3|4] [--suggest] [--level easy|medium|hard] */
 'use strict';
 const { chromium } = require('playwright');
 const fs = require('fs');
@@ -21,12 +21,13 @@ let rnd = 12345; const rand = () => { rnd = (rnd * 1664525 + 1013904223) >>> 0; 
   await p.goto(url);
   const tag = (mobile ? 'm-' : 'd-') + mode + '-';
   const shots = {};
-  const vp = args.includes('--vp');
+  const vp = args.includes('--vp'), suggest = args.includes('--suggest');
   const snap = async (name, full) => { if (shots[name]) return; shots[name] = 1; await p.screenshot({ path: `${out}/${tag}${vp ? 'vp-' : ''}${name}.png`, fullPage: !vp && full !== false }); };
   await snap('home');
   await p.click(`.mode[data-mode=${mode}]`);
   await p.click(`#su-n [data-v="${np}"]`);
   if (mode === 'watch') await p.click('#su-speed [data-v=instant]');
+  const lvl = get('level', null); if (lvl && mode === 'ai') for (let i = 1; i < Number(np); i++) await p.selectOption('#su-k' + i, lvl);
   await p.fill('#su-seed', seed);
   await snap('setup');
   await p.click('#su-go');
@@ -38,6 +39,7 @@ let rnd = 12345; const rand = () => { rnd = (rnd * 1664525 + 1013904223) >>> 0; 
   const stats = { steps: 0, place: 0, play: 0, buy: 0, symbol: 0, other: 0, confirms: 0 };
   const checkOverflow = async (label) => { const o = await p.evaluate(() => { const W = window.innerWidth; const bad = []; document.querySelectorAll('body *').forEach((e) => { if (e.closest('.tblwrap,.tableau,.logbox,.legend,svg,.overlay')) return; const r = e.getBoundingClientRect(); if (r.width && r.right > W + 2) bad.push((e.className && e.className.baseVal === undefined ? e.className : e.tagName) + ' +' + Math.round(r.right - W)); }); return { sw: document.documentElement.scrollWidth - W, bad: bad.slice(0, 4) }; }); if (o.sw > 2 || o.bad.length) overflow.push(`${label}: scroll +${o.sw}px ${o.bad.join(', ')}`); };
   for (; stats.steps < 8000; stats.steps++) {
+    if (process.env.E2E_DEBUG && stats.steps % (Number(process.env.E2E_DEBUG) || 40) === 0) console.error(Date.now() % 100000, stats.steps, JSON.stringify(stats), (await p.$eval('#g-announce', (e) => e.innerText.replace(/\n/g, ' ')).catch(() => '')).slice(0, 90), '|', (await p.$eval('#g-action', (e) => e.innerText.replace(/\n/g, ' ')).catch(() => '')).slice(0, 120), '| sug:', await p.$$eval('#g-action .suggested', (e) => e.length).catch(() => -1));
     if (await vis('.dlg:has-text("Confronto Finale")')) { await snap('fine'); break; }
     if (await click('.dlg [data-y]')) { stats.confirms++; await snap('conferma', false); continue; }
     if (await click('.dlg [data-go]')) { await snap('passa-telefono', false); continue; }
@@ -46,6 +48,8 @@ let rnd = 12345; const rand = () => { rnd = (rnd * 1664525 + 1013904223) >>> 0; 
       if (k && !shots['msg-' + k]) { await snap('msg-' + k); await checkOverflow('msg-' + k); }
       await click('#a-next'); continue;
     }
+    if (suggest && await vis('#a-sug') && !(await vis('#g-suggest:not(.hidden)'))) { await click('#a-sug'); await snap('suggerimento'); stats.sugg = (stats.sugg || 0) + 1; continue; }
+    if (suggest && !(await vis('#g-action [data-ok]')) && await vis('#g-action .suggested')) { const n = (await p.$$('#g-action .suggested')).length; if (await click('#g-action .suggested', n - 1)) continue; }
     if (await vis('#g-action [data-sp]')) {
       stats.place++; stats.steps += 0;
       if (!shots.piazza) { await snap('piazza'); await checkOverflow('piazza'); }

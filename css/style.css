@@ -158,3 +158,7 @@ details > summary.ptitle { cursor: pointer; }
   .tcell .syms .spr.sym { width: 28px; height: 28px; } .panel, .card { padding: .7rem .8rem; }
   .spacebtns { grid-template-columns: 1fr; } .ctrl { width: 100%; }
 }
+
+/* suggerimento dell'AI */
+.suggest { background: #fff7d1; border: 3px dashed #d99a00; border-radius: 12px; padding: .5rem .8rem; margin-bottom: .6rem; }
+.suggested { outline: 4px dashed #d99a00 !important; outline-offset: 3px; border-radius: 10px; box-shadow: 0 0 0 4px rgba(255,200,0,.35); }

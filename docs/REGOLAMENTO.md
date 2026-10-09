@@ -113,7 +113,7 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 Più punti totali; a parità più punti di Accuratezza, poi più Accuratezza grezza, poi più Coerenza, poi più PM; se ancora pari: pari merito.
 
 ## 9. Parametri (modificabili dall'app per fare esperimenti)
-`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 · `sez2OccupiesSez1` no · `requireAdjacentPlacement` sì · `borderPoints` 1.
+`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 · `sez2OccupiesSez1` no · `requireAdjacentPlacement` sì · `borderPoints` 1 · `eventDrawer` primo giocatore (variante `rotate` solo per esperimenti).
 
 ## 10. Differenze rispetto al Concept v9 originale
 | Tema | Concept v9 | Questa versione |

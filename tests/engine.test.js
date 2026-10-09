@@ -352,3 +352,11 @@ test('fuzz con parametri alterati (Sezione 2 occupa, niente adiacenza obbligata,
     FF.SYMBOLS.forEach((x) => assert.equal(cnt[x], 4));
   }
 });
+
+// ───────────────────────── chi pesca l'Evento ─────────────────────────
+test('Evento: a 3 giocatori, col primo giocatore che ruota, pesca sempre lo stesso i 3 Eventi (round 4, 7, 10); la variante «rotate» li distribuisce', () => {
+  const drawers = (n, rules) => FF.playGame({ seed: 21, players: PL(n), rules }).game.events.filter((e) => e.k === 'event' && /CARTA EVENTO/.test(e.text)).map((e) => e.p);
+  const d3 = drawers(3); assert.equal(d3.length, 3); assert.equal(new Set(d3).size, 1, 'a 3 giocatori pesca sempre lo stesso: ' + d3);
+  const r3 = drawers(3, { eventDrawer: 'rotate' }); assert.equal(new Set(r3).size, 3, 'con rotate sono tutti diversi: ' + r3);
+  assert.equal(new Set(drawers(4)).size, 3);        // a 4 giocatori sono già tutti diversi
+});

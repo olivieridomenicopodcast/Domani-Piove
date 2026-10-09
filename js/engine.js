@@ -56,7 +56,13 @@
       const g = Object.create(Game.prototype);
       g.cfg = {}; g.rules = this.rules; g.logOn = false; g.statsOn = false; g.beats = false; g.n = this.n;
       g.events = []; g.history = []; g.replay = []; g.stats = newStats(this.n); g.result = null; g.onEvent = null;
-      g.s = JSON.parse(JSON.stringify(this.s));
+      const t = this.s, T = t.target;
+      g.s = Object.assign({}, t, {   // copia manuale (molto più veloce di JSON): serve alle AI, che clonano migliaia di volte
+        regionDeck: t.regionDeck.slice(), regionDiscard: t.regionDiscard.slice(), eventDeck: t.eventDeck.slice(), eventDiscard: t.eventDiscard.slice(),
+        pool: Object.assign({}, t.pool), market: t.market.slice(), occupied: Object.assign({}, t.occupied), transit: t.transit.slice(),
+        target: { nord: T.nord.map((c) => Object.assign({}, c)), centro: T.centro.map((c) => Object.assign({}, c)), sud_isole: T.sud_isole.map((c) => Object.assign({}, c)) },
+        players: t.players.map((p) => Object.assign({}, p, { hand: p.hand.slice(), table: p.table.map((e) => ({ id: e.id, x: e.x, y: e.y, sym: e.sym.slice(), fusion: e.fusion })) })),
+      });
       return g;
     }
 
@@ -90,7 +96,7 @@
       s.first = R.firstPlayer >= 0 ? R.firstPlayer % n : this.randInt(n);
       s.startFirst = s.first;
       s.round = 0; s.phase = 'setup'; s.occupied = {}; s.over = false; s.lastEvent = null;
-      s.transit = [];   // carte pescate da un Evento e non ancora assegnate (così lo stato è sempre coerente)
+      s.eventsDrawn = 0; s.transit = [];   // carte pescate da un Evento e non ancora assegnate (così lo stato è sempre coerente)
       return s;
     }
 
@@ -349,7 +355,8 @@
     *eventGen() {
       const s = this.s;
       if (!s.eventDeck.length) { if (!s.eventDiscard.length) return; s.eventDeck = this._shuffle(s.eventDiscard); s.eventDiscard = []; }
-      const id = s.eventDeck.pop(), ev = FF.EVENTS[id], drawer = s.first;
+      const id = s.eventDeck.pop(), ev = FF.EVENTS[id], drawer = this.rules.eventDrawer === 'rotate' ? (s.startFirst + s.eventsDrawn) % this.n : s.first;
+      s.eventsDrawn++;
       s.eventDiscard.push(id); s.lastEvent = id; s.phase = 'event';
       this.stat('eventi_pescati', -1); this.stat('evento_' + ev.categoria, -1);
       yield* this.say('event', `📻 CARTA EVENTO #${id} «${ev.titolo}» (la pesca ${this.pn(drawer)}): ${ev.testo}`, drawer, { event: id });

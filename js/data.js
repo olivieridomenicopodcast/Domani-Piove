@@ -48,6 +48,7 @@
       temporale2: 3, temporale3: 6,
       pioggia: 1, neve: 4, vento: 2, nuvolo: 1, nebbia: 2,
     },
+    eventDrawer: 'first',       // [interpretazione] chi pesca l'Evento: 'first' = il primo giocatore del round; 'rotate' = ruota a ogni Evento (variante da misurare)
     tieBreak: ['accPts', 'accRaw', 'coerenza', 'pm'], // [interpretazione]
   };
 

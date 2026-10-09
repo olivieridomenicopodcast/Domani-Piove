@@ -50,7 +50,7 @@
       <select id="su-k${i}" aria-label="Tipo del giocatore ${i + 1}">${kindOpts(kinds[i])}</select>
       <input type="text" id="su-n${i}" value="${esc(names[i] || '')}" maxlength="16" aria-label="Nome del giocatore ${i + 1}"></div>`).join('');
     el.innerHTML = `<div class="wrap narrow"><div class="card"><h2>${P.title}</h2>
-      <p class="small muted">Gli umani giocano sullo stesso dispositivo: prima di ogni scelta privata compare una schermata di passaggio. ${mode !== 'hotseat' ? '<b>Le AI di questa versione sono provvisorie (scelgono a caso)</b>: i tre livelli arrivano nella tappa 4.' : ''}</p>
+      <p class="small muted">Gli umani giocano sullo stesso dispositivo: prima di ogni scelta privata compare una schermata di passaggio. ${mode !== 'hotseat' ? 'Le AI hanno tre livelli (Facile &lt; Media &lt; Difficile) e non vedono le tue carte né i mazzi.' : ''}</p>
       <div class="field"><label>Numero di giocatori</label><div class="seg" id="su-n">${[2, 3, 4].map((n) => `<button data-v="${n}" class="${n === nDef ? 'sel' : ''}">${n}</button>`).join('')}</div></div>
       <div class="field"><label>Giocatori</label>${rows}</div>
       <div class="field"><label>Messaggi delle mosse</label><div class="seg" id="su-speed">${Object.entries(SPEEDS).map(([k, v]) => `<button data-v="${k}" class="${k === speedDef ? 'sel' : ''}">${v}</button>`).join('')}</div></div>
@@ -65,7 +65,7 @@
     $('#su-go').onclick = () => {
       const n = Number(UI.segVal($('#su-n')));
       const ks = [0, 1, 2, 3].map((i) => $('#su-k' + i).value), ns = [0, 1, 2, 3].map((i) => $('#su-n' + i).value.trim());
-      const players = ks.slice(0, n).map((k, i) => (k === 'human' ? { name: ns[i] || 'Giocatore ' + (i + 1), kind: 'human' } : { name: (ns[i] && !/^(Niky|Erika|Giocatore)/.test(ns[i]) ? ns[i] : 'AI ' + (i + 1)), kind: 'ai', level: k }));
+      const players = ks.slice(0, n).map((k, i) => (k === 'human' ? { name: ns[i] || 'Giocatore ' + (i + 1), kind: 'human' } : { name: (ns[i] && !/^(Niky|Erika|Giocatore|AI )/.test(ns[i]) ? ns[i] : 'AI ' + (i + 1)) + ' · ' + FF.AI_LEVELS[k], kind: 'ai', level: k }));
       if (ns[0]) UI.store.set('pname', ns[0]);
       if (!players.length || (mode === 'ai' && !players.some((p) => p.kind === 'human'))) { UI.toast('Serve almeno un giocatore umano (o scegli «AI contro AI»).'); return; }
       const seed = $('#su-seed').value.trim() || UI.randomSeed();
@@ -144,6 +144,7 @@
         <div class="glayout"><aside class="legendcol"><details class="panel" id="g-legend"><summary class="ptitle">Legenda</summary><div class="legend">${UI.legendHTML()}</div></details></aside>
         <div class="maincol">
           <div class="announce" id="g-announce"></div>
+          <div class="suggest hidden" id="g-suggest" aria-live="polite"></div>
           <div class="nexttxt" id="g-nexttxt"></div>
           <div class="panel action" id="g-action"></div>
           <div class="panel"><div class="ptitle">Plancia centrale</div><div id="g-board"></div></div>
@@ -220,7 +221,7 @@
       $('#g-hand').innerHTML = vis ? `<div class="sub">Mano (${hand.length}) · solo tu la vedi</div><div class="hand">${hand.map((id) => `<button class="cardbtn" data-zoom="reg:${id}">${S.region(id)}</button>`).join('') || '<span class="muted">Nessuna carta in mano.</span>'}</div>`
         : `<div class="sub">Mano: ${hand.length} carte <span class="muted">(nascoste)</span></div>`;
     }
-    setAction(html) { const a = $('#g-action'); if (a) a.innerHTML = html; return a; }
+    setAction(html) { const a = $('#g-action'); if (a) { a.innerHTML = html; this.applySuggest(); } return a; }
 
     // ── pacing ──
     release() { if (this.timer) { clearTimeout(this.timer); this.timer = null; } const w = this.waiter; this.waiter = null; if (w) w(); }
@@ -241,8 +242,9 @@
       else icon = '<span class="aemoji">🃏</span>';
       const text = ev.text.replace(/━+/g, '').trim();
       box.className = `announce k-${ev.k} ${ev.p >= 0 ? 'p' + ev.p : ''}${opts.prompt ? ' prompt' : ''}`;
-      box.innerHTML = `<div class="aicon">${icon}</div><div class="atext"><div class="amain">${esc(text)}</div></div>${opts.button ? '<button class="btn primary abtn" id="a-next">Avanti ▶</button>' : ''}`;
+      box.innerHTML = `<div class="aicon">${icon}</div><div class="atext"><div class="amain">${esc(text)}</div></div>${opts.button ? '<button class="btn primary abtn" id="a-next">Avanti ▶</button>' : ''}${opts.prompt && opts.suggest ? '<button class="btn abtn" id="a-sug" title="L\'AI difficile ti propone una mossa (non vede le carte degli altri)">💡 Suggerimento</button>' : ''}`;
       const b = $('#a-next'); if (b) b.onclick = () => this.release();
+      const sg = $('#a-sug'); if (sg) sg.onclick = () => this.showSuggest();
     }
     promptFor(d) {
       const n = this.game.s.players[d.pid].name;
@@ -293,8 +295,10 @@
         if (pl.kind === 'human' && !this.review) {
           this.skipTo = false;
           this.renderAll(d.pid);
-          this.announce({ k: 'prompt', p: d.pid, text: this.promptFor(d), d: {} }, { prompt: true });
+          this.curDec = d; this.sugg = null; this.hideSuggest();
+          this.announce({ k: 'prompt', p: d.pid, text: this.promptFor(d), d: {} }, { prompt: true, suggest: true });
           ans = await this.humanDecide(d);
+          this.curDec = null; this.sugg = null; this.hideSuggest();
         } else if (this.review) ans = 0;
         else ans = this.aiDecide(d);
         this.currentActor = null;
@@ -502,6 +506,43 @@
     revisePanel(d) {
       this.setAction(`<h3>${esc(this.promptFor(d))}</h3><div class="btn-row"><button class="btn primary" data-i="0">Tengo la mano com'è</button></div><div class="hand">${d.options.map((o, i) => (i === 0 ? '' : `<div class="pickcard"><button class="cardbtn selectable" data-i="${i}">${S.region(o.discard)}</button><div class="small">Scarta questa</div></div>`)).join('')}</div>`);
       return this.waitClick(async (e) => { const b = e.target.closest('[data-i]'); return b ? Number(b.dataset.i) : undefined; });
+    }
+
+    // ── suggerimento dell'AI (facoltativo) ──
+    describeOption(d, o) {
+      const g = this.game, rn = (id) => g.card(id).regione;
+      switch (d.type) {
+        case 'place': return o.pass ? 'Passa per questo round' : `Piazza su «${FF.SPACE_NAMES[o.space]}»`;
+        case 'play': return o.replace ? `Gioca ${rn(o.card)} al posto di quella che hai` : `Gioca ${rn(o.card)} nella cella (${o.x},${o.y})`;
+        case 'buy': return o.blind ? `Pesca alla cieca (${o.price} PM)` : `Compra ${rn(o.card)} (${o.price} PM)`;
+        case 'symbol': return `Metti ${SN[o.sym].i} ${SN[o.sym].n} su ${FF.regionOf(g.s.players[d.pid].table[o.idx])}`;
+        case 'doppia1': case 'doppia2': case 'ripetuta': return `Scegli «${FF.SPACE_NAMES[o.act]}»`;
+        case 'keep': return `Tieni ${rn(o.card)}`;
+        case 'swap': return o.skip ? 'Non scambiare' : `Scambia ${rn(o.hand)} con ${rn(o.card)}`;
+        case 'revise': return o.skip ? 'Tieni la mano' : `Scarta ${rn(o.discard)}`;
+        default: return 'Questa scelta';
+      }
+    }
+    showSuggest() {
+      const d = this.curDec; if (!d || this.review) return;
+      const r = FF.AI.suggest(this.game, d), o = d.options[r.index];
+      this.sugg = { d, index: r.index };
+      const box = $('#g-suggest'); box.classList.remove('hidden');
+      box.innerHTML = `<b>💡 Suggerimento dell'AI difficile:</b> ${esc(this.describeOption(d, o))}. <span class="muted small">Guadagno stimato ${r.value >= 0 ? '+' : ''}${r.value.toFixed(1)} punti (è solo una stima: l'AI non vede le carte degli altri e può sbagliare).</span>`;
+      this.applySuggest();
+    }
+    hideSuggest() { const box = $('#g-suggest'); if (box) { box.classList.add('hidden'); box.innerHTML = ''; } }
+    applySuggest() {
+      $$('#g-action .suggested').forEach((e) => e.classList.remove('suggested'));
+      if (!this.sugg) return;
+      const { d, index } = this.sugg, o = d.options[index], q = (sel) => $$('#g-action ' + sel).forEach((e) => e.classList.add('suggested'));
+      switch (d.type) {
+        case 'place': q(o.pass ? '[data-sp="pass"]' : `[data-sp="${o.space}"]`); break;
+        case 'play': q(`[data-card="${o.card}"]`); if (o.replace) q('.tcell.pick .cardbtn'); else q(`[data-cell="${o.x},${o.y}"]`); break;
+        case 'buy': q(o.blind ? '[data-blind]' : `[data-slot="${o.slot}"]`); break;
+        case 'symbol': q(`[data-sym="${o.sym}"]`); q(`.tcell.pick[data-idx="${o.idx}"] .cardbtn`); break;
+        default: q(`[data-i="${index}"]`);
+      }
     }
 
     // ── note, menu, fine ──
