@@ -50,9 +50,9 @@ test('fusioni: tutte le 8 ricette, in entrambi gli ordini; le altre coppie non f
 });
 
 // ───────────────────────── Accuratezza ─────────────────────────
-test('accuratezza: scaglioni 0 / 1-6 / 7-10 / 11-13 / 14-15', () => {
+test('accuratezza: scaglioni 0 / 1-2 / 3-4 / 5-6 / 7+', () => {
   const pts = (raw) => FF.DEFAULT_RULES.accuracy.find((s) => raw >= s.from && raw <= s.to).pts;
-  assert.deepEqual([0, 1, 6, 7, 10, 11, 13, 14, 15].map(pts), [0, 3, 3, 6, 6, 10, 10, 15, 15]);
+  assert.deepEqual([0, 1, 2, 3, 4, 5, 6, 7, 15].map(pts), [0, 3, 3, 6, 6, 10, 10, 15, 15]);
 });
 test('accuratezza: simbolo richiesto, fusione richiesta, la fusione sostituisce i simboli base', () => {
   const target = { nord: [{ regione: 'Veneto', punti: 2, req: 'temporale' }, { regione: 'Lombardia', punti: 1, req: 'pioggia' }], centro: [{ regione: 'Marche', punti: 3, req: 'sole' }], sud_isole: [] };
@@ -354,9 +354,17 @@ test('fuzz con parametri alterati (Sezione 2 occupa, niente adiacenza obbligata,
 });
 
 // ───────────────────────── chi pesca l'Evento ─────────────────────────
-test('Evento: a 3 giocatori, col primo giocatore che ruota, pesca sempre lo stesso i 3 Eventi (round 4, 7, 10); la variante «rotate» li distribuisce', () => {
-  const drawers = (n, rules) => FF.playGame({ seed: 21, players: PL(n), rules }).game.events.filter((e) => e.k === 'event' && /CARTA EVENTO/.test(e.text)).map((e) => e.p);
-  const d3 = drawers(3); assert.equal(d3.length, 3); assert.equal(new Set(d3).size, 1, 'a 3 giocatori pesca sempre lo stesso: ' + d3);
-  const r3 = drawers(3, { eventDrawer: 'rotate' }); assert.equal(new Set(r3).size, 3, 'con rotate sono tutti diversi: ' + r3);
-  assert.equal(new Set(drawers(4)).size, 3);        // a 4 giocatori sono già tutti diversi
+test('Evento: il segnalino «Protezione Civile» parte dal primo giocatore e passa a sinistra a ogni Evento; la variante «first» a 3 giocatori dà sempre lo stesso', () => {
+  const run = (n, rules, seed) => { const r = FF.playGame({ seed: seed || 21, players: PL(n), rules }); return { drawers: r.game.events.filter((e) => e.k === 'event' && /CARTA EVENTO/.test(e.text)).map((e) => e.p), start: r.result.startFirst }; };
+  for (const n of [2, 3, 4]) { const r = run(n); assert.equal(r.drawers.length, 3); assert.deepEqual(r.drawers, [0, 1, 2].map((k) => (r.start + k) % n), n + ' giocatori'); }
+  const f3 = run(3, { eventDrawer: 'first' }); assert.equal(new Set(f3.drawers).size, 1, 'variante first: sempre lo stesso a 3 giocatori');
+});
+
+// ───────────────────────── compensazione dell'ordine di turno ─────────────────────────
+test('startPMBonus: PM in più in base all\'ordine di turno a partire dal primo giocatore (spento di default)', () => {
+  const g0 = new FF.Game({ seed: 3, players: PL(3) }); assert.deepEqual(g0.s.players.map((p) => p.pm), [2, 2, 2]);
+  for (const seed of [3, 4, 5, 6]) {
+    const g = new FF.Game({ seed, players: PL(3), rules: { startPMBonus: [0, 1, 1] } }), f = g.s.first;
+    assert.equal(g.s.players[f].pm, 2); assert.equal(g.s.players[(f + 1) % 3].pm, 3); assert.equal(g.s.players[(f + 2) % 3].pm, 3);
+  }
 });

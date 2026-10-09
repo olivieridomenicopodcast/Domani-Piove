@@ -95,9 +95,30 @@
       for (let i = 0; i < n; i++) for (let k = 0; k < R.startCards; k++) { const c = this._drawRegion(); if (c != null) s.players[i].hand.push(c); }
       s.first = R.firstPlayer >= 0 ? R.firstPlayer % n : this.randInt(n);
       s.startFirst = s.first;
+      (R.startPMBonus || []).forEach((b, k) => { const q = s.players[(s.first + k) % n]; if (q) q.pm += b; });
+      if (cfg.forced) this._force(cfg.forced, s);
       s.round = 0; s.phase = 'setup'; s.occupied = {}; s.over = false; s.lastEvent = null;
       s.eventsDrawn = 0; s.transit = [];   // carte pescate da un Evento e non ancora assegnate (così lo stato è sempre coerente)
       return s;
+    }
+
+    // Forzature per l'analisi del simulatore (non usano il generatore casuale, così le partite restano "appaiate" per seed):
+    //  {kind:'evento', id}                il primo Evento che esce è questo
+    //  {kind:'regione', id, seat}         il giocatore parte con questa Carta Regione in mano (al posto della prima)
+    //  {kind:'previsione', id}            la Previsione della sua area è questa
+    _force(f, s) {
+      if (f.kind === 'evento') { const i = s.eventDeck.indexOf(f.id); if (i >= 0) s.eventDeck.splice(i, 1); s.eventDeck.push(f.id); }
+      else if (f.kind === 'regione') {
+        const p = s.players[f.seat || 0]; if (p.hand.indexOf(f.id) >= 0 || !p.hand.length) return;
+        const old = p.hand[0]; let i = s.regionDeck.indexOf(f.id);
+        if (i >= 0) { s.regionDeck[i] = old; p.hand[0] = f.id; return; }
+        i = s.market.indexOf(f.id); if (i >= 0) { s.market[i] = old; p.hand[0] = f.id; return; }
+        for (const q of s.players) { const j = q.hand.indexOf(f.id); if (j >= 0) { q.hand[j] = old; p.hand[0] = f.id; return; } }
+      } else if (f.kind === 'previsione') {
+        const card = FF.PREVISIONI.find((x) => x.id === f.id); if (!card) return;
+        s.prev[card.area] = card.id;
+        s.target[card.area] = card.condizioni.map((c) => ({ regione: c.regione, livello: c.livello, punti: c.punti, req: c.simbolo, orig: c.simbolo }));
+      }
     }
 
     // ───────────────────────── utilità ─────────────────────────

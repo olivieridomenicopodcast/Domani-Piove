@@ -162,3 +162,13 @@ details > summary.ptitle { cursor: pointer; }
 /* suggerimento dell'AI */
 .suggest { background: #fff7d1; border: 3px dashed #d99a00; border-radius: 12px; padding: .5rem .8rem; margin-bottom: .6rem; }
 .suggested { outline: 4px dashed #d99a00 !important; outline-offset: 3px; border-radius: 10px; box-shadow: 0 0 0 4px rgba(255,200,0,.35); }
+
+/* simulatore */
+.rowgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: .5rem 1rem; } .rowgrid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: .5rem 1.2rem; }
+.rowgrid .field input[type=text], .rowgrid .field input[type=number], .rowgrid .field select { width: 100%; } .rowgrid .field input[type=text] { margin-top: .3rem; }
+.chk { display: flex; gap: .5rem; align-items: center; margin: .5rem 0; } hr { border: 0; border-top: 2px dashed var(--line); margin: 1.2rem 0; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: .6rem; margin: .6rem 0 1rem; } .tile { background: #fffdf6; border: 2px solid var(--line); border-radius: 12px; padding: .5rem .7rem; } .tbig { font-size: 1.7rem; font-weight: 800; color: var(--accent2); line-height: 1.1; } .tlab { font-weight: 700; } .tsub { font-size: .8rem; color: var(--muted); }
+.bars { display: grid; gap: .25rem; } .barrow { display: grid; grid-template-columns: minmax(80px, 38%) 1fr 62px; gap: .4rem; align-items: center; font-size: .88rem; } .bt { background: var(--paper2); border-radius: 6px; height: 16px; overflow: hidden; } .bf { display: block; height: 100%; border-radius: 6px; } .bv { text-align: right; font-variant-numeric: tabular-nums; } .bl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.linechart { width: 100%; max-width: 640px; height: auto; background: #fffdf6; border: 2px solid var(--line); border-radius: 10px; } .legendline { display: flex; gap: 1rem; font-size: .85rem; margin: .3rem 0 .8rem; } .legendline i { display: inline-block; width: 22px; height: 6px; border-radius: 3px; margin-right: .3rem; vertical-align: middle; }
+.progress { height: 14px; background: var(--paper2); border-radius: 8px; overflow: hidden; border: 2px solid var(--line); margin: .8rem 0 .3rem; } .progress span { display: block; height: 100%; width: 0; background: var(--accent2); transition: width .15s; }
+.gtable td, .gtable th { white-space: nowrap; } .good { color: var(--ok); } .bad { color: var(--bad); }

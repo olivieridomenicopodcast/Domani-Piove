@@ -30,6 +30,7 @@
     eventRounds: [4, 7, 10],    // [chiarito] Carta Evento alle 11:00, 14:00, 17:00 (= inizio del round 4, 7, 10 → [interpretazione])
     startPM: 2,                 // [chiarito] valori di partenza della Milestone
     startCards: 2,
+    startPMBonus: [],           // [variante da misurare] PM in più in base all'ordine di turno: [0, 1] = il 2° giocatore parte con 1 PM in più
     workers: 2,
     thirdWorkerCost: 5,         // [chiarito] 5 PM
     thirdWorkerNextRound: true, // [interpretazione] il 3° lavoratore è disponibile dal round dopo lo sblocco
@@ -49,7 +50,7 @@
       temporale2: 3, temporale3: 6,
       pioggia: 1, neve: 4, vento: 2, nuvolo: 1, nebbia: 2,
     },
-    eventDrawer: 'first',       // [interpretazione] chi pesca l'Evento: 'first' = il primo giocatore del round; 'rotate' = ruota a ogni Evento (variante da misurare)
+    eventDrawer: 'rotate',      // [chiarito] segnalino «Protezione Civile»: parte dal primo giocatore e passa a sinistra a ogni Evento ('first' = il primo giocatore del round, solo per esperimenti)
     tieBreak: ['accPts', 'accRaw', 'coerenza', 'pm'], // [interpretazione]
   };
 

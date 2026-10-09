@@ -21,14 +21,14 @@ Siete meteorologi amatoriali, ognuno con il proprio canale. Sulla plancia centra
 2. Mercato: **5 Carte Regione scoperte** + mazzo coperto.
 3. Ogni giocatore parte con **2 PM** e **2 Carte Regione** in mano. Nessun limite di carte in mano. [chiarito]
 4. Ogni giocatore ha **2 lavoratori**.
-5. Il primo giocatore è scelto a sorte. [interpretazione]
+5. Il primo giocatore è scelto a sorte [interpretazione] e riceve il segnalino «Protezione Civile» [chiarito].
 6. Obiettivi Segreti: si pescano 2, se ne tiene 1. *Il mazzo non esiste ancora: in questa versione la regola è un segnaposto che vale 0 punti.* [chiarito]
 
 ## 4. Il round
 Un round è un'ora della giornata. Ogni round: (1) se è un round-Evento, si pesca la Carta Evento; (2) piazzamento dei lavoratori; (3) i lavoratori tornano a casa e gli spazi si liberano.
 
 **Il primo giocatore passa a sinistra a ogni round.** [interpretazione]
-**Carta Evento:** all'inizio dei round 4, 7 e 10 (11:00, 14:00, 17:00). La pesca il primo giocatore del round: dove una carta dice «il giocatore che pesca», è lui. [interpretazione]
+**Carta Evento:** all'inizio dei round 4, 7 e 10 (11:00, 14:00, 17:00). La pesca e la legge ad alta voce chi ha il **segnalino «Protezione Civile»**: dove una carta dice «il giocatore che pesca», è lui. Dopo l'Evento il segnalino passa al giocatore alla sua sinistra. Il segnalino parte dal primo giocatore della partita. [chiarito]
 
 ### Piazzamento
 Si gioca in ordine di turno, **un lavoratore alla volta**, a rotazione. Chi **passa** è fuori fino alla fine del round. Chi non ha spazi utili passa da solo. [interpretazione sulla contraddizione del Concept §4.2]
@@ -86,10 +86,12 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 | Totale grezzo | Esito | Punti |
 |---|---|---|
 | 0 | Previsione mancata | 0 |
-| 1–6 | Parzialmente corretta | 3 |
-| 7–10 | Buona | 6 |
-| 11–13 | Molto accurata | 10 |
-| 14–15 | Perfetta | 15 |
+| 1–2 | Parzialmente corretta | 3 |
+| 3–4 | Buona | 6 |
+| 5–6 | Molto accurata | 10 |
+| 7–15 | Eccellente | 15 |
+
+*Un gradino ogni 2 punti di previsione: nelle partite simulate si arriva di solito a 2-6 punti grezzi. [chiarito con Niky, dopo le misure]*
 
 ### Coerenza Geografica = bonus di confine + pattern
 **Bonus di confine / compensativi:** +1 per ogni carta giocata il cui bonus è soddisfatto; si sommano senza tetto (tre regioni della «rete estrema» = +3, le due isole = +2).
@@ -113,7 +115,7 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 Più punti totali; a parità più punti di Accuratezza, poi più Accuratezza grezza, poi più Coerenza, poi più PM; se ancora pari: pari merito.
 
 ## 9. Parametri (modificabili dall'app per fare esperimenti)
-`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 · `sez2OccupiesSez1` no · `requireAdjacentPlacement` sì · `borderPoints` 1 · `eventDrawer` primo giocatore (variante `rotate` solo per esperimenti).
+`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 · `sez2OccupiesSez1` no · `requireAdjacentPlacement` sì · `borderPoints` 1 · `eventDrawer` segnalino che passa di mano (variante `first` = il primo giocatore del round, solo per esperimenti).
 
 ## 10. Differenze rispetto al Concept v9 originale
 | Tema | Concept v9 | Questa versione |
@@ -126,6 +128,8 @@ Più punti totali; a parità più punti di Accuratezza, poi più Accuratezza gre
 | Pattern Temporale | ambiguo (per carta o per gruppo) | Per gruppo |
 | Pattern Neve | «bonus fisso se esiste un gruppo» | Una volta sola per giocatore |
 | 3° lavoratore | «per il resto della partita» | Dal round successivo |
-| Primo giocatore / chi pesca l'Evento | non scritto | A sorte, poi ruota; è lui che pesca l'Evento |
+| Primo giocatore | non scritto | A sorte, poi ruota di uno a ogni round |
+| Chi pesca l'Evento | non scritto | Segnalino «Protezione Civile» che passa a sinistra a ogni Evento (a 3 giocatori il primo giocatore pescherebbe sempre tutti e tre gli Eventi) |
+| Scala di Accuratezza | 1–6 → 3, 7–10 → 6, 11–13 → 10, 14–15 → 15 | 1–2 → 3, 3–4 → 6, 5–6 → 10, 7+ → 15 (con le soglie vecchie la fedeltà non conveniva: ≈ 9% contro i pattern; ora ≈ 51%) |
 | Spareggio | non scritto | Vedi §8 |
 | Obiettivi Segreti | pesca 2, tieni 1, punti | Solo il segnaposto (0 punti): il mazzo si scrive con Niky |

@@ -123,7 +123,7 @@
     const nextEv = R.eventRounds.find((r) => r > s.round);
     out.push(['🕒', `Round <b>${Math.max(1, s.round)}/${R.rounds}</b> · ore <b>${hour(Math.max(1, s.round))}</b>`]);
     out.push(['👑', `Primo giocatore del round: <b>${esc(s.players[s.first].name)}</b>`]);
-    out.push(['📻', nextEv ? `Prossima Carta Evento: round <b>${nextEv}</b> (ore <b>${hour(nextEv)}</b>), la pesca il primo giocatore di quel round.` : 'Non ci sono più Carte Evento in questa partita.']);
+    out.push(['📻', nextEv ? `Prossima Carta Evento: round <b>${nextEv}</b> (ore <b>${hour(nextEv)}</b>), la pesca chi ha il segnalino «Protezione Civile» (${esc(s.players[g.rules.eventDrawer === 'rotate' ? (s.startFirst + s.eventsDrawn) % g.n : s.first].name)}).` : 'Non ci sono più Carte Evento in questa partita.']);
     if (s.lastEvent) { const e = FF.EVENTS[s.lastEvent]; out.push(['🗞', `Ultimo Evento: <button class="linkbtn" data-zoom="evt:${e.id}">#${e.id} ${esc(e.titolo)}</button>`]); }
     const chg = []; FF.AREAS.forEach((a) => s.target[a].forEach((c) => { if (c.req !== c.orig) chg.push(`${esc(c.regione)}: ${esc(S.reqName(c.orig))} → <b>${esc(S.reqName(c.req))}</b>`); }));
     out.push(['🎯', chg.length ? `Bersaglio cambiato dagli Eventi: ${chg.join('; ')}.` : 'Bersaglio <b>invariato</b>: nessun Evento lo ha ancora cambiato.']);

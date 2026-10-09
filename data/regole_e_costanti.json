@@ -138,26 +138,26 @@
       },
       {
         "da": 1,
-        "a": 6,
+        "a": 2,
         "esito": "Parzialmente corretta",
         "punti": 3
       },
       {
-        "da": 7,
-        "a": 10,
+        "da": 3,
+        "a": 4,
         "esito": "Buona",
         "punti": 6
       },
       {
-        "da": 11,
-        "a": 13,
+        "da": 5,
+        "a": 6,
         "esito": "Molto accurata",
         "punti": 10
       },
       {
-        "da": 14,
+        "da": 7,
         "a": 15,
-        "esito": "Perfetta",
+        "esito": "Eccellente",
         "punti": 15
       }
     ]

@@ -2,7 +2,25 @@
 
 *Da NON decidere ora: li riprendiamo col simulatore e coi playtest. Ricordarli a Niky a ogni tappa importante.*
 
-## Misure della tappa 4 (AI e simulatore) — da discutere con Niky, NIENTE è stato cambiato nelle regole
+## Misure della tappa 5 (con le regole NUOVE: scala di Accuratezza 1-2/3-4/5-6/7+ e segnalino «Protezione Civile») — da discutere con Niky
+*Tutte con intervallo di confidenza al 95%. Dove non indicato, AI Difficile contro Difficile, posti alternati.*
+- **Fedeltà contro pattern (ora in equilibrio):** solo-fedeltà batte solo-pattern **56,3%** [50,7–61,8] (300 partite, 2 giocatori) e **36,0%** [28,8–43,9] a 3 giocatori (atteso 33,3%); l'AI normale batte solo-pattern 88,0% e solo-fedeltà 92,7%. Accuratezza grezza media dell'AI normale 4,6 su 15, Coerenza 15,3, totale 24,0.
+- **Prove estreme** (60 partite ciascuna, A = Difficile): la AI normale batte casuale 100%, solo fedeltà 96,7% [88,6–99,1], solo pattern 95,0% [86,3–98,3], solo PM 100%, passivo 100%. **Nessuna strategia sbagliata di proposito regge.**
+- **⚠ Vantaggio dell'ordine di turno (resta anche con il segnalino):** chi inizia la partita vince di più, e l'effetto scende con l'ordine di turno. Con giocatori Medi (≈ 4.500 partite): a 3 giocatori primo **36,0%**, secondo 33,3%, terzo 30,7%; a 2 giocatori 52,6% / 47,4%. **Non esiste alcun vantaggio legato al posto fisso** (33,0 / 33,6 / 33,3%): gli scarti visti in alcune serie brevi erano rumore. A 2 giocatori chi inizia ha **+0,50 punti** [0,14–0,86] (su ≈ 24); senza la rotazione del primo giocatore sarebbe +1,16.
+- **Compensazione provata (PM iniziali in più a chi NON inizia, `startPMBonus`):**
+| | 2 giocatori | 3 giocatori | 4 giocatori |
+|---|---|---|---|
+| Nessuna compensazione (3.000 partite) | 54,9% [53,1–56,7] | 38,1% [36,4–39,9] | 31,3% [29,6–33,0] |
+| Tutti tranne il primo +1 PM (2.000; a 4 giocatori 1.500) | **48,0%** [45,8–50,2] | **31,6%** [29,6–33,6] | **26,1%** [23,9–28,4] |
+| Solo l'ultimo +1 PM (3 giocatori) | — | 36,2% [34,1–38,3] (non basta) | — |
+| Solo gli ultimi due +1 PM (4 giocatori) | — | — | 26,7% [24,6–29,1] |
+  Atteso: 50% / 33,3% / 25%. La regola «chi non inizia parte con 3 PM invece di 2» riporta tutto vicino al neutro (leggermente oltre a 2 e 3 giocatori).
+- **Analisi forzata degli Eventi** (80 coppie di partite per carta, AI Media, Δ punteggio di chi pesca rispetto a un Evento a caso):
+  - **#74 Potenziamento del centro operativo (3° lavoratore gratis): +5,70 [+4,45 ; +6,95]** — di gran lunga la più forte; poi #76 Ricognizione aerea +2,46, #73 Incentivo alla raccolta dati +2,44, #70 Premio +1,94, #64 e #16 (pescare una carta) ≈ +1,5, #63 e #8 (+2 PM a tutti) ≈ +1,1.
+  - **Tutti i fenomeni fanno perdere punti anche a chi li pesca**: da −0,8 a −1,7 (peggiore #42 Bora di ritorno −1,66 [−2,68 ; −0,65]). Le carte positive aiutano anche gli altri (+2/+3) perché sostituiscono un Evento a caso, che di solito è un fenomeno.
+- **Analisi forzata delle Carte Regione** (60 coppie, AI Media): quasi tutte entro il rumore; le uniche con intervallo che esclude 0 sono Lazio neutra +1,50 [+0,16 ; +2,84] e Friuli-Venezia Giulia neutra −1,67 [−3,11 ; −0,22]. Servono più partite per tarare le singole carte.
+
+## Misure della tappa 4 (AI e simulatore) — fatte con le REGOLE ORIGINALI, prima delle due decisioni sotto
 *Tutte con intervallo di confidenza al 95%, posti alternati. Comando di esempio: `node tools/sim.js --games 300 --a hard --b medium`.*
 - **Livelli AI (2 giocatori, 300 partite):** Difficile batte Media **63,0%** [57,4–68,3]; Media batte Facile **93,7%** [90,3–95,9]; Difficile batte Facile **96,3%** [93,6–97,9]. A 4 giocatori (200 partite) una Difficile contro 3 Medie vince **43,0%** [36,3–49,9] (attese 25%). L'abilità conta.
 - **⚠ Fedeltà contro Pattern (strategie estreme, 100 partite, entrambe AI Difficile):** chi gioca *solo per la fedeltà alla previsione* perde contro chi gioca *solo per i pattern* nel **97%** dei casi (vince **3,0%** [1,0–8,5]; punteggi medi 4,7 contro 15,8). Una AI normale batte «solo fedeltà» 100% [96,3–100] e «solo pattern» 85,0% [76,7–90,7]. L'Accuratezza grezza media è ≈ **2 su 15**: quasi sempre scaglione «Parzialmente corretta» (3 punti); la Coerenza Geografica vale ≈ **15-17 punti** (pattern ≈ 13-15). **Il Concept dice che la fedeltà deve restare la strada più remunerativa: con i numeri di partenza non lo è.** Motivo probabile: l'economia (PM e azioni) permette ≈ 5 carte giocate e ≈ 9 simboli a partita, e un gruppo di Sole/Temporale vale più delle condizioni della previsione. Limite della misura: l'AI fedele è euristica, non ottima.
@@ -12,7 +30,7 @@
 - **Eventi che cambiano il bersaglio:** 0,45-0,65 volte a partita nelle simulazioni (la stima analitica era 0,47). I colpi a vuoto sono ≈ 0,45 a partita; la regione nominata è «fuori gioco» ≈ 1 volta a partita.
 - **Sprechi a fine partita (Difficile):** ≈ 1 PM e ≈ 1,3 carte in mano; lavoratori inutilizzati 0,4 a partita. **Mosse che tolgono punti da sole:** Difficile 0 su 3.197; Media 23 (per il rumore voluto).
 
-## Proposte misurate per i due problemi (NON ancora adottate — aspettano la decisione di Niky)
+## Proposte misurate per i due problemi (ADOTTATE da Niky: nuova scala di Accuratezza e segnalino «Protezione Civile» che passa di mano)
 *Strumento: `node tools/experiment.js '<json delle regole>' [partite] [seed] [giocatori]`. Tutte con AI Difficile; «solo fedeltà» = ignora i pattern, «solo pattern» = ignora la previsione, «AI normale» = tiene conto di tutto.*
 
 **Problema 1 — la fedeltà non conviene (solo-fedeltà contro solo-pattern, 2 giocatori, A = solo-fedeltà):**

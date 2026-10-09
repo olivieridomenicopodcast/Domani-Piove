@@ -9,7 +9,7 @@
     if (UI.session) { UI.session.dispose(); UI.session = null; }
     $('#modal-root').innerHTML = '';
     if (where === 'home') { UI.screen('home'); renderResume(); }
-    else if (where === 'sim') UI.toast('Il simulatore arriva nelle prossime tappe.');
+    else if (where === 'sim') UI.openSim();
     else if (where === 'rules') UI.openRules();
     else UI.openSetup(where);
   };

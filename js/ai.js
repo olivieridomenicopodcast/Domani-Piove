@@ -117,7 +117,9 @@
   function evalPlayer(g, p, P) {
     const R = g.rules, A = analyze(g, p, P), rawNow = A.raw;
     const accNow = FF.accuracyScore(p.table, g.s.target, R).pts;
-    const acc = accNow + smooth(Math.min(15, rawNow + P.potW * A.pot), R) - smooth(rawNow, R);
+    // finché c'è tempo per fare progressi vale la stima morbida (così ogni condizione completata non fa mai perdere valore);
+    // quando il potenziale si esaurisce conta sempre di più il gradino vero della scala
+    const w = Math.min(1, A.pot / 1.2), acc = (1 - w) * accNow + w * smooth(Math.min(15, rawNow + P.potW * A.pot), R);
     const border = FF.borderScore(p.table, R).total, pat = FF.patternScore(A.virt, R).total, patNow = FF.patternScore(p.table, R).total;
     const cap = (x) => (R.coerCap == null ? x : Math.min(R.coerCap, x)), coerNow = cap(border + patNow), coerPlan = cap(border + pat);
     let v = (P.accW == null ? 1 : P.accW) * acc + (P.coerW == null ? 1 : P.coerW) * (coerNow + P.patW * Math.max(0, coerPlan - coerNow));   // accW/coerW: pesi per le strategie estreme dei test
