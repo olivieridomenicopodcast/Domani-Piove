@@ -52,11 +52,17 @@
 
   // ───────────────────────── valutazione di uno stato ─────────────────────────
   // Accuratezza "morbida": interpola tra i centri degli scaglioni (0 | 1-6 | 7-10 | 11-13 | 14-15) per poter pianificare
-  const SMOOTH = [[0, 0], [3.5, 3], [8.5, 6], [12, 10], [14.5, 15], [15, 15]];
-  function smooth(raw) {
+  const smoothCache = new WeakMap();
+  function smoothPts(R) {   // punti (centro dello scaglione → punti dello scaglione) ricavati dalla scala delle regole in uso
+    let pts = smoothCache.get(R.accuracy);
+    if (!pts) { pts = R.accuracy.map((t) => [(t.from + Math.min(t.to, 15)) / 2, t.pts]); if (pts[0][0] > 0) pts.unshift([0, 0]); pts.push([15, pts[pts.length - 1][1]]); smoothCache.set(R.accuracy, pts); }
+    return pts;
+  }
+  function smooth(raw, R) {
+    const SM = smoothPts(R);
     if (raw <= 0) return 0;
-    for (let i = 1; i < SMOOTH.length; i++) if (raw <= SMOOTH[i][0]) { const a = SMOOTH[i - 1], b = SMOOTH[i]; return a[1] + (b[1] - a[1]) * (raw - a[0]) / (b[0] - a[0]); }
-    return 15;
+    for (let i = 1; i < SM.length; i++) if (raw <= SM[i][0]) { const a = SM[i - 1], b = SM[i]; return b[0] === a[0] ? b[1] : a[1] + (b[1] - a[1]) * (raw - a[0]) / (b[0] - a[0]); }
+    return SM[SM.length - 1][1];
   }
   // quanti simboli mancano su una carta per soddisfare req (−1 = impossibile: simboli sbagliati o carta piena/fusa)
   function symbolsNeeded(sym, fusion, req, M) {
@@ -111,9 +117,10 @@
   function evalPlayer(g, p, P) {
     const R = g.rules, A = analyze(g, p, P), rawNow = A.raw;
     const accNow = FF.accuracyScore(p.table, g.s.target, R).pts;
-    const acc = accNow + smooth(Math.min(15, rawNow + P.potW * A.pot)) - smooth(rawNow);
+    const acc = accNow + smooth(Math.min(15, rawNow + P.potW * A.pot), R) - smooth(rawNow, R);
     const border = FF.borderScore(p.table, R).total, pat = FF.patternScore(A.virt, R).total, patNow = FF.patternScore(p.table, R).total;
-    let v = (P.accW == null ? 1 : P.accW) * acc + (P.coerW == null ? 1 : P.coerW) * (border + patNow + P.patW * Math.max(0, pat - patNow));   // accW/coerW: pesi per le strategie estreme dei test
+    const cap = (x) => (R.coerCap == null ? x : Math.min(R.coerCap, x)), coerNow = cap(border + patNow), coerPlan = cap(border + pat);
+    let v = (P.accW == null ? 1 : P.accW) * acc + (P.coerW == null ? 1 : P.coerW) * (coerNow + P.patW * Math.max(0, coerPlan - coerNow));   // accW/coerW: pesi per le strategie estreme dei test
     // carte in mano con un bonus di confine già soddisfatto: valgono +1 appena giocate
     const owned = new Set(p.table.map(FF.regionOf)); p.hand.forEach((id) => owned.add(regionName(id)));
     let hb = 0;

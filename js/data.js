@@ -41,6 +41,7 @@
     requireAdjacentPlacement: true, // [chiarito] ogni nuova carta si gioca a contatto ortogonale con una già giocata
     firstPlayer: -1,            // [interpretazione] -1 = a sorte (da seed); poi ruota di uno a ogni round
     rotateFirst: true,
+    coerCap: null,              // [variante da misurare] tetto ai punti di Coerenza Geografica (null = nessun tetto)
     borderPoints: 1,            // [chiarito] +1 per bonus attivo
     accuracy: C.costanti.accuratezza.scaglioni.map((s) => ({ from: s.da, to: s.a, label: s.esito, pts: s.punti })),
     pattern: {                  // numeri provvisori da tarare (Concept §6)

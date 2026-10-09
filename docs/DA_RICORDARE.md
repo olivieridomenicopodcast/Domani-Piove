@@ -12,6 +12,32 @@
 - **Eventi che cambiano il bersaglio:** 0,45-0,65 volte a partita nelle simulazioni (la stima analitica era 0,47). I colpi a vuoto sono ≈ 0,45 a partita; la regione nominata è «fuori gioco» ≈ 1 volta a partita.
 - **Sprechi a fine partita (Difficile):** ≈ 1 PM e ≈ 1,3 carte in mano; lavoratori inutilizzati 0,4 a partita. **Mosse che tolgono punti da sole:** Difficile 0 su 3.197; Media 23 (per il rumore voluto).
 
+## Proposte misurate per i due problemi (NON ancora adottate — aspettano la decisione di Niky)
+*Strumento: `node tools/experiment.js '<json delle regole>' [partite] [seed] [giocatori]`. Tutte con AI Difficile; «solo fedeltà» = ignora i pattern, «solo pattern» = ignora la previsione, «AI normale» = tiene conto di tutto.*
+
+**Problema 1 — la fedeltà non conviene (solo-fedeltà contro solo-pattern, 2 giocatori, A = solo-fedeltà):**
+| Variante | Solo-fedeltà batte solo-pattern | AI normale batte solo-pattern / solo-fedeltà | Totale medio AI normale |
+|---|---|---|---|
+| Regole attuali (120 partite) | 9,2% [5,2–15,7] | 80,8% / 100% | 19,5 |
+| Tetto di 6 alla Coerenza | 21,7% [15,2–29,9] | 74,2% / 100% | 9,0 |
+| Tetto di 9 alla Coerenza | 8,3% [4,6–14,7] | 75,0% / 100% | 12,0 |
+| Pattern circa dimezzati | 17,5% [11,7–25,3] | 81,7% / 100% | 12,9 |
+| 3 lavoratori a testa | 2,5% [0,9–7,1] | 75,8% / 99,2% | 27,1 |
+| **Scala di Accuratezza «1-2 → 3, 3-4 → 6, 5-6 → 10, 7+ → 15» (300 partite)** | **51,0% [45,4–56,6]** | **92,0% / 93,3%** | 23,9 |
+| Scala più dolce «1-3 → 3, 4-6 → 6, 7-9 → 10, 10+ → 15» | 26,7% [20,2–34,3] | 83,3% / 100% | 21,2 |
+| Scala con punti più bassi «1-2 → 2, 3-4 → 5, 5-6 → 8, 7+ → 12» | 36,0% [28,8–43,9] | 85,3% / 98,0% | 21,5 |
+| Scala nuova + tetto 8 alla Coerenza | 83,3% [75,7–88,9] | 99,2% / 82,5% | 17,0 |
+- **Perché funziona la nuova scala:** le soglie attuali (1-6, 7-10, 11-13, 14-15) sono pensate per un grezzo fino a 15, ma nelle partite si arriva a 2-6: tra 1 e 6 punti grezzi si prendono sempre 3 punti, quindi non conviene impegnarsi. Con la scala nuova ogni 2 punti di previsione c'è un gradino (stessi punti finali 3/6/10/15, cambiano solo le soglie).
+- **Con la scala nuova** a 3 giocatori (150 partite): solo-fedeltà 29,3% [22,6–37,1] (atteso 33,3%); i livelli delle AI restano distinti (Difficile batte Media 63,0% [57,4–68,3]; Media batte Facile 96,7% [94,0–98,2]). Accuratezza grezza media dell'AI normale: da 2,3 a 4,3.
+- **Attenzione ai nomi:** con la scala nuova «Perfetta» scatta a 7+ su 15 (non a 14-15): conviene rinominare i gradini.
+- **Idee scartate dalle misure:** il solo tetto, i soli pattern dimezzati e i 3 lavoratori non bastano; con 3 lavoratori i pattern guadagnano ancora di più.
+
+**Problema 2 — a 3 giocatori chi inizia pesca sempre gli Eventi (vantaggio di chi inizia):**
+| Variante | 2 giocatori | 3 giocatori | 4 giocatori |
+|---|---|---|---|
+| Regole attuali | 52,3% [47,4–57,1] | 38,9% [35,9–42,0] (atteso 33,3%) | 26,0% [21,9–30,5] |
+| L'Evento passa di mano a ogni pescata (`eventDrawer=rotate`) | 49,1% [45,6–52,5] (800 partite) | 35,4% [32,4–38,4] | 27,9% [24,9–31,2] (atteso 25%) |
+
 ## Misure precedenti
 1. **Frequenza degli Eventi che cambiano il bersaglio** (stima analitica sui dati, una Previsione casuale per area): un Evento pescato a caso cambia il bersaglio nel ~16% dei casi → **circa 0,47 cambi a partita** con 3 Eventi. I Tipo A scattano solo nell'~8% dei casi, i Tipo B nel ~53%. Il «bersaglio mobile» è un pilastro del concept ma succede in media meno di una volta a partita. **Da riconfermare col simulatore.**
 

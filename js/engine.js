@@ -176,7 +176,7 @@
       const p = this.s.players[pid], R = this.rules;
       const acc = FF.accuracyScore(p.table, this.s.target, R), bor = FF.borderScore(p.table, R), pat = FF.patternScore(p.table, R);
       const obj = 0; // hook Obiettivi Segreti: ancora vuoto (il mazzo si scrive insieme a Niky)
-      const coerenza = bor.total + pat.total;
+      const coerenza = R.coerCap == null ? bor.total + pat.total : Math.min(R.coerCap, bor.total + pat.total);
       return { accRaw: acc.raw, accPts: acc.pts, accLabel: acc.label, border: bor.total, pattern: pat.total, patternBy: pat.by, coerenza, objectives: obj, total: acc.pts + coerenza + obj, pm: p.pm, hits: acc.hits };
     }
 
