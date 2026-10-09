@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#24445f">
+<title>Domani Piove — Playtest</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="logo" id="btn-home" title="Menu principale"><span id="logo-ico"></span>DOMANI PIOVE<small>playtest</small></button>
+  <span class="spacer"></span>
+  <span class="tb-info" id="tb-info"></span>
+  <button class="btn sm" id="btn-rules">📖 Regole</button>
+</header>
+
+<main id="app">
+  <section class="screen active" id="s-home">
+    <div class="wrap">
+      <div class="hero">
+        <div class="herocards" id="hero-cards"></div>
+        <h1>DOMANI PIOVE</h1>
+        <p>Meteorologi amatoriali, una previsione per tutti e un bersaglio che può cambiare — banco di prova digitale</p>
+        <div class="herosyms" id="hero-syms"></div>
+      </div>
+      <div id="resume-box"></div>
+      <div class="modes">
+        <button class="mode" data-mode="ai"><span class="txt"><b>🤖 Contro l'AI</b><span class="d">Tu e 1-3 avversari artificiali (le AI di questa versione sono provvisorie).</span></span></button>
+        <button class="mode" data-mode="hotseat"><span class="txt"><b>👥 Passa il telefono</b><span class="d">Da 2 a 4 umani sullo stesso dispositivo: schermata di passaggio prima di ogni scelta privata.</span></span></button>
+        <button class="mode" data-mode="watch"><span class="txt"><b>🍿 AI contro AI</b><span class="d">Guarda una partita tra AI, con i messaggi a velocità regolabile.</span></span></button>
+        <button class="mode" data-mode="sim"><span class="txt"><b>📊 Simulazione veloce</b><span class="d">In arrivo: centinaia di partite AI, esperimenti sulle regole.</span></span></button>
+      </div>
+      <div class="card">
+        <h2>Per il playtest</h2>
+        <p class="small muted">Ogni partita ha un <b>seed</b>: stesso seed e stesse scelte danno esattamente la stessa partita. Le interpretazioni delle regole sono segnate in <b>📖 Regole</b> come <span class="tag ok">chiarito</span> o <span class="tag warn">interpretazione</span>. In partita puoi aggiungere <b>note di playtest</b> alla cronaca ed esportarla.</p>
+      </div>
+    </div>
+  </section>
+  <section class="screen" id="s-setup"></section>
+  <section class="screen" id="s-game"></section>
+  <section class="screen" id="s-sim"></section>
+  <section class="screen" id="s-rules"></section>
+</main>
+
+<div id="modal-root"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/cards.js"></script>
+<script src="js/data.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/ui/sprites.js"></script>
+<script src="js/ui/common.js"></script>
+<script src="js/ui/board.js"></script>
+<script src="js/ui/play.js"></script>
+<script src="js/rulebook.js"></script>
+<script src="js/ui/rules.js"></script>
+<script src="js/ui/main.js"></script>
+</body>
+</html>
