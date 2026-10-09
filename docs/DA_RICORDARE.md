@@ -81,3 +81,9 @@
 7. **Pattern Sole «Distesa»:** un gruppo da 6+ vale 9 punti; verificare che non diventi dominante.
 8. **Primo giocatore:** misurare il vantaggio di posto (ruota ogni round, ma chi comincia la partita?).
 9. **Obiettivi Segreti:** da scrivere insieme a Niky (vedi DA_IMPLEMENTARE.md).
+
+## Forma dell'Italia (regola di Niky) — misure
+- Ogni regione ha una casella fissa (`FF.ITALY_MAP`, `mapMode: 'italia'`); adiacenza = caselle a croce. Cartogramma = [interpretazione], da confermare con Niky (22/31 confini veri si toccano; Calabria–Sicilia voluta).
+- Misura (200 partite, 2 giocatori, Difficile): solo-fedeltà vs solo-pattern **74%** [67.5–79.6] con la mappa, contro 55.5% con la griglia libera. Coerenza media del giocatore misto 13.0 (era 15.6). Le adiacenze sono meno controllabili, quindi i pattern rendono meno e la fedeltà pesa di più.
+- Tutte le strategie estreme perdono ancora (Fedeltà 90%, Pattern 94% di vittorie per l'AI normale).
+- Da decidere con Niky: ribilanciare (es. pattern Sole/Temporale più generosi) o accettare lo spostamento. Non toccato senza la sua scelta.

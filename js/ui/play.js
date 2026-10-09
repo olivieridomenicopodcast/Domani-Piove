@@ -404,7 +404,7 @@
         const pickIdx = rep ? [p.table.findIndex((e) => FF.regionOf(e) === g.card(sel).regione)] : [];
         this.setAction(`<h3>${S.seat(pid, 'tiny')} ${esc(p.name)} — gioca una Carta Regione</h3>
           <div class="sub">1. Scegli la carta dalla mano</div><div class="hand">${cards.map((id) => `<button class="cardbtn selectable ${id === sel ? 'chosen' : ''}" data-card="${id}" title="${esc(g.card(id).regione)}">${S.region(id)}</button>`).join('')}</div>
-          ${sel != null ? `<div class="sub">2. ${rep ? 'Questa regione è già in gioco: tocca la carta da sostituire' : 'Tocca la cella dove metterla (a contatto con le tue carte)'}</div>${UI.tableauHTML(g, pid, { cells, pickIdx })}${rep ? '<div class="small muted">Sostituire: la vecchia carta va negli scarti e <b>i simboli già sopra restano</b>.</div>' : ''}` : '<div class="small muted">Tocca una carta per vedere dove puoi giocarla. (Tocca di nuovo per ingrandirla.)</div>'}
+          ${sel != null ? `<div class="sub">2. ${rep ? 'Questa regione è già in gioco: tocca la carta da sostituire' : (g.rules.mapMode === 'italia' ? 'Ogni regione ha il suo posto sulla mappa d\'Italia: tocca la casella evidenziata' : 'Tocca la cella dove metterla (a contatto con le tue carte)')}</div>${UI.tableauHTML(g, pid, { cells, pickIdx })}${rep ? '<div class="small muted">Sostituire: la vecchia carta va negli scarti e <b>i simboli già sopra restano</b>.</div>' : ''}` : '<div class="small muted">Tocca una carta per vedere dove puoi giocarla. (Tocca di nuovo per ingrandirla.)</div>'}
           <div id="pv"></div>`);
       };
       draw();

@@ -45,5 +45,5 @@ test('regolamento: tabelle di fusioni, scaglioni e pattern coincidono col codice
     const line = MD.split('\n').find((l) => l.includes('**' + n + '**')); assert.ok(line && line.includes(`| +${v} |`), n);
   });
   assert.ok(R.sez2OccupiesSez1 === false && MD.includes('`sez2OccupiesSez1` no'));
-  assert.ok(R.requireAdjacentPlacement === true && MD.includes('`requireAdjacentPlacement` sì'));
+  assert.ok(R.mapMode === 'italia' && MD.includes('`mapMode` italia'));
 });

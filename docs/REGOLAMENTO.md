@@ -50,8 +50,20 @@ Uno spazio occupato è **bloccato fino alla fine del round**.
 
 ## 5. Giocare le Carte Regione
 - **Massimo 1 carta per regione.** Se giochi una carta di una regione già giocata, **sostituisce** la vecchia: la vecchia va negli scarti, la nuova prende il suo posto e **i simboli già sopra restano**. [chiarito]
-- Le carte stanno su una **griglia**. La prima va al centro; **ogni altra va in una cella libera a contatto ortogonale (non in diagonale) con una carta già giocata**. Una volta giocate **le carte non si spostano**. [chiarito]
-- **Adiacenza** (per i pattern) = contatto ortogonale. Il **bonus di confine non richiede contatto**: basta aver giocato la regione indicata. [chiarito]
+- Le carte si giocano sulla **mappa d'Italia**: ogni regione ha **la sua casella fissa**, quindi non scegli dove metterla (la Lombardia sta sempre sopra il Piemonte, la Sicilia in fondo). Le carte non si spostano. [chiarito: forma dell'Italia; la disposizione esatta delle caselle è un'[interpretazione]]
+- **Adiacenza** (per i pattern) = due caselle che si toccano a croce (non in diagonale) *e* tutte e due occupate. Il cartogramma è una versione «a scacchiera» dell'Italia: 22 dei 31 confini veri si toccano; Calabria e Sicilia si toccano apposta (lo Stretto). Una carta può restare isolata, se le regioni vicine non sono in gioco.
+- Il **bonus di confine non richiede contatto**: basta aver giocato la regione indicata. [chiarito]
+
+```
+          TAA
+      Lom Ven FVG
+  VdA Pie ER
+      Lig Tos Mar Abr
+          Umb Laz Mol Pug
+      Sar         Cam Bas
+                      Cal
+                      Sic
+```
 
 ## 6. Simboli e fusioni
 - «Raccogli un simbolo» = prendi un gettone dal pool e **mettilo subito su una tua carta già giocata**. Non si sposta. Senza carte giocate (o con tutte piene) lo spazio non è usabile. [chiarito]
@@ -115,13 +127,13 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 Più punti totali; a parità più punti di Accuratezza, poi più Accuratezza grezza, poi più Coerenza, poi più PM; se ancora pari: pari merito.
 
 ## 9. Parametri (modificabili dall'app per fare esperimenti)
-`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 · `sez2OccupiesSez1` no · `requireAdjacentPlacement` sì · `borderPoints` 1 · `eventDrawer` segnalino che passa di mano (variante `first` = il primo giocatore del round, solo per esperimenti) · `startPMBonus` 0 al primo giocatore e +1 PM a tutti gli altri.
+`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 · `sez2OccupiesSez1` no · `mapMode` italia (variante `libera` = griglia libera a contatto, solo per esperimenti) · `borderPoints` 1 · `eventDrawer` segnalino che passa di mano (variante `first` = il primo giocatore del round, solo per esperimenti) · `startPMBonus` 0 al primo giocatore e +1 PM a tutti gli altri.
 
 ## 10. Differenze rispetto al Concept v9 originale
 | Tema | Concept v9 | Questa versione |
 |---|---|---|
-| Adiacenza | «contatto fisico», uguale per confine e pattern | Pattern: contatto ortogonale su griglia. Bonus di confine: solo possesso della regione |
-| Posizione delle carte | disposte liberamente | Griglia, a contatto ortogonale, ferme dopo averle giocate |
+| Adiacenza | «contatto fisico», uguale per confine e pattern | Pattern: caselle che si toccano a croce sulla mappa d'Italia. Bonus di confine: solo possesso della regione |
+| Posizione delle carte | disposte liberamente | Mappa d'Italia: casella fissa per regione, ferme dopo averle giocate |
 | Simboli | «appoggiati/impilati» sulla carta | Subito su una carta giocata, max 2, non si spostano |
 | Fusione | «scatta impilando 2 simboli» | Automatica; la carta conta solo come la fusione |
 | Piazzamento | «uno alla volta a rotazione» e «continua a piazzare» | Rotazione stretta; chi passa è fuori dal round |

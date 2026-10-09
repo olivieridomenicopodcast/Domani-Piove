@@ -170,8 +170,8 @@ test('Evento 71 (pesca 2 tieni 1) e 76 (guarda 3, tieni 1, 2 in fondo)', () => {
 });
 
 // ───────────────────────── azioni ─────────────────────────
-test('gioca: la prima carta in (0,0); le altre solo a contatto ortogonale; una carta per regione', () => {
-  const g = newGame(), p = g.s.players[0];
+test('gioca (griglia libera): la prima carta in (0,0); le altre solo a contatto ortogonale; una carta per regione', () => {
+  const g = newGame({ rules: { mapMode: 'libera' } }), p = g.s.players[0];
   p.hand = [regId('Veneto', 'neutra'), regId('Lombardia', 'neutra')];
   let dec = null; FF.drive(g.actPlay(0), (d) => { dec = d; return 0; }, g);
   assert.ok(dec.options.every((o) => o.x === 0 && o.y === 0));
@@ -187,6 +187,22 @@ test('gioca: la prima carta in (0,0); le altre solo a contatto ortogonale; una c
   const e = p.table.find((x) => FF.regionOf(x) === 'Veneto');
   assert.deepEqual(e.sym, ['sole']); assert.notEqual(e.id, old); assert.ok(g.s.regionDiscard.includes(old));
   assert.equal(new Set(p.table.map(FF.regionOf)).size, p.table.length);
+});
+test('gioca (forma dell\'Italia): ogni regione ha una sola casella fissa; nessuna scelta di cella', () => {
+  const g = newGame(), p = g.s.players[0];
+  p.hand = [regId('Veneto', 'neutra'), regId('Sicilia', 'neutra')];
+  let dec = null; FF.drive(g.actPlay(0), (d) => { dec = d; return 0; }, g);
+  assert.equal(dec.options.length, 2);
+  dec.options.forEach((o) => assert.deepEqual([o.x, o.y], FF.ITALY_MAP[g.card(o.card).regione]));
+  assert.deepEqual([p.table[0].x, p.table[0].y], FF.ITALY_MAP['Veneto']);
+  // le 20 regioni hanno 20 caselle diverse dentro il rettangolo della mappa
+  const cells = Object.values(FF.ITALY_MAP);
+  assert.equal(new Set(cells.map((c) => c.join(','))).size, 20);
+  cells.forEach((c) => assert.ok(c[0] >= 0 && c[0] < FF.ITALY_W && c[1] >= 0 && c[1] < FF.ITALY_H));
+  // Veneto e Trentino-Alto Adige si toccano davvero, Veneto e Sicilia no
+  p.hand = [regId('Trentino-Alto Adige', 'neutra')]; FF.drive(g.actPlay(0), () => 0, g);
+  const v = p.table.find((e) => FF.regionOf(e) === 'Veneto');
+  assert.deepEqual(FF.neighborsOf(p.table, v).map(FF.regionOf), ['Trentino-Alto Adige']);
 });
 test('simbolo: massimo 2 per carta, il 2° compatibile fonde in automatico, serve una carta giocata', () => {
   const g = newGame(), p = g.s.players[0];
@@ -325,7 +341,7 @@ function invariants(g, label) {
     assert.equal(new Set(p.table.map(FF.regionOf)).size, p.table.length, where('regione doppia'));
     assert.equal(new Set(p.table.map((e) => e.x + ',' + e.y)).size, p.table.length, where('cella doppia'));
     p.table.forEach((e) => { assert.ok(e.sym.length <= g.rules.maxSymbolsPerCard); assert.equal(e.fusion, FF.fusionOf(e.sym)); });
-    if (p.table.length > 1) p.table.forEach((e) => assert.ok(FF.neighborsOf(p.table, e).length >= 1, where('carta isolata')));
+    if (p.table.length > 1 && g.rules.mapMode !== 'italia') p.table.forEach((e) => assert.ok(FF.neighborsOf(p.table, e).length >= 1, where('carta isolata')));
     assert.ok(p.workers >= 2 && p.workers <= 3);
   });
   // il bersaglio: stesse regioni dell'inizio, req sempre un simbolo o una fusione

@@ -208,6 +208,7 @@
       for (const id of p.hand) {
         const reg = this.card(id).regione;
         if (this.entryOfRegion(p, reg)) out.push({ card: id, replace: true });
+        else if (this.rules.mapMode === 'italia') { const c = FF.ITALY_MAP[reg]; out.push({ card: id, x: c[0], y: c[1] }); }
         else for (const c of this.freeCells(p)) out.push({ card: id, x: c[0], y: c[1] });
       }
       return out;

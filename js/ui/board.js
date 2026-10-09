@@ -89,11 +89,13 @@
   UI.tableauHTML = function (g, pid, opts) {
     opts = opts || {};
     const p = g.s.players[pid], cells = opts.cells || [];
-    if (!p.table.length && !cells.length) return '<div class="muted empty-t">Nessuna Carta Regione giocata.</div>';
+    const ita = g.rules.mapMode === 'italia';
+    if (!ita && !p.table.length && !cells.length) return '<div class="muted empty-t">Nessuna Carta Regione giocata.</div>';
     const xs = p.table.map((e) => e.x).concat(cells.map((c) => c[0])), ys = p.table.map((e) => e.y).concat(cells.map((c) => c[1]));
-    const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+    const x0 = ita ? 0 : Math.min(...xs), x1 = ita ? FF.ITALY_W - 1 : Math.max(...xs), y0 = ita ? 0 : Math.min(...ys), y1 = ita ? FF.ITALY_H - 1 : Math.max(...ys);
+    const ghost = {}; if (ita) Object.keys(FF.ITALY_MAP).forEach((r) => { ghost[FF.ITALY_MAP[r].join(',')] = r; });
     const reqs = {}; FF.AREAS.forEach((a) => g.s.target[a].forEach((c) => { reqs[c.regione] = c; }));
-    let h = `<div class="tableau" style="--cols:${x1 - x0 + 1}">`;
+    let h = `<div class="tableau ${ita ? 'italia' : ''}" style="--cols:${x1 - x0 + 1}" ${ita ? 'role="group" aria-label="Mappa d\'Italia"' : ''}>`;
     for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
       const idx = p.table.findIndex((e) => e.x === x && e.y === y);
       if (idx >= 0) {
@@ -105,7 +107,8 @@
           ${e.sym.length ? `<div class="syms">${e.fusion ? S.fusion(e.fusion) : e.sym.map((sy) => S.symbol(sy)).join('')}</div>` : ''}
           ${c ? `<div class="need ${met ? 'ok' : 'no'}" title="${met ? 'Soddisfa la previsione' : 'La previsione chiede: ' + esc(S.reqName(c.req))}">${S.req(c.req, 'micro')}<b>${met ? '✓' : ''}${c.punti}</b></div>` : ''}
           ${hint ? `<div class="hint">${esc(hint)}</div>` : ''}</div>`;
-      } else if (cells.some((c) => c[0] === x && c[1] === y)) h += `<button class="tcell freecell selectable" data-cell="${x},${y}" aria-label="Gioca qui"><span>＋</span></button>`;
+      } else if (cells.some((c) => c[0] === x && c[1] === y)) h += `<button class="tcell freecell selectable" data-cell="${x},${y}" aria-label="Gioca qui${ghost[x + ',' + y] ? ': ' + esc(ghost[x + ',' + y]) : ''}"><span>＋</span>${ghost[x + ',' + y] ? `<small>${esc(FF.REGION_ABBR[ghost[x + ',' + y]])}</small>` : ''}</button>`;
+      else if (ghost[x + ',' + y]) h += `<div class="tcell ghost" title="${esc(ghost[x + ',' + y])}" aria-label="${esc(ghost[x + ',' + y])}: non ancora giocata"><small>${esc(FF.REGION_ABBR[ghost[x + ',' + y]])}</small></div>`;
       else h += '<div class="tcell void"></div>';
     }
     return h + '</div>';

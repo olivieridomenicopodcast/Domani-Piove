@@ -39,6 +39,7 @@
     poolPerSymbol: 10,
     maxSymbolsPerCard: 2,       // [chiarito con Niky] una carta porta al massimo 2 simboli (una fusione = 2 simboli)
     sez2OccupiesSez1: false,    // [DA MISURARE] la Sezione 2 occupa anche gli spazi della Sezione 1 corrispondenti?
+    mapMode: 'italia',              // [chiarito] ogni regione ha il suo posto fisso sulla forma dell'Italia (variante 'libera' = griglia libera, solo per esperimenti)
     requireAdjacentPlacement: true, // [chiarito] ogni nuova carta si gioca a contatto ortogonale con una già giocata
     firstPlayer: -1,            // [interpretazione] -1 = a sorte (da seed); poi ruota di uno a ogni round
     rotateFirst: true,
@@ -100,6 +101,20 @@
     return null;
   };
   FF.isFusionName = (n) => FF.FUSION_NAMES.indexOf(n) >= 0;
+
+  // Cartogramma d'Italia: ogni regione ha una casella fissa (x,y). Due regioni sono adiacenti se le caselle si toccano a croce. [interpretazione]
+  // Generato con tools/italia-map.js e poi ritoccato a mano (Sicilia sotto la Calabria); 22 dei 31 confini veri si toccano; unico contatto «falso» voluto: Calabria–Sicilia (lo Stretto).
+  FF.ITALY_MAP = {
+    'Trentino-Alto Adige': [2, 0],
+    'Lombardia': [1, 1], 'Veneto': [2, 1], 'Friuli-Venezia Giulia': [3, 1],
+    "Valle d'Aosta": [0, 2], 'Piemonte': [1, 2], 'Emilia-Romagna': [2, 2],
+    'Liguria': [1, 3], 'Toscana': [2, 3], 'Marche': [3, 3], 'Abruzzo': [4, 3],
+    'Umbria': [2, 4], 'Lazio': [3, 4], 'Molise': [4, 4], 'Puglia': [5, 4],
+    'Sardegna': [1, 5], 'Campania': [4, 5], 'Basilicata': [5, 5],
+    'Calabria': [5, 6], 'Sicilia': [5, 7]
+  };
+  FF.REGION_ABBR = { "Valle d'Aosta": 'VdA', Piemonte: 'Pie', Liguria: 'Lig', Lombardia: 'Lom', 'Trentino-Alto Adige': 'TAA', Veneto: 'Ven', 'Friuli-Venezia Giulia': 'FVG', 'Emilia-Romagna': 'ER', Toscana: 'Tos', Umbria: 'Umb', Marche: 'Mar', Lazio: 'Laz', Abruzzo: 'Abr', Molise: 'Mol', Campania: 'Cam', Puglia: 'Pug', Basilicata: 'Bas', Calabria: 'Cal', Sicilia: 'Sic', Sardegna: 'Sar' };
+  FF.ITALY_W = 6; FF.ITALY_H = 8;
 
   // ───────────────────────── punteggio ─────────────────────────
   // table = lista di carte giocate: { id, x, y, sym:[...], fusion:null|string }. Adiacenza = contatto ortogonale tra celle.

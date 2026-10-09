@@ -135,6 +135,10 @@ details > summary.ptitle { cursor: pointer; }
 .tcell.void { visibility: hidden; } .tcell.freecell { border: 3px dashed #7b9ab0; border-radius: 8px; background: rgba(44,127,184,.1); font-size: 2rem; color: #2c7fb8; cursor: pointer; min-height: calc(var(--cw) * 1.4); } .tcell.freecell:hover { background: rgba(44,127,184,.25); }
 .tcell .syms { position: absolute; left: 3px; right: 3px; bottom: 28%; display: flex; justify-content: center; gap: 2px; pointer-events: none; } .tcell .syms .spr.sym { width: 34px; height: 34px; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
 .tcell .need { position: absolute; top: 28px; right: 3px; display: flex; align-items: center; gap: 1px; background: rgba(255,255,255,.92); border: 2px solid var(--warn); border-radius: 999px; padding: 0 5px 0 1px; font-size: .75rem; pointer-events: none; } .tcell .need.ok { border-color: var(--ok); background: #e1f5e6; } .tcell .need .spr { width: 20px; height: 20px; }
+.tableau.italia { --cw: min(84px, calc((100vw - 48px) / 6)); gap: 2px; overflow-x: visible; } .tableau.italia .tcell { min-height: calc(var(--cw) * 1.4); }
+.tableau.italia .tcell .syms .spr.sym { width: calc(var(--cw) * .36); height: calc(var(--cw) * .36); } .tableau.italia .tcell .need { top: 16%; transform: scale(.8); transform-origin: top right; }
+.tcell.ghost { border: 2px dotted #b5c4cf; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #8aa0b0; background: rgba(120,150,170,.07); } .tcell small { font-size: .7rem; font-weight: 700; }
+.tcell.freecell { flex-direction: column; font-size: 1.4rem; } .tcell.freecell small { font-size: .7rem; }
 .tcell.pick .cardbtn { outline: 3px solid #ffb300; outline-offset: 1px; }
 .empty-t { padding: .8rem; }
 

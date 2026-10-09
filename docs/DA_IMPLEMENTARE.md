@@ -21,3 +21,6 @@
 | ✅ deciso | Evento #74 «Potenziamento del centro operativo» (3° lavoratore gratis, ≈ +5,7 punti a chi lo pesca): **lasciato com'è** (decisione di Niky). Da riguardare al playtest | DA_RICORDARE |
 | ⏳ da fare | Tarare le singole Carte Regione con più partite per carta (con 60 coppie quasi tutte restano nel rumore) | simulatore, `--forced regione --games 300` |
 | 📦 varianti spente | `sez2OccupiesSez1`, `requireAdjacentPlacement`, `thirdWorkerNextRound`, `maxSymbolsPerCard`, `poolPerSymbol`, `coerCap`, `startPMBonus`, `eventDrawer: 'first'` | parametri in `FF.DEFAULT_RULES` |
+
+- [ ] Obiettivi Segreti: riscrivere la bozza per la mappa d'Italia (via Quadrato/Fila, dentro obiettivi geografici: «Dorsale appenninica», «Pianura Padana», «Le isole»…).
+- [ ] Plancia personale stampabile con la forma dell'Italia (caselle per regione) per il kit fisico.
