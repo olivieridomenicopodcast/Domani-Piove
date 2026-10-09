@@ -40,7 +40,7 @@
     maxSymbolsPerCard: 2,       // una carta porta 1 simbolo; il 2° si può mettere solo se forma una fusione (2 simboli = fusione)
     secondSymbolOnlyFusion: true, // [chiarito con Niky] niente 2 simboli diversi sulla stessa carta: il 2° c'è solo per fare una fusione (false = variante vecchia, solo per esperimenti)
     sez2OccupiesSez1: false,    // [DA MISURARE] la Sezione 2 occupa anche gli spazi della Sezione 1 corrispondenti?
-    nebbiaNeedsNeighbor: false, // [variante da misurare] la Nebbia punta solo se ha almeno una carta vicina (altrimenti con la mappa fissa è quasi sempre «isolata»)
+    nebbiaNeedsNeighbor: true,  // [chiarito con Niky] la Nebbia punta solo se ha almeno una carta vicina (una «sacca» in mezzo ad altre carte); false = variante vecchia
     objectives: true,           // [chiarito] Obiettivi Segreti: pesca 2, tieni 1, 3 fasce (3/5/8), 0 se non raggiunto (false = senza, solo per esperimenti)
     mapMode: 'italia',              // [chiarito] ogni regione ha il suo posto fisso sulla forma dell'Italia (variante 'libera' = griglia libera, solo per esperimenti)
     requireAdjacentPlacement: true, // [chiarito] ogni nuova carta si gioca a contatto ortogonale con una già giocata
@@ -228,11 +228,11 @@
     ['T9', 'territorio', 'Arco alpino', "Almeno 3 tra Valle d'Aosta, Piemonte, Liguria, Lombardia, Trentino-Alto Adige, Veneto e Friuli-Venezia Giulia.", 5, countRegs(["Valle d'Aosta", 'Piemonte', 'Liguria', 'Lombardia', 'Trentino-Alto Adige', 'Veneto', 'Friuli-Venezia Giulia']), 3],
     ['S1', 'simboli', 'Quattro fenomeni', '4 tipi di simbolo diversi sul tuo tavolo.', 3, typesOnTable, 4],
     ['S2', 'simboli', 'Tempo a coppie', 'Due tipi di simbolo, ognuno su almeno 2 carte.', 3, (p) => FF.SYMBOLS.filter((x) => cardsWith(x)(p) >= 2).length, 2],
-    ['S3', 'simboli', 'Tempo stabile', '4 carte con lo stesso simbolo.', 3, (p) => FF.SYMBOLS.reduce((m, x) => Math.max(m, cardsWith(x)(p)), 0), 4],
+    ['S3', 'simboli', 'Tempo stabile', '3 carte con lo stesso simbolo.', 3, (p) => FF.SYMBOLS.reduce((m, x) => Math.max(m, cardsWith(x)(p)), 0), 3],
     ['S4', 'simboli', 'Neve a bassa quota', '2 carte con Neve.', 8, cardsWith('neve'), 2],
     ['S5', 'simboli', 'Sei fenomeni', '6 tipi di simbolo diversi sul tuo tavolo.', 8, typesOnTable, 6],
     ['S6', 'simboli', 'Precipitazioni sparse', '2 carte con Pioggia, Temporale o Neve (anche miste).', 3, (p) => symEntries(p).filter((e) => e.sym.some((x) => x === 'pioggia' || x === 'temporale' || x === 'neve')).length, 2],
-    ['P1', 'pattern', 'Nebbia a banchi', '4 carte con Nebbia, nessuna accanto a un’altra Nebbia.', 3, (p) => { const t = symEntries(p).filter((e) => e.sym.indexOf('nebbia') >= 0); return t.filter((e) => !FF.neighborsOf(t, e).length).length; }, 4],
+    ['P1', 'pattern', 'Nebbia a banchi', '2 carte con Nebbia, ognuna accanto a qualche carta ma nessuna accanto a un’altra Nebbia.', 3, (p) => { const t = symEntries(p).filter((e) => e.sym.indexOf('nebbia') >= 0); return t.filter((e) => !FF.neighborsOf(t, e).length && FF.neighborsOf(p.table, e).length).length; }, 2],
     ['P2', 'pattern', 'Cella temporalesca', '2 carte con Temporale vicine tra loro.', 5, maxGroup('temporale'), 2],
     ['P3', 'pattern', 'Massa d\u2019aria uniforme', '3 carte vicine con lo stesso simbolo.', 8, (p) => FF.SYMBOLS.reduce((m, x) => Math.max(m, maxGroup(x)(p)), 0), 3],
     ['R1', 'risorse', 'Mano vuota', 'Nessuna Carta Regione in mano a fine partita.', 3, (p) => (p.hand.length ? 0 : 1), 1, (p) => 1 / (1 + p.hand.length)],
@@ -245,7 +245,7 @@
 
   FF.OBJECTIVE_TYPES = { territorio: 'Territorio', simboli: 'Simboli', pattern: 'Pattern', risorse: 'Risorse e azioni' };
   FF.OBJECTIVES = OBJ.map((o) => ({ id: o[0], tipo: o[1], titolo: o[2], testo: o[3], pts: o[4], val: o[5], need: o[6], prog: o[7] || null }));
-  FF.OBJ_RATE = {"T1":0.73,"T2":0.48,"T3":0.46,"T4":0.52,"T5":0.19,"T6":0.73,"T7":0.09,"T8":0.32,"T9":0.36,"S1":0.71,"S2":0.83,"S3":0.25,"S4":0.27,"S5":0.06,"S6":0.37,"P1":0.17,"P2":0.2,"P3":0.2,"R1":1,"R2":0.41,"R3":0.61,"R4":0.17,"R5":0.1,"R6":0.48};   // probabilità stimate (misurate con tools/obiettivi.js) che l'AI usa per scegliere/cambiare obiettivo
+  FF.OBJ_RATE = {"T1":0.68,"T2":0.61,"T3":0.47,"T4":0.51,"T5":0.35,"T6":0.46,"T7":0.5,"T8":0.41,"T9":0.42,"S1":0.79,"S2":0.76,"S3":0.26,"S4":0.58,"S5":0.37,"S6":0.51,"P1":0.23,"P2":0.26,"P3":0.28,"R1":0.97,"R2":0.53,"R3":0.56,"R4":0.13,"R5":0.13,"R6":0.48};   // probabilità stimate (misurate con tools/obiettivi.js) che l'AI usa per scegliere/cambiare obiettivo
   FF.OBJECTIVE_IDS = FF.OBJECTIVES.map((o) => o.id);
   FF.OBJ = {}; FF.OBJECTIVES.forEach((o) => { FF.OBJ[o.id] = o; });
   FF.objectiveMet = (id, p, R) => { const o = FF.OBJ[id]; return !!o && o.val(p, R || FF.DEFAULT_RULES) >= o.need; };

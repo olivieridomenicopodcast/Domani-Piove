@@ -112,7 +112,8 @@ test('pattern Vento (Ponte): +2 per Vento adiacente ad almeno 2 simboli diversi'
 test('pattern Nuvolo (Frangia) e Nebbia (Sacca isolata)', () => {
   assert.equal(P([cell(null, 0, 0, ['nuvolo'], 0), cell(null, 1, 0, ['nuvolo'], 4)]).nuvolo, 0);
   assert.equal(P([cell(null, 0, 0, ['nuvolo'], 0), cell(null, 1, 0, ['sole'], 4)]).nuvolo, 1);
-  assert.equal(P([cell(null, 0, 0, ['nebbia'], 0), cell(null, 5, 0, ['nebbia'], 4)]).nebbia, 4);
+  assert.equal(P([cell(null, 0, 0, ['nebbia'], 0), cell(null, 5, 0, ['nebbia'], 4)]).nebbia, 0);      // senza carte vicine non è una sacca
+  assert.equal(P([cell(null, 0, 0, ['nebbia'], 0), cell(null, 1, 0, [], 4), cell(null, 5, 0, ['nebbia'], 8)]).nebbia, 2);   // una sacca (ha un vicino), l'altra è sola
   assert.equal(P([cell(null, 0, 0, ['nebbia'], 0), cell(null, 1, 0, ['nebbia'], 4)]).nebbia, 0);
 });
 test('pattern: una carta con fusione non partecipa ai pattern base; i due simboli non fusi partecipano entrambi', () => {

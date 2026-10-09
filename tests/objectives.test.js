@@ -39,7 +39,8 @@ test('obiettivi di territorio: conta le regioni giuste', () => {
 test('obiettivi di simboli: le carte fuse non contano come carte con il simbolo', () => {
   assert.equal(met('S4', P([cell('Veneto', ['neve']), cell('Lazio', ['neve'])])), true);
   assert.equal(met('S4', P([cell('Veneto', ['neve', 'neve']), cell('Lazio', ['neve'])])), false);     // la prima è Nevicata Estrema: fusa
-  assert.equal(met('S3', P(['Veneto', 'Lazio', 'Puglia', 'Umbria'].map((r) => cell(r, ['sole'])))), true);
+  assert.equal(met('S3', P(['Veneto', 'Lazio', 'Puglia'].map((r) => cell(r, ['sole'])))), true);
+  assert.equal(met('S3', P(['Veneto', 'Lazio'].map((r) => cell(r, ['sole'])))), false);
   assert.equal(met('S1', P([cell('Veneto', ['sole']), cell('Lazio', ['pioggia']), cell('Puglia', ['neve']), cell('Umbria', ['vento'])])), true);
   assert.equal(met('S1', P([cell('Veneto', ['sole']), cell('Lazio', ['pioggia']), cell('Puglia', ['neve']), cell('Umbria', ['neve'])])), false);
   assert.equal(met('S5', P(['sole', 'nuvolo', 'pioggia', 'vento', 'neve', 'nebbia'].map((x, k) => cell(['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana'][k], [x])))), true);
@@ -51,8 +52,11 @@ test('obiettivi di pattern: usano l\'adiacenza della mappa d\'Italia', () => {
   // Veneto-Lombardia si toccano, Veneto-Sicilia no
   assert.equal(met('P2', P(['Veneto', 'Lombardia'].map((r) => cell(r, ['temporale'])))), true);
   assert.equal(met('P2', P(['Veneto', 'Sicilia'].map((r) => cell(r, ['temporale'])))), false);
-    assert.equal(met('P1', P(['Veneto', 'Sicilia', 'Sardegna', 'Lazio'].map((r) => cell(r, ['nebbia'])))), true);
-  assert.equal(met('P1', P(['Veneto', 'Lombardia', 'Sicilia', 'Sardegna'].map((r) => cell(r, ['nebbia'])))), false);   // due Nebbia si toccano: ne restano 2 isolate
+    // Nebbia, ognuna accanto a una carta senza Nebbia → sì; se sono sole, o due si toccano, no
+  assert.equal(met('P1', P([cell('Veneto', ['nebbia']), cell('Lombardia', ['sole']), cell('Lazio', ['nebbia']), cell('Umbria', ['sole']), cell('Calabria', ['nebbia']), cell('Sicilia', ['sole'])])), true);
+  assert.equal(met('P1', P([cell('Veneto', ['nebbia']), cell('Lombardia', ['sole']), cell('Calabria', ['nebbia']), cell('Sicilia', ['sole'])])), true);   // bastano 2
+  assert.equal(met('P1', P(['Veneto', 'Sicilia', 'Sardegna'].map((r) => cell(r, ['nebbia'])))), false);                  // senza vicini
+  assert.equal(met('P1', P([cell('Veneto', ['nebbia']), cell('Lombardia', ['nebbia']), cell('Lazio', ['nebbia']), cell('Toscana', ['sole'])])), false);   // due Nebbia si toccano
 });
 test('obiettivi di risorse: mano, PM, tavolo, lavoratore, simboli', () => {
   assert.equal(met('R1', P([], { hand: [] })), true); assert.equal(met('R1', P([], { hand: [1] })), false);

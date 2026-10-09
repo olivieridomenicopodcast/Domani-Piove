@@ -107,3 +107,9 @@
 - Solo-fedeltà vs solo-pattern: **65%** [58,2–71,3]; l'AI normale batte le strategie estreme: Fedeltà 70%, Pattern 88%, Casuale 99%, Accumulatore e Passivo 100%. La scala di Accuratezza (3/6/10/15 per 1-2/3-4/5-6/7+) era tarata sul gioco a 2 simboli: da rimisurare dopo che Niky decide su Nebbia.
 - Obiettivi rifatti perché con 1 simbolo per carta «Carte piene» e «Cantiere» erano impossibili: S1 «Quattro fenomeni» (4 tipi), S2 «Tempo a coppie», S5 «Sei fenomeni» (6 tipi, 8 punti), S6 «Precipitazioni sparse», P3 «Massa d'aria uniforme» (3 carte vicine con lo stesso simbolo, 8 punti), R6 «Tavolo attrezzato» (6 carte, tutte con un simbolo); R4 «Tavolo grande» 7 carte, T5 «Rete fitta» 3 bonus, T9 Arco alpino con anche la Liguria. Media 2,0 punti di obiettivo a giocatore, raggiunto ~45%.
 - Ancora aperto: Nebbia (varianti già misurate sopra, nessuna applicata) e la scala di Accuratezza.
+
+## Nebbia solo con almeno una carta vicina (scelta di Niky) — misure
+- Regola applicata (`nebbiaNeedsNeighbor: true`): la Nebbia punta +2 solo se ha almeno una carta adiacente e nessun'altra Nebbia adiacente. Obiettivo P1 allineato («2 carte con Nebbia, ognuna accanto a qualche carta, nessuna accanto ad altra Nebbia»).
+- Effetto (AI Difficile, 2 giocatori): punteggio medio 16,6 (Accuratezza 8,9 · **Coerenza 5,3**); Nebbia 1,5 punti a giocatore (era 4,7), carte con Nebbia 0,8. Fusioni 0,4 a partita.
+- **Problema aperto:** ora i pattern pesano poco. Solo-fedeltà vs solo-pattern **84,7%** [80,2–88,3]; la AI normale batte «solo fedeltà» appena **58,8%** [52,6–64,7] (prima 70-75%): la previsione da sola è quasi una strategia completa. Il test «prove estreme» ora chiede solo che «solo fedeltà» perda più di metà delle volte.
+- Opzioni già misurate senza toccare i pattern (250 partite): scala Accuratezza 0/2/4/7/10 → fedeltà vs pattern 57,6% · scala 0/2/4/6/8 → 56,4% · Confine +2 → 64,8% · scala 0/2/4/7/10 + Confine +2 → 44%. Niente applicato: da decidere con Niky.

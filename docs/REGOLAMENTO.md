@@ -118,7 +118,7 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 | Neve — **Manto di quota** | se esiste un gruppo di esattamente 2–3 carte con Neve (una volta sola) [interpretazione] | +4 | La neve è localizzata: Alpi, Appennino |
 | Vento — **Ponte** | per ogni Vento adiacente ad almeno 2 simboli diversi tra loro | +2 | Il vento segnala il passaggio tra due masse d'aria |
 | Nuvolo — **Frangia** | per ogni Nuvolo adiacente ad almeno un simbolo diverso | +1 | È il simbolo «di passaggio» |
-| Nebbia — **Sacca isolata** | per ogni Nebbia senza altra Nebbia adiacente | +2 | La nebbia è iperlocale: unica regola «anti-cluster» |
+| Nebbia — **Sacca isolata** | per ogni Nebbia che ha **almeno una carta adiacente** ma **nessun'altra Nebbia** adiacente | +2 | La nebbia è iperlocale: una sacca *in mezzo* ad altre carte. Unica regola «anti-cluster». [chiarito con Niky] |
 
 ### Obiettivi Segreti
 - A inizio partita ognuno **pesca 2 Obiettivi e ne tiene 1** (l'altro si scarta, coperto). Restano **segreti** fino al Confronto Finale. [chiarito]
@@ -130,29 +130,29 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 
 | # | Titolo | Condizione | Punti | Fascia | Riuscita misurata |
 |---|---|---|---|---|---|
-| T1 | **Tutto lo Stivale** | Almeno 1 regione in ognuna delle 3 aree (Nord, Centro, Sud e Isole). | 3 | facile | 73% |
-| T2 | **Pianura Padana** | Almeno 3 regioni del Nord. | 5 | media | 48% |
-| T3 | **Dorsale appenninica** | Almeno 2 regioni del Centro. | 5 | media | 46% |
-| T4 | **Mediterraneo** | Almeno 3 regioni di Sud e Isole. | 5 | media | 52% |
-| T5 | **Rete fitta** | Almeno 3 bonus di confine attivi. | 5 | media | 19% |
-| T6 | **Estremo Sud e Isole** | Almeno una tra Calabria, Sicilia e Sardegna. | 3 | facile | 73% |
-| T7 | **Costa tirrenica** | Almeno 3 tra Liguria, Toscana, Lazio, Campania, Calabria, Sicilia e Sardegna. | 5 | media | 9% |
-| T8 | **Costa adriatica** | Almeno 3 tra Friuli-Venezia Giulia, Veneto, Emilia-Romagna, Marche, Abruzzo, Molise e Puglia. | 5 | media | 32% |
-| T9 | **Arco alpino** | Almeno 3 tra Valle d'Aosta, Piemonte, Liguria, Lombardia, Trentino-Alto Adige, Veneto e Friuli-Venezia Giulia. | 5 | media | 36% |
-| S1 | **Quattro fenomeni** | 4 tipi di simbolo diversi sul tuo tavolo. | 3 | facile | 71% |
-| S2 | **Tempo a coppie** | Due tipi di simbolo, ognuno su almeno 2 carte. | 3 | facile | 83% |
-| S3 | **Tempo stabile** | 4 carte con lo stesso simbolo. | 3 | facile | 25% |
-| S4 | **Neve a bassa quota** | 2 carte con Neve. | 8 | difficile | 27% |
-| S5 | **Sei fenomeni** | 6 tipi di simbolo diversi sul tuo tavolo. | 8 | difficile | 6% |
-| S6 | **Precipitazioni sparse** | 2 carte con Pioggia, Temporale o Neve (anche miste). | 3 | facile | — (la AI non lo sceglie: 37% per caso) |
-| P1 | **Nebbia a banchi** | 4 carte con Nebbia, nessuna accanto a un’altra Nebbia. | 3 | facile | — (la AI non lo sceglie: 17% per caso) |
-| P2 | **Cella temporalesca** | 2 carte con Temporale vicine tra loro. | 5 | media | — (la AI non lo sceglie: 20% per caso) |
-| P3 | **Massa d’aria uniforme** | 3 carte vicine con lo stesso simbolo. | 8 | difficile | 20% |
-| R1 | **Mano vuota** | Nessuna Carta Regione in mano a fine partita. | 3 | facile | 100% |
-| R2 | **Economia di guerra** | 7 o più PM e nessuna Carta Regione in mano. | 5 | media | 41% |
-| R3 | **Cassaforte** | 9 o più PM a fine partita. | 5 | media | 61% |
-| R4 | **Tavolo grande** | 7 o più carte sul tuo tavolo. | 5 | media | 17% |
-| R5 | **Squadra al completo** | Hai il 3° lavoratore. | 8 | difficile | 10% |
+| T1 | **Tutto lo Stivale** | Almeno 1 regione in ognuna delle 3 aree (Nord, Centro, Sud e Isole). | 3 | facile | 68% |
+| T2 | **Pianura Padana** | Almeno 3 regioni del Nord. | 5 | media | 61% |
+| T3 | **Dorsale appenninica** | Almeno 2 regioni del Centro. | 5 | media | 47% |
+| T4 | **Mediterraneo** | Almeno 3 regioni di Sud e Isole. | 5 | media | 51% |
+| T5 | **Rete fitta** | Almeno 3 bonus di confine attivi. | 5 | media | 35% |
+| T6 | **Estremo Sud e Isole** | Almeno una tra Calabria, Sicilia e Sardegna. | 3 | facile | 46% |
+| T7 | **Costa tirrenica** | Almeno 3 tra Liguria, Toscana, Lazio, Campania, Calabria, Sicilia e Sardegna. | 5 | media | 50% |
+| T8 | **Costa adriatica** | Almeno 3 tra Friuli-Venezia Giulia, Veneto, Emilia-Romagna, Marche, Abruzzo, Molise e Puglia. | 5 | media | 41% |
+| T9 | **Arco alpino** | Almeno 3 tra Valle d'Aosta, Piemonte, Liguria, Lombardia, Trentino-Alto Adige, Veneto e Friuli-Venezia Giulia. | 5 | media | 42% |
+| S1 | **Quattro fenomeni** | 4 tipi di simbolo diversi sul tuo tavolo. | 3 | facile | 79% |
+| S2 | **Tempo a coppie** | Due tipi di simbolo, ognuno su almeno 2 carte. | 3 | facile | 76% |
+| S3 | **Tempo stabile** | 3 carte con lo stesso simbolo. | 3 | facile | — (la AI non lo sceglie: 26% per caso) |
+| S4 | **Neve a bassa quota** | 2 carte con Neve. | 8 | difficile | 58% |
+| S5 | **Sei fenomeni** | 6 tipi di simbolo diversi sul tuo tavolo. | 8 | difficile | 37% |
+| S6 | **Precipitazioni sparse** | 2 carte con Pioggia, Temporale o Neve (anche miste). | 3 | facile | — (la AI non lo sceglie: 51% per caso) |
+| P1 | **Nebbia a banchi** | 2 carte con Nebbia, ognuna accanto a qualche carta ma nessuna accanto a un’altra Nebbia. | 3 | facile | — (la AI non lo sceglie: 23% per caso) |
+| P2 | **Cella temporalesca** | 2 carte con Temporale vicine tra loro. | 5 | media | 26% |
+| P3 | **Massa d’aria uniforme** | 3 carte vicine con lo stesso simbolo. | 8 | difficile | 28% |
+| R1 | **Mano vuota** | Nessuna Carta Regione in mano a fine partita. | 3 | facile | 97% |
+| R2 | **Economia di guerra** | 7 o più PM e nessuna Carta Regione in mano. | 5 | media | 53% |
+| R3 | **Cassaforte** | 9 o più PM a fine partita. | 5 | media | 56% |
+| R4 | **Tavolo grande** | 7 o più carte sul tuo tavolo. | 5 | media | 13% |
+| R5 | **Squadra al completo** | Hai il 3° lavoratore. | 8 | difficile | 13% |
 | R6 | **Tavolo attrezzato** | Almeno 6 carte sul tavolo, tutte con un simbolo. | 5 | media | 48% |
 
 *La riuscita è alta per le carte che la AI sa inseguire (PM, mano vuota) e bassa per quelle che dipendono dalla fortuna (Tutti i fenomeni, Alta pressione, Squadra al completo): vanno viste al playtest con persone vere.*
@@ -161,7 +161,7 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 Più punti totali; a parità più punti di Accuratezza, poi più Accuratezza grezza, poi più Coerenza, poi più PM; se ancora pari: pari merito.
 
 ## 9. Parametri (modificabili dall'app per fare esperimenti)
-`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 (solo per le fusioni) · `secondSymbolOnlyFusion` sì · `sez2OccupiesSez1` no · `mapMode` italia (variante `libera` = griglia libera a contatto, solo per esperimenti) · `borderPoints` 1 · `eventDrawer` segnalino che passa di mano (variante `first` = il primo giocatore del round, solo per esperimenti) · `objectives` sì (variante no = senza Obiettivi, solo per esperimenti) · `startPMBonus` 0 al primo giocatore e +1 PM a tutti gli altri.
+`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 (solo per le fusioni) · `secondSymbolOnlyFusion` sì · `nebbiaNeedsNeighbor` sì · `sez2OccupiesSez1` no · `mapMode` italia (variante `libera` = griglia libera a contatto, solo per esperimenti) · `borderPoints` 1 · `eventDrawer` segnalino che passa di mano (variante `first` = il primo giocatore del round, solo per esperimenti) · `objectives` sì (variante no = senza Obiettivi, solo per esperimenti) · `startPMBonus` 0 al primo giocatore e +1 PM a tutti gli altri.
 
 ## 10. Differenze rispetto al Concept v9 originale
 | Tema | Concept v9 | Questa versione |
