@@ -120,3 +120,26 @@
 - Vantaggio di chi inizia: 2 giocatori 50,0% (ok), 3 giocatori **27,8%** [23,6–32,4] (atteso 33,3: ora chi inizia è un po' svantaggiato, la compensazione +1 PM potrebbe essere troppa a 3), 4 giocatori 22,7% [18,4–27,8] (atteso 25).
 - Obiettivi rimisurati: raggiunti ~54%, 2,8 punti a giocatore.
 - Da rivedere al playtest: compensazione PM a 3 giocatori; con la scala più bassa le Pattern strategy (solo pattern) sono ora alla pari con la fedeltà, quindi gli estremi sono i più vicini ai tempi normali.
+
+## Quanto rende una partita di 12 / 16 / 20 / 24 round (AI Difficile, 250 partite, 2 e 4 giocatori) — `tools/lunghezza.js`
+Eventi ai round proporzionali (12: 4/7/10 · 16: 5/9/13 · 20: 7/12/17 · 24: 8/14/20). Valori per giocatore, 2 giocatori (a 4 sono quasi uguali):
+
+| | 12 | 16 | 20 | 24 |
+|---|---|---|---|---|
+| carte sul tavolo (media / massimo) | 5,4 / 8 | 6,6 / 10 | 7,6 / 12 | 8,5 / 13 |
+| simboli messi | 5,4 | 6,6 | 7,8 | 8,7 |
+| condizioni della previsione prese (su 10) | 2,5 | 2,8 | 2,9 | 3,0 |
+| Accuratezza grezza (su 15) | 4,1 | 4,7 | 5,0 | 5,1 |
+| scaglione 7+ | 11% | 18% | 27% | 29% |
+| area Centro completa (2 condizioni) | 9% | 11% | 18% | 17% |
+| area Nord / Sud completa, previsione intera | 0% | 0% | 0% | 0% |
+| bonus di confine (pt) | 4,3 | 6,5 | 8,2 | 10,0 |
+| pattern (pt) | 3,9 | 5,9 | 7,6 | 9,1 |
+| giocatori con almeno 1 pattern | 84% | 92% | 95% | 94% |
+| obiettivo raggiunto | 54% | 67% | 75% | 81% |
+| PM avanzati a fine partita | 2,6 | 3,8 | 5,1 | 7,3 |
+| punteggio totale | 16,4 | 21,9 | 26,3 | 29,9 |
+
+- Pattern più frequenti: Nebbia (66→91% dei giocatori), Nuvolo (48→75%), Temporale (20→33%), Neve (10→18%); Sole, Pioggia e Vento quasi mai (<10%, Vento 22% a 24 round).
+- Una carta con simbolo costa ~4-5 azioni (comprarla, giocarla, il simbolo, i PM per pagarla): con 2 lavoratori e 12 round le azioni sono ~24, quindi ~5 carte. Raddoppiare i round non raddoppia le carte (8,5 a 24): i PM avanzano (7,3) e il 3° lavoratore lo sblocca solo il 10-21%.
+- Nessuna previsione intera in nessuna lunghezza: Nord e Sud (4 condizioni ciascuna) non vengono mai completate; servirebbero 10 carte di regioni precise, con il simbolo giusto.
