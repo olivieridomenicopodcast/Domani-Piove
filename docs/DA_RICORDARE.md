@@ -171,3 +171,12 @@ Nota: le condizioni della previsione prese restano ~3 su 10 anche con 9 carte: p
 - **Vantaggio di chi inizia ora in linea con l'atteso a tutti i numeri di giocatori**: 2 → 48,1% (atteso 50), 3 → 33,5% (33,3), 4 → 27,1% (25).
 - Obiettivi ritarati su queste regole (soglie più alte: 9 carte, 7 tipi di simbolo, 4 regioni di un'area, ecc.): ~45-50% raggiunti, 2,5 punti a giocatore.
 - Da decidere: con più carte la Coerenza (14,8) pesa più dell'Accuratezza (9,6): la scala 0/2/4/7/10 potrebbe tornare più generosa.
+
+## Scala di Accuratezza con le nuove regole (7,8 carte a testa) — varianti misurate, nessuna applicata (250 partite, 2 giocatori)
+| Scala (0 · 1-2 · 3-4 · 5-6 · 7+) | fedeltà vs pattern | misto vs pattern | misto vs fedeltà | Accuratezza | Coerenza | totale |
+|---|---|---|---|---|---|---|
+| 0/2/4/7/10 (attuale) | 41,6% [35,7–47,8] | 68% | 77% | 9,3 | 15,1 | 24,3 |
+| 0/3/5/8/12 | 47,2% [41,1–53,4] | 76% | 75% | 11,0 | 14,9 | 25,9 |
+| 0/3/6/9/13 | 48,4% [42,3–54,6] | 77% | 77% | 11,9 | 14,5 | 26,4 |
+| 0/3/6/10/15 (la precedente) | 57,6% [51,4–63,6] | 78% | 74% | 12,9 | 13,8 | 26,8 |
+| 0/4/7/11/15 | 51,6% [45,4–57,7] | 81% | 74% | 13,3 | 14,6 | 28,0 |
