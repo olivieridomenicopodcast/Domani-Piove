@@ -206,7 +206,8 @@
     }
 
     // ───────────────────────── azioni: legalità e opzioni ─────────────────────────
-    marketPrice(slot) { const id = this.s.market[slot]; return id == null ? null : this.card(id).price; }
+    priceOf(id) { return Math.max(0, this.card(id).price + (this.rules.priceShift || 0)); }
+    marketPrice(slot) { const id = this.s.market[slot]; return id == null ? null : this.priceOf(id); }
     playOptions(pid) {
       const p = this.s.players[pid], out = [];
       for (const id of p.hand) {
@@ -219,7 +220,7 @@
     }
     buyOptions(pid) {
       const p = this.s.players[pid], out = [];
-      this.s.market.forEach((id, i) => { if (id != null && p.pm >= this.card(id).price) out.push({ slot: i, card: id, price: this.card(id).price }); });
+      this.s.market.forEach((id, i) => { if (id != null && p.pm >= this.priceOf(id)) out.push({ slot: i, card: id, price: this.priceOf(id) }); });
       if (p.pm >= this.rules.blindPrice && this.regionCardsLeft() > 0) out.push({ blind: true, price: this.rules.blindPrice });
       return out;
     }
@@ -261,7 +262,7 @@
         case 'gioca': return yield* this.actPlay(pid);
         case 'compra': return yield* this.actBuy(pid);
         case 'simbolo': return yield* this.actSymbol(pid, !!free);
-        case 'pm': { const p = this.s.players[pid]; p.pm++; this.stat('pm_guadagnati', pid); this.stat('azione_pm', pid); yield* this.say('act', `💰 ${this.pn(pid)} guadagna 1 PM (ora ${p.pm}).`, pid); return; }
+        case 'pm': { const p = this.s.players[pid], k = this.rules.pmGain || 1; p.pm += k; this.stat('pm_guadagnati', pid, k); this.stat('azione_pm', pid); yield* this.say('act', `💰 ${this.pn(pid)} guadagna ${k} PM (ora ${p.pm}).`, pid); return; }
         case 'sblocca': {
           const p = this.s.players[pid]; p.pm -= this.rules.thirdWorkerCost; this.stat('pm_spesi', pid, this.rules.thirdWorkerCost);
           if (this.rules.thirdWorkerNextRound) p.pendingWorker = true; else { p.workers = 3; p.left++; }
@@ -290,6 +291,7 @@
         this.stat('carte_giocate', pid);
         yield* this.say('act', `🃏 ${this.pn(pid)} gioca ${this.cname(o.card)} in (${o.x},${o.y}).`, pid, { card: o.card, x: o.x, y: o.y });
       }
+      if (this.rules.playGivesSymbol && this.symbolOptions(pid).length) yield* this.act(pid, 'simbolo', true);   // variante: la carta giocata porta 1 simbolo gratis
     }
 
     *actBuy(pid) {
@@ -322,7 +324,7 @@
     *roundGen() {
       const s = this.s, R = this.rules, n = this.n;
       s.round++; s.phase = 'round'; s.occupied = {};
-      s.players.forEach((p) => { p.left = p.workers; p.passed = false; });
+      s.players.forEach((p) => { p.left = p.workers; p.passed = false; if (R.incomePM) { p.pm += R.incomePM; this.stat('pm_guadagnati', p.id, R.incomePM); } });
       yield* this.say('round', `━━ Round ${s.round}/${R.rounds} · ore ${hourOf(s.round)} · primo giocatore: ${this.pn(s.first)} ━━`, -1);
       if (R.eventRounds.indexOf(s.round) >= 0) yield* this.eventGen();
       s.phase = 'place';

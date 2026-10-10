@@ -42,6 +42,10 @@
     sez2OccupiesSez1: false,    // [DA MISURARE] la Sezione 2 occupa anche gli spazi della Sezione 1 corrispondenti?
     nebbiaNeedsNeighbor: true,  // [chiarito con Niky] la Nebbia punta solo se ha almeno una carta vicina (una «sacca» in mezzo ad altre carte); false = variante vecchia
     objectives: true,           // [chiarito] Obiettivi Segreti: pesca 2, tieni 1, 3 fasce (3/5/8), 0 se non raggiunto (false = senza, solo per esperimenti)
+    pmGain: 1,                  // [variante da misurare] PM guadagnati dall'azione «Guadagna PM»
+    incomePM: 0,                // [variante da misurare] PM gratis a ogni giocatore a inizio round (azione senza lavoratore)
+    priceShift: 0,              // [variante da misurare] si somma al prezzo delle Carte Regione (minimo 0)
+    playGivesSymbol: false,     // [variante da misurare] giocare una carta dà anche 1 simbolo gratis
     mapMode: 'italia',              // [chiarito] ogni regione ha il suo posto fisso sulla forma dell'Italia (variante 'libera' = griglia libera, solo per esperimenti)
     requireAdjacentPlacement: true, // [chiarito] ogni nuova carta si gioca a contatto ortogonale con una già giocata
     firstPlayer: -1,            // [interpretazione] -1 = a sorte (da seed); poi ruota di uno a ogni round

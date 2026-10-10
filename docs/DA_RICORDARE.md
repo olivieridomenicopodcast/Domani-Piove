@@ -143,3 +143,23 @@ Eventi ai round proporzionali (12: 4/7/10 · 16: 5/9/13 · 20: 7/12/17 · 24: 8/
 - Pattern più frequenti: Nebbia (66→91% dei giocatori), Nuvolo (48→75%), Temporale (20→33%), Neve (10→18%); Sole, Pioggia e Vento quasi mai (<10%, Vento 22% a 24 round).
 - Una carta con simbolo costa ~4-5 azioni (comprarla, giocarla, il simbolo, i PM per pagarla): con 2 lavoratori e 12 round le azioni sono ~24, quindi ~5 carte. Raddoppiare i round non raddoppia le carte (8,5 a 24): i PM avanzano (7,3) e il 3° lavoratore lo sblocca solo il 10-21%.
 - Nessuna previsione intera in nessuna lunghezza: Nord e Sud (4 condizioni ciascuna) non vengono mai completate; servirebbero 10 carte di regioni precise, con il simbolo giusto.
+
+## Più carte e più simboli in 12 round: varianti misurate (nessuna applicata) — 200 partite, 2 giocatori, AI Difficile
+Nuovi parametri sperimentali nel motore, tutti spenti di default: `pmGain` (PM dell'azione «Guadagna PM»), `incomePM` (PM gratis a inizio round, senza lavoratore), `priceShift` (somma al prezzo delle carte, minimo 0), `playGivesSymbol` (giocare una carta dà 1 simbolo gratis).
+Diagnosi: con 12 round ci sono ~24 azioni e circa il 40% serve solo a guadagnare PM (1 PM per azione); una carta con simbolo costa 3 azioni distinte (comprare, giocare, simbolo) più i PM per pagarla.
+
+| Variante | carte | simboli | cond. prev. (su 10) | 7+ | pattern | obiettivo | totale | fedeltà vs pattern | vince chi inizia |
+|---|---|---|---|---|---|---|---|---|---|
+| base | 5,4 | 5,5 | 2,5 | 12% | 4,0 | 55% | 16,7 | 45% | 50% |
+| PM ×2 per azione | 6,1 | 5,8 | 2,7 | 18% | 5,3 | 67% | 20,6 | 43% | 49% |
+| +1 PM gratis a round | 6,7 | 6,4 | 2,8 | 25% | 6,3 | 72% | 23,6 | 47% | 51% |
+| +2 PM gratis a round | 7,5 | 7,0 | 2,9 | 26% | 7,4 | 79% | 27,1 | 33% | 48% |
+| prezzi −1 (neutra gratis) | 6,5 | 6,3 | 2,8 | 21% | 5,9 | 62% | 21,8 | 38% | 45% |
+| prezzi −1 e cieca 1 | 6,6 | 6,3 | 2,9 | 22% | 6,0 | 61% | 22,1 | 43% | 48% |
+| giocare una carta dà 1 simbolo | 6,3 | 7,3 | 2,7 | 20% | 4,9 | 70% | 19,5 | 62% | 45% |
+| 3 lavoratori da subito | 7,2 | 7,3 | 2,9 | 21% | 6,7 | 78% | 24,7 | 31% | 49% |
+| +1 PM a round + gioca dà simbolo | 8,1 | 9,2 | 3,0 | 36% | 7,7 | 89% | 27,7 | 48% | 47% |
+| prezzi −1 + gioca dà simbolo | 7,9 | 9,0 | 3,0 | 33% | 7,3 | 76% | 26,0 | 48% | 50% |
+| +1 PM a round + prezzi −1 + gioca dà simbolo | 9,1 | 10,3 | 3,2 | 40% | 9,5 | 92% | 32,8 | 37% | 44% |
+
+Nota: le condizioni della previsione prese restano ~3 su 10 anche con 9 carte: più carte non bastano per completare le previsioni; con più azioni gli obiettivi (soglie) e la scala di Accuratezza andrebbero poi rialzati.
