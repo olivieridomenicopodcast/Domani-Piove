@@ -69,7 +69,7 @@
     const lab = { neutra: 'NEUTRA', confine: 'CONFINE', compensativa: 'BONUS RETE' }[c.variante];
     const bt = S.bonusText(c);
     const nb = bt.length, bh = Math.max(34, nb * 9 + 10), by = 128 - bh;
-    const body = `${title(nm + ' — ' + bt.join(' ') + ' (' + c.price + ' PM)')}
+    const body = `${title(nm + ' — ' + bt.join(' ') + ' (' + FF.cardPrice(c) + ' PM)')}
       <rect x="1.5" y="1.5" width="97" height="137" rx="7" fill="#f7f0de" stroke="#5a4326" stroke-width="2"/>
       <rect x="4" y="4" width="92" height="28" rx="4" fill="${col}"/>
       <text x="50" y="${15 + fs * 0.35}" text-anchor="middle" font-size="${fs.toFixed(1)}" font-weight="700" fill="#fff" ${FONT}>${esc(nm)}</text>
@@ -77,7 +77,7 @@
       <circle cx="46" cy="${(32 + by) / 2 + 1}" r="19" fill="${col}" opacity=".13" stroke="${dark}" stroke-width="1.6"/>
       <text x="46" y="${(32 + by) / 2 + 8}" text-anchor="middle" font-size="19" font-weight="800" fill="${dark}" ${SANS}>${SIGLA[nm]}</text>
       <circle cx="84" cy="43" r="9" fill="#e6c14a" stroke="#8a6a0e" stroke-width="1.4"/>
-      <text x="84" y="46.5" text-anchor="middle" font-size="10" font-weight="800" fill="#4b3606" ${SANS}>${c.price}</text>
+      <text x="84" y="46.5" text-anchor="middle" font-size="10" font-weight="800" fill="#4b3606" ${SANS}>${FF.cardPrice(c)}</text>
       <text x="84" y="57" text-anchor="middle" font-size="5.2" fill="#7b6a4b" ${SANS}>PM</text>
       <rect x="6" y="${by}" width="88" height="${bh}" rx="4" fill="${c.bonus ? '#fff8e1' : '#ece6d3'}" stroke="${c.bonus ? '#c9a227' : '#b9ae92'}" stroke-width="1"/>
       ${lines(bt, 50, by + (bh - nb * 9) / 2 + 7, 9, `text-anchor="middle" font-size="7.4" fill="#3a2d17" ${SANS}`)}

@@ -28,7 +28,9 @@ test('regolamento: quantità di carte citate coincidono col codice', () => {
   assert.ok(MD.includes(`Paga **${R.thirdWorkerCost} PM**`));
   assert.ok(MD.includes(`${R.rounds} round`));
   assert.ok(MD.includes(`round ${R.eventRounds.join(', ').replace(/, (\d+)$/, ' e $1')}`));
-  assert.ok(MD.includes(`Neutra ${FF.REGION_CARDS.find((c) => c.variante === 'neutra').price} · Confine ${FF.REGION_CARDS.find((c) => c.variante === 'confine').price} · Compensativa ${FF.REGION_CARDS.find((c) => c.variante === 'compensativa').price} · Pesca cieca (qualsiasi carta) ${R.blindPrice}`));
+  const pr = (v) => FF.cardPrice(FF.REGION_CARDS.find((c) => c.variante === v));
+  assert.ok(MD.includes(`Neutra ${pr('neutra')} · Confine ${pr('confine')} · Compensativa ${pr('compensativa')} · Pesca cieca (qualsiasi carta) ${R.blindPrice}`));
+  assert.ok(R.playGivesSymbol === true && R.symbolReserve === 2 && R.priceShift === -1 && MD.includes('`symbolReserve` 2') && MD.includes('`priceShift` −1'));
 });
 test('regolamento: tabelle di fusioni, scaglioni e pattern coincidono col codice', () => {
   FF.FUSIONS.forEach((f) => {

@@ -185,3 +185,4 @@ details > summary.ptitle { cursor: pointer; }
 .skip { position: absolute; left: 8px; top: -60px; z-index: 100; background: #fff; color: #14293a; padding: .6rem 1rem; border-radius: 8px; border: 3px solid #ffd54a; font-weight: 700; } .skip:focus { top: 8px; }
 #g-action:focus { outline: 3px solid #ffd54a; outline-offset: 2px; }
 .objbox { display: flex; gap: .7rem; align-items: center; margin-top: .6rem; } .objbox .cardbtn { width: 84px; flex: none; } .objbox .spr.card { width: 100%; }
+.reservebox { margin-top: .5rem; display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; font-size: .9rem; } .rtoken .spr { width: 28px; height: 28px; vertical-align: middle; }

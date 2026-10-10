@@ -81,7 +81,7 @@
   UI.marketHTML = function (g, opts) {
     opts = opts || {};
     const s = g.s;
-    return `<div class="market">${s.market.map((id, i) => id == null ? `<div class="mslot empty">vuoto</div>` : `<div class="mslot"><button class="cardbtn ${opts.pick ? 'selectable' : ''}" data-zoom="reg:${id}" ${opts.pick ? `data-slot="${i}"` : ''} ${opts.disabled && opts.disabled(i) ? 'disabled' : ''}>${S.region(id)}</button><div class="price ${opts.afford && !opts.afford(i) ? 'no' : ''}">${S.coin('micro')} ${g.card(id).price}</div></div>`).join('')}
+    return `<div class="market">${s.market.map((id, i) => id == null ? `<div class="mslot empty">vuoto</div>` : `<div class="mslot"><button class="cardbtn ${opts.pick ? 'selectable' : ''}" data-zoom="reg:${id}" ${opts.pick ? `data-slot="${i}"` : ''} ${opts.disabled && opts.disabled(i) ? 'disabled' : ''}>${S.region(id)}</button><div class="price ${opts.afford && !opts.afford(i) ? 'no' : ''}">${S.coin('micro')} ${g.priceOf(id)}</div></div>`).join('')}
       <div class="mslot deck"><button class="cardbtn ${opts.pick && opts.blind ? 'selectable' : ''}" ${opts.pick && opts.blind ? 'data-blind="1"' : 'data-noZoom=1'} ${opts.pick && !opts.blind ? 'disabled' : ''}>${S.back('regione')}</button><div class="price">${S.coin('micro')} ${g.rules.blindPrice} <span class="muted small">alla cieca</span></div><div class="small muted">mazzo ${s.regionDeck.length} · scarti ${s.regionDiscard.length}</div></div></div>`;
   };
 

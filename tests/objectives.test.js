@@ -22,57 +22,51 @@ test('obiettivi: nessuno cita la previsione o il bersaglio', () => {
   FF.OBJECTIVES.forEach((o) => assert.ok(!/previsione|bersaglio/i.test(o.testo), o.id));
 });
 test('obiettivi di territorio: conta le regioni giuste', () => {
-  assert.equal(met('T1', P([cell('Veneto'), cell('Lazio')])), false);
-  assert.equal(met('T1', P([cell('Veneto'), cell('Lazio'), cell('Sicilia')])), true);
-  assert.equal(met('T2', P([cell('Veneto'), cell('Lombardia'), cell('Piemonte')])), true);
-  assert.equal(met('T2', P([cell('Veneto'), cell('Lombardia'), cell('Lazio')])), false);
-  assert.equal(met('T3', P([cell('Lazio'), cell('Umbria')])), true);
-  assert.equal(met('T4', P([cell('Sicilia'), cell('Sardegna'), cell('Puglia')])), true);
-  assert.equal(met('T6', P([cell('Veneto')])), false); assert.equal(met('T6', P([cell('Veneto'), cell('Calabria')])), true);
-  assert.equal(met('T7', P(['Liguria', 'Toscana', 'Sardegna'].map((r) => cell(r)))), true);
-  assert.equal(met('T7', P(['Liguria', 'Toscana', 'Veneto'].map((r) => cell(r)))), false);
-  assert.equal(met('T8', P(['Marche', 'Abruzzo', 'Veneto'].map((r) => cell(r)))), true);
-  assert.equal(met('T8', P(['Marche', 'Abruzzo', 'Lazio'].map((r) => cell(r)))), false);
-  assert.equal(met('T9', P(["Valle d'Aosta", 'Piemonte', 'Veneto'].map((r) => cell(r)))), true);
-  assert.equal(met('T9', P(["Valle d'Aosta", 'Piemonte', 'Lazio'].map((r) => cell(r)))), false);
+  const C = (...r) => P(r.map((x) => cell(x)));
+  assert.equal(met('T1', C('Veneto', 'Lombardia', 'Lazio', 'Umbria', 'Sicilia', 'Calabria')), true);
+  assert.equal(met('T1', C('Veneto', 'Lombardia', 'Lazio', 'Umbria', 'Sicilia')), false);              // una sola nel Sud
+  assert.equal(met('T2', C('Veneto', 'Lombardia', 'Piemonte', 'Liguria')), true);
+  assert.equal(met('T2', C('Veneto', 'Lombardia', 'Piemonte', 'Lazio')), false);
+  assert.equal(met('T3', C('Lazio', 'Umbria', 'Marche')), true); assert.equal(met('T3', C('Lazio', 'Umbria')), false);
+  assert.equal(met('T4', C('Sicilia', 'Sardegna', 'Puglia', 'Campania')), true); assert.equal(met('T4', C('Sicilia', 'Sardegna', 'Puglia')), false);
+  assert.equal(met('T6', C('Veneto')), false); assert.equal(met('T6', C('Veneto', 'Calabria')), true);
+  assert.equal(met('T7', C('Liguria', 'Toscana', 'Sardegna', 'Calabria')), true); assert.equal(met('T7', C('Liguria', 'Toscana', 'Sardegna', 'Veneto')), false);
+  assert.equal(met('T8', C('Marche', 'Abruzzo', 'Veneto', 'Puglia')), true); assert.equal(met('T8', C('Marche', 'Abruzzo', 'Veneto', 'Lazio')), false);
+  assert.equal(met('T9', C("Valle d'Aosta", 'Piemonte', 'Veneto', 'Liguria')), true); assert.equal(met('T9', C("Valle d'Aosta", 'Piemonte', 'Veneto', 'Lazio')), false);
 });
 test('obiettivi di simboli: le carte fuse non contano come carte con il simbolo', () => {
-  assert.equal(met('S4', P([cell('Veneto', ['neve']), cell('Lazio', ['neve'])])), true);
-  assert.equal(met('S4', P([cell('Veneto', ['neve', 'neve']), cell('Lazio', ['neve'])])), false);     // la prima è Nevicata Estrema: fusa
-  assert.equal(met('S3', P(['Veneto', 'Lazio', 'Puglia'].map((r) => cell(r, ['sole'])))), true);
-  assert.equal(met('S3', P(['Veneto', 'Lazio'].map((r) => cell(r, ['sole'])))), false);
-  assert.equal(met('S1', P([cell('Veneto', ['sole']), cell('Lazio', ['pioggia']), cell('Puglia', ['neve']), cell('Umbria', ['vento'])])), true);
-  assert.equal(met('S1', P([cell('Veneto', ['sole']), cell('Lazio', ['pioggia']), cell('Puglia', ['neve']), cell('Umbria', ['neve'])])), false);
-  assert.equal(met('S5', P(['sole', 'nuvolo', 'pioggia', 'vento', 'neve', 'nebbia'].map((x, k) => cell(['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana'][k], [x])))), true);
-  assert.equal(met('S5', P(['sole', 'nuvolo', 'pioggia', 'vento', 'neve', 'neve'].map((x, k) => cell(['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana'][k], [x])))), false);
-  assert.equal(met('S2', P([cell('Veneto', ['sole']), cell('Lazio', ['sole']), cell('Puglia', ['neve']), cell('Umbria', ['neve'])])), true);
-  assert.equal(met('S2', P([cell('Veneto', ['sole']), cell('Lazio', ['sole']), cell('Puglia', ['neve'])])), false);
+  const R6 = ['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana', 'Marche'];
+  const T = (syms) => P(syms.map((x, k) => cell(R6[k], Array.isArray(x) ? x : [x])));
+  assert.equal(met('S4', T(['neve', 'neve', 'neve', 'neve'].map((x) => [x]))), true);
+  assert.equal(met('S4', T([['neve', 'neve'], ['neve'], ['neve'], ['neve']])), false);        // la prima è Nevicata Estrema: fusa, restano 3 carte con Neve
+  assert.equal(met('S3', T(['sole', 'sole', 'sole', 'sole', 'sole'])), true); assert.equal(met('S3', T(['sole', 'sole', 'sole', 'sole', 'neve'])), false);
+  assert.equal(met('S1', T(['sole', 'pioggia', 'neve', 'vento', 'nebbia'])), true); assert.equal(met('S1', T(['sole', 'pioggia', 'neve', 'vento', 'vento'])), false);
+  assert.equal(met('S5', T(['sole', 'nuvolo', 'pioggia', 'vento', 'neve', 'nebbia', 'temporale'])), true);
+  assert.equal(met('S5', T(['sole', 'nuvolo', 'pioggia', 'vento', 'neve', 'nebbia', 'nebbia'])), false);
+  assert.equal(met('S2', T(['sole', 'sole', 'neve', 'neve', 'vento', 'vento'])), true); assert.equal(met('S2', T(['sole', 'sole', 'neve', 'neve', 'vento'])), false);
+  assert.equal(met('S6', T(['pioggia', 'neve', 'temporale', 'pioggia'])), true); assert.equal(met('S6', T(['pioggia', 'neve', 'temporale', 'sole'])), false);
 });
 test('obiettivi di pattern: usano l\'adiacenza della mappa d\'Italia', () => {
-  // Veneto-Lombardia si toccano, Veneto-Sicilia no
-  assert.equal(met('P2', P(['Veneto', 'Lombardia'].map((r) => cell(r, ['temporale'])))), true);
-  assert.equal(met('P2', P(['Veneto', 'Sicilia'].map((r) => cell(r, ['temporale'])))), false);
-    // Nebbia, ognuna accanto a una carta senza Nebbia → sì; se sono sole, o due si toccano, no
+  // Veneto-Lombardia-Trentino si toccano, Sicilia no
+  assert.equal(met('P2', P(['Veneto', 'Lombardia', 'Trentino-Alto Adige'].map((r) => cell(r, ['temporale'])))), true);
+  assert.equal(met('P2', P(['Veneto', 'Lombardia', 'Sicilia'].map((r) => cell(r, ['temporale'])))), false);
+  assert.equal(met('P3', P(['Veneto', 'Lombardia', 'Trentino-Alto Adige', 'Friuli-Venezia Giulia'].map((r) => cell(r, ['pioggia'])))), true);
+  assert.equal(met('P3', P([cell('Veneto', ['pioggia']), cell('Lombardia', ['sole']), cell('Trentino-Alto Adige', ['pioggia']), cell('Friuli-Venezia Giulia', ['pioggia'])])), false);
+  // Nebbia: 3 carte, ognuna accanto a una carta senza Nebbia; sole o a contatto tra loro non vale
   assert.equal(met('P1', P([cell('Veneto', ['nebbia']), cell('Lombardia', ['sole']), cell('Lazio', ['nebbia']), cell('Umbria', ['sole']), cell('Calabria', ['nebbia']), cell('Sicilia', ['sole'])])), true);
-  assert.equal(met('P1', P([cell('Veneto', ['nebbia']), cell('Lombardia', ['sole']), cell('Calabria', ['nebbia']), cell('Sicilia', ['sole'])])), true);   // bastano 2
   assert.equal(met('P1', P(['Veneto', 'Sicilia', 'Sardegna'].map((r) => cell(r, ['nebbia'])))), false);                  // senza vicini
   assert.equal(met('P1', P([cell('Veneto', ['nebbia']), cell('Lombardia', ['nebbia']), cell('Lazio', ['nebbia']), cell('Toscana', ['sole'])])), false);   // due Nebbia si toccano
 });
-test('obiettivi di risorse: mano, PM, tavolo, lavoratore, simboli', () => {
+test('obiettivi di risorse: mano, PM, tavolo, lavoratore', () => {
   assert.equal(met('R1', P([], { hand: [] })), true); assert.equal(met('R1', P([], { hand: [1] })), false);
-  assert.equal(met('R2', P([], { pm: 7 })), true); assert.equal(met('R2', P([], { pm: 6 })), false); assert.equal(met('R2', P([], { pm: 5, hand: [1] })), false);
+  assert.equal(met('R2', P([], { pm: 7 })), true); assert.equal(met('R2', P([], { pm: 6 })), false); assert.equal(met('R2', P([], { pm: 9, hand: [1] })), false);
   assert.equal(met('R3', P([], { pm: 9 })), true); assert.equal(met('R3', P([], { pm: 8 })), false);
-  assert.equal(met('R4', P(['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana'].map((r) => cell(r)))), false);
-  assert.equal(met('R4', P(['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana', 'Marche'].map((r) => cell(r)))), true);
+  const nine = ['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana', 'Marche', 'Campania', 'Liguria'];
+  assert.equal(met('R4', P(nine.map((r) => cell(r)))), true); assert.equal(met('R4', P(nine.slice(0, 8).map((r) => cell(r)))), false);
   assert.equal(met('R5', P([], { workers: 3 })), true); assert.equal(met('R5', P([], { workers: 2 })), false);
-  const six = ['Veneto', 'Lazio', 'Puglia', 'Umbria', 'Sicilia', 'Toscana'];
-  assert.equal(met('R6', P(six.map((r) => cell(r, ['vento'])))), true);
-  assert.equal(met('R6', P(six.map((r, i) => cell(r, i ? ['vento'] : [])))), false);      // una carta spoglia
-  assert.equal(met('R6', P(six.slice(0, 5).map((r) => cell(r, ['vento'])))), false);      // solo 5 carte
-  assert.equal(met('S6', P([cell('Veneto', ['pioggia']), cell('Lazio', ['neve'])])), true);
-  assert.equal(met('S6', P([cell('Veneto', ['pioggia']), cell('Lazio', ['sole'])])), false);
-  assert.equal(met('P3', P(['Toscana', 'Umbria', 'Lazio'].map((r) => cell(r, ['pioggia'])))), true);
-  assert.equal(met('P3', P([cell('Toscana', ['pioggia']), cell('Umbria', ['sole']), cell('Lazio', ['pioggia'])])), false);
+  assert.equal(met('R6', P(nine.map((r) => cell(r, ['vento'])))), true);
+  assert.equal(met('R6', P(nine.map((r, i) => cell(r, i ? ['vento'] : [])))), false);      // una carta spoglia
+  assert.equal(met('R6', P(nine.slice(0, 8).map((r) => cell(r, ['vento'])))), false);      // solo 8 carte
 });
 
 test('obiettivi: ogni giocatore ne riceve 2 diversi e ne tiene 1 (decisione a inizio partita, a partire dal primo giocatore)', () => {
@@ -91,8 +85,7 @@ test('obiettivi: ogni giocatore ne riceve 2 diversi e ne tiene 1 (decisione a in
 });
 test('obiettivi: il punteggio finale somma i punti solo se raggiunto, altrimenti 0', () => {
   const g = newGame(), p = g.s.players[0];
-  p.objective = 'T5'; p.table = [cell('Sicilia'), cell('Sardegna')];
-  p.objective = 'T6'; let sc = g.scoreOf(0); assert.equal(sc.objectives, 3); assert.equal(sc.objMet, true); assert.equal(sc.total, sc.accPts + sc.coerenza + 3);
+  p.objective = 'T6'; p.table = [cell('Sicilia'), cell('Sardegna')]; let sc = g.scoreOf(0); assert.equal(sc.objectives, 3); assert.equal(sc.objMet, true); assert.equal(sc.total, sc.accPts + sc.coerenza + 3);
   p.table = [cell('Veneto')]; sc = g.scoreOf(0); assert.equal(sc.objectives, 0); assert.equal(sc.objMet, false); assert.equal(sc.total, sc.accPts + sc.coerenza);
 });
 test('obiettivi: la partita funziona anche senza (objectives:false) e la cronaca li rivela a fine partita', () => {

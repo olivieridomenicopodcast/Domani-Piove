@@ -158,7 +158,9 @@ test('Eventi positivi: PM, pesche, simboli gratuiti, 3° lavoratore, PM per cart
   g = run(74); assert.equal(g.s.players[0].workers, 3); assert.equal(g.s.players[1].workers, 2);
   g = run(80); assert.deepEqual(g.s.players.map((p) => p.pm), [3, 3]);
   // simbolo gratuito senza carte giocate: l'effetto si perde, il pool resta intatto
-  g = run(19); assert.ok(FF.SYMBOLS.every((x) => g.s.pool[x] === 10));
+  g = newGame({ rules: { symbolReserve: 0 } }); FF.drive((function* () { for (const op of FF.EVENT_OPS[19]) yield* g.eventOp(op, 0); })(), () => 0, g); assert.ok(FF.SYMBOLS.every((x) => g.s.pool[x] === 10));
+  // con la riserva, il simbolo gratuito senza carte giocate si può tenere in riserva
+  g = run(19); assert.deepEqual(g.s.players.map((p) => p.reserve.length), [1, 1]);
 });
 test('Evento 71 (pesca 2 tieni 1) e 76 (guarda 3, tieni 1, 2 in fondo)', () => {
   let g = newGame(); g.s.first = 0; const h0 = g.s.players[0].hand.length, deck0 = g.s.regionDeck.length;
@@ -172,7 +174,7 @@ test('Evento 71 (pesca 2 tieni 1) e 76 (guarda 3, tieni 1, 2 in fondo)', () => {
 
 // ───────────────────────── azioni ─────────────────────────
 test('gioca (griglia libera): la prima carta in (0,0); le altre solo a contatto ortogonale; una carta per regione', () => {
-  const g = newGame({ rules: { mapMode: 'libera' } }), p = g.s.players[0];
+  const g = newGame({ rules: { mapMode: 'libera', playGivesSymbol: false } }), p = g.s.players[0];
   p.hand = [regId('Veneto', 'neutra'), regId('Lombardia', 'neutra')];
   let dec = null; FF.drive(g.actPlay(0), (d) => { dec = d; return 0; }, g);
   assert.ok(dec.options.every((o) => o.x === 0 && o.y === 0));
@@ -190,7 +192,7 @@ test('gioca (griglia libera): la prima carta in (0,0); le altre solo a contatto 
   assert.equal(new Set(p.table.map(FF.regionOf)).size, p.table.length);
 });
 test('gioca (forma dell\'Italia): ogni regione ha una sola casella fissa; nessuna scelta di cella', () => {
-  const g = newGame(), p = g.s.players[0];
+  const g = newGame({ rules: { playGivesSymbol: false } }), p = g.s.players[0];
   p.hand = [regId('Veneto', 'neutra'), regId('Sicilia', 'neutra')];
   let dec = null; FF.drive(g.actPlay(0), (d) => { dec = d; return 0; }, g);
   assert.equal(dec.options.length, 2);
@@ -225,16 +227,17 @@ test('simbolo: 1 per carta, il 2° solo se forma una fusione (e fonde in automat
   // pool esaurito: il simbolo non si può più scegliere
   g.s.pool.neve = 0; assert.ok(!g.symbolOptions(0).some((o) => o.sym === 'neve'));
 });
-test('compra: prezzi 1/2/3, pesca cieca 2, il mercato si riempie dal mazzo', () => {
+test('compra: prezzi 0/1/2 (la Neutra è gratis), pesca cieca 2, il mercato si riempie dal mazzo', () => {
   const g = newGame(), p = g.s.players[0]; p.pm = 10; const deck0 = g.s.regionDeck.length;
   const opts = g.buyOptions(0);
   assert.equal(opts.length, g.rules.marketSize + 1);
-  opts.filter((o) => !o.blind).forEach((o) => assert.equal(o.price, g.card(o.card).price));
+  opts.filter((o) => !o.blind).forEach((o) => assert.equal(o.price, g.card(o.card).price - 1));
+  assert.ok(opts.some((o) => !o.blind && o.price === 0) || g.s.market.every((id) => g.card(id).price > 1));
   assert.equal(opts.find((o) => o.blind).price, 2);
   const before = g.s.market[0];
   FF.drive(g.actBuy(0), pick((o) => o.slot === 0), g);
   assert.ok(p.hand.includes(before)); assert.notEqual(g.s.market[0], before); assert.equal(g.s.regionDeck.length, deck0 - 1);
-  assert.equal(p.pm, 10 - g.card(before).price);
+  assert.equal(p.pm, 10 - g.priceOf(before));
   p.pm = 1; assert.ok(g.buyOptions(0).every((o) => !o.blind && o.price <= 1));
 });
 test('mazzo Carte Regione esaurito: si rimescolano gli scarti', () => {
@@ -340,7 +343,7 @@ function invariants(g, label) {
   const ev = [].concat(s.eventDeck, s.eventDiscard); assert.equal(ev.length, 80); assert.equal(new Set(ev).size, 80);
   // simboli: pool + carte = 10 per tipo
   const cnt = {}; FF.SYMBOLS.forEach((x) => { cnt[x] = s.pool[x]; });
-  s.players.forEach((p) => p.table.forEach((e) => e.sym.forEach((x) => { cnt[x]++; })));
+  s.players.forEach((p) => { p.table.forEach((e) => e.sym.forEach((x) => { cnt[x]++; })); p.reserve.forEach((x) => { cnt[x]++; }); assert.ok(p.reserve.length <= g.rules.symbolReserve, where('riserva oltre il limite')); });
   FF.SYMBOLS.forEach((x) => assert.equal(cnt[x], g.rules.poolPerSymbol, where('simboli ' + x)));
   s.players.forEach((p) => {
     assert.ok(p.pm >= 0, where('PM negativi'));
@@ -370,7 +373,7 @@ test('fuzz con parametri alterati (Sezione 2 occupa, niente adiacenza obbligata,
     const g = new FF.Game({ seed, players: PL(2 + (seed % 3)), log: false, rules: { sez2OccupiesSez1: true, requireAdjacentPlacement: false, thirdWorkerNextRound: false, poolPerSymbol: 4 } });
     FF.drive(g.run(), FF.randomChooser(seed), g);
     const s = g.s, cnt = {}; FF.SYMBOLS.forEach((x) => { cnt[x] = s.pool[x]; });
-    s.players.forEach((p) => p.table.forEach((e) => e.sym.forEach((x) => { cnt[x]++; })));
+    s.players.forEach((p) => { p.table.forEach((e) => e.sym.forEach((x) => { cnt[x]++; })); p.reserve.forEach((x) => { cnt[x]++; }); });
     FF.SYMBOLS.forEach((x) => assert.equal(cnt[x], 4));
   }
 });
@@ -391,4 +394,31 @@ test('startPMBonus: chi non inizia parte con 1 PM in più (3 invece di 2), a 2, 
   const off = new FF.Game({ seed: 3, players: PL(3), rules: { startPMBonus: [] } }); assert.deepEqual(off.s.players.map((p) => p.pm), [2, 2, 2]);
   const alt = new FF.Game({ seed: 3, players: PL(3), rules: { startPMBonus: [0, 0, 1] } }), f = alt.s.first;
   assert.equal(alt.s.players[(f + 2) % 3].pm, 3); assert.equal(alt.s.players[(f + 1) % 3].pm, 2);
+});
+
+test('simbolo gratuito: giocare una carta NUOVA dà 1 simbolo (subito o in riserva); sostituire non lo dà', () => {
+  const g = newGame(), p = g.s.players[0];
+  p.hand = [regId('Veneto', 'neutra'), regId('Lombardia', 'neutra')];
+  let types = []; FF.drive(g.actPlay(0), (d) => { types.push(d.type); return d.type === 'play' ? 0 : d.options.findIndex((o) => o.sym === 'sole' && !o.reserve); }, g);
+  assert.deepEqual(types, ['play', 'symbol']); assert.deepEqual(p.table[0].sym, ['sole']); assert.equal(g.s.pool.sole, 9);
+  // tenere il simbolo in riserva
+  FF.drive(g.actPlay(0), (d) => (d.type === 'play' ? 0 : d.options.findIndex((o) => o.sym === 'nebbia' && o.reserve)), g);
+  assert.deepEqual(p.reserve, ['nebbia']); assert.deepEqual(p.table[1].sym, []); assert.equal(g.s.pool.nebbia, 9);
+  // sostituire una carta già in gioco non dà simboli
+  p.hand = [regId('Veneto', 'confine', 'Trentino')]; types = []; FF.drive(g.actPlay(0), (d) => { types.push(d.type); return 0; }, g);
+  assert.deepEqual(types, ['play']);
+});
+test('riserva: massimo 2 simboli, si mettono gratis all\'inizio di un proprio turno, solo dove sono legali', () => {
+  const g = newGame(), p = g.s.players[0];
+  p.table = [cell('Veneto', 0, 0, ['sole']), cell('Lombardia', 1, 0, [], regId('Lombardia', 'neutra'))]; p.reserve = ['nebbia', 'sole'];
+  assert.ok(!g.symbolOptions(0, true).some((o) => o.reserve), 'riserva piena: nessuna opzione di riserva');
+  assert.ok(g.symbolOptions(0, false).every((o) => !o.reserve));
+  const seen = []; FF.drive(g.useReserve(0), (d) => { seen.push(d); const k = d.options.findIndex((o) => o.sym === 'nebbia' && o.idx === 1); return k >= 0 ? k : d.options.length - 1; }, g);
+  assert.equal(seen[0].type, 'reserve'); assert.ok(seen[0].options.some((o) => o.done));
+  assert.deepEqual(seen[0].options.filter((o) => o.sym === 'nebbia').map((o) => o.idx), [1]);      // la Nebbia non va sulla carta con Sole (non fa fusione)
+  assert.deepEqual(p.table[1].sym, ['nebbia']); assert.deepEqual(p.reserve, ['sole']);
+  assert.equal(g.s.pool.nebbia, 10);                                                                // dalla riserva non si tocca il pool
+  // Sole + Sole fa Caldo Estremo: la riserva può servire a fare una fusione
+  FF.drive(g.useReserve(0), (d) => d.options.findIndex((o) => o.sym === 'sole' && o.idx === 0), g);
+  assert.equal(p.table[0].fusion, 'Caldo Estremo'); assert.deepEqual(p.reserve, []);
 });

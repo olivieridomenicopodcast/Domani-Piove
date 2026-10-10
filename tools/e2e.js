@@ -68,6 +68,8 @@ let rnd = 12345; const rand = () => { rnd = (rnd * 1664525 + 1013904223) >>> 0; 
       await click('#g-action [data-cell], #g-action .tcell.pick [data-idx]', Math.floor(rand() * n)); continue;
     }
     if (await vis('#g-action [data-card]')) { const n = (await p.$$('#g-action [data-card]')).length; await click('#g-action [data-card]', Math.floor(rand() * n)); continue; }
+    if (await vis('#g-action [data-reserve]') && !(await vis('#g-action .tcell.pick [data-idx]'))) { stats.other++; await click('#g-action [data-reserve]'); continue; }
+    if (await vis('#g-action [data-done]') && rand() < 0.5) { stats.other++; if (!shots.riserva) { await snap('riserva'); await checkOverflow('riserva'); } await click('#g-action [data-done]'); continue; }
     if (await vis('#g-action [data-sym]')) { stats.symbol++; if (!shots.simbolo) { await snap('simbolo'); await checkOverflow('simbolo'); } const n = (await p.$$('#g-action [data-sym]')).length; await click('#g-action [data-sym]', Math.floor(rand() * n)); continue; }
     if (await vis('#g-action [data-slot]:not([disabled]), #g-action [data-blind]:not([disabled])')) {
       stats.buy++; if (!shots.compra) { await snap('compra'); await checkOverflow('compra'); }

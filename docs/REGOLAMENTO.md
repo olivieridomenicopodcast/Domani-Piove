@@ -11,7 +11,7 @@ Siete meteorologi amatoriali, ognuno con il proprio canale. Sulla plancia centra
 **Punteggio finale = Accuratezza + Coerenza Geografica + Obiettivi Segreti.** [chiarito]
 
 ## 2. Materiale
-- **96 Carte Regione** (40 Nord, 20 Centro, 36 Sud e Isole). Non hanno simboli stampati: stabiliscono quali regioni hai in gioco e quale bonus attivi. Ogni carta ha un solo bonus. Varianti: Neutra (1 PM), Confine (2 PM), Compensativa (3 PM).
+- **96 Carte Regione** (40 Nord, 20 Centro, 36 Sud e Isole). Non hanno simboli stampati: stabiliscono quali regioni hai in gioco e quale bonus attivi. Ogni carta ha un solo bonus. Varianti: Neutra (gratis), Confine (1 PM), Compensativa (2 PM). [chiarito con Niky: un PM in meno del Concept, per poter giocare più carte]
 - **36 Carte Previsione** (12 per area) e **80 Carte Evento** (30 Tipo A, 19 Tipo B, 31 neutre o positive).
 - **7 simboli meteo**: Sole, Nuvolo, Pioggia, Vento, Temporale, Neve, Nebbia — **10 gettoni per simbolo** nel pool condiviso.
 - **8 fusioni** (vedi §6) e i **Punti Meteo (PM)**.
@@ -36,7 +36,7 @@ Uno spazio occupato è **bloccato fino alla fine del round**.
 
 | Spazio | Lavoratori | Effetto |
 |---|---|---|
-| **Gioca una carta** | 1 | Metti una Carta Regione dalla mano sul tavolo (vedi §5) |
+| **Gioca una carta** | 1 | Metti una Carta Regione dalla mano sul tavolo (vedi §5). **Se la carta è nuova (non ne sostituisce una), prendi anche 1 simbolo gratis** (vedi §6) |
 | **Compra una carta** | 1 | Prendi una carta dal mercato scoperto o dal mazzo coperto, pagando in PM |
 | **Raccogli un simbolo** | 1 | Prendi un simbolo dal pool e mettilo su una tua carta giocata (vedi §6) |
 | **Guadagna 1 PM** | 1 | +1 Punto Meteo |
@@ -46,7 +46,7 @@ Uno spazio occupato è **bloccato fino alla fine del round**.
 
 **[da misurare]** La Sezione 2 *non* occupa gli spazi della Sezione 1 corrispondenti (come dice il Concept: «decongestiona il tabellone»). Il parametro `sez2OccupiesSez1` permette di provare l'altra lettura in simulazione. Se la seconda azione di una Doppia/Ripetuta non è possibile, va persa.
 
-**Prezzi (PM):** Neutra 1 · Confine 2 · Compensativa 3 · Pesca cieca (qualsiasi carta) 2. Comprata una carta del mercato, si rimpiazza dal mazzo. Se il mazzo finisce, si rimescolano gli scarti. [interpretazione]
+**Prezzi (PM):** Neutra 0 · Confine 1 · Compensativa 2 · Pesca cieca (qualsiasi carta) 2 (la Neutra è gratis: comprarla costa solo l'azione). Comprata una carta del mercato, si rimpiazza dal mazzo. Se il mazzo finisce, si rimescolano gli scarti. [interpretazione]
 
 ## 5. Giocare le Carte Regione
 - **Massimo 1 carta per regione.** Se giochi una carta di una regione già giocata, **sostituisce** la vecchia: la vecchia va negli scarti, la nuova prende il suo posto e **i simboli già sopra restano**. [chiarito]
@@ -67,6 +67,8 @@ Uno spazio occupato è **bloccato fino alla fine del round**.
 
 ## 6. Simboli e fusioni
 - «Raccogli un simbolo» = prendi un gettone dal pool e **mettilo subito su una tua carta già giocata**. Non si sposta. Senza carte giocate (o con tutte piene) lo spazio non è usabile. [chiarito]
+- **Simbolo gratis:** quando giochi una carta *nuova* prendi anche 1 simbolo dal pool, senza usare azioni. Lo metti **subito** su una tua carta (anche quella appena giocata) oppure lo **tieni in riserva**. Se non lo puoi mettere né tenere, si perde. Vale anche per i simboli gratuiti degli Eventi. [chiarito con Niky]
+- **Riserva:** puoi tenere **al massimo 2 simboli** davanti a te (visibili a tutti). Finché sono in riserva non sono sul tavolo e non contano né per la previsione né per i pattern. **All'inizio di ogni tuo turno** (prima di scegliere dove piazzare un lavoratore) puoi metterne quanti vuoi, **gratis e senza lavoratore**, sulle tue carte, con le solite regole (1 simbolo per carta, il 2° solo se forma una fusione). Quelli ancora in riserva a fine partita si perdono. La riserva serve soprattutto ad aspettare un Evento che cambia il bersaglio. [interpretazione di Claude sulla richiesta di Niky: limite 2 e uso gratuito da misurare al playtest]
 - **Una carta porta 1 simbolo.** Un **secondo simbolo si può mettere solo se forma una fusione** con il primo (due simboli diversi che non fondono, per esempio Nuvolo + Nebbia, non possono stare sulla stessa carta). Quindi i simboli sono una scelta: o servono alla previsione o servono ai pattern. [chiarito con Niky]
 - **La fusione è automatica**: quando i 2 simboli sono compatibili, la carta diventa quel fenomeno e **conta solo come la fusione** (non più come i simboli base). [chiarito]
 
@@ -130,30 +132,30 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 
 | # | Titolo | Condizione | Punti | Fascia | Riuscita misurata |
 |---|---|---|---|---|---|
-| T1 | **Tutto lo Stivale** | Almeno 1 regione in ognuna delle 3 aree (Nord, Centro, Sud e Isole). | 3 | facile | 77% |
-| T2 | **Pianura Padana** | Almeno 3 regioni del Nord. | 5 | media | 45% |
-| T3 | **Dorsale appenninica** | Almeno 2 regioni del Centro. | 5 | media | 49% |
-| T4 | **Mediterraneo** | Almeno 3 regioni di Sud e Isole. | 5 | media | 39% |
-| T5 | **Rete fitta** | Almeno 3 bonus di confine attivi. | 5 | media | 47% |
-| T6 | **Estremo Sud e Isole** | Almeno una tra Calabria, Sicilia e Sardegna. | 3 | facile | 36% |
-| T7 | **Costa tirrenica** | Almeno 3 tra Liguria, Toscana, Lazio, Campania, Calabria, Sicilia e Sardegna. | 5 | media | 35% |
-| T8 | **Costa adriatica** | Almeno 3 tra Friuli-Venezia Giulia, Veneto, Emilia-Romagna, Marche, Abruzzo, Molise e Puglia. | 5 | media | 41% |
-| T9 | **Arco alpino** | Almeno 3 tra Valle d'Aosta, Piemonte, Liguria, Lombardia, Trentino-Alto Adige, Veneto e Friuli-Venezia Giulia. | 5 | media | 42% |
-| S1 | **Quattro fenomeni** | 4 tipi di simbolo diversi sul tuo tavolo. | 3 | facile | 83% |
-| S2 | **Tempo a coppie** | Due tipi di simbolo, ognuno su almeno 2 carte. | 3 | facile | 70% |
-| S3 | **Tempo stabile** | 3 carte con lo stesso simbolo. | 3 | facile | — (la AI non lo sceglie: 31% per caso) |
-| S4 | **Neve a bassa quota** | 2 carte con Neve. | 8 | difficile | 83% |
-| S5 | **Sei fenomeni** | 6 tipi di simbolo diversi sul tuo tavolo. | 8 | difficile | 45% |
-| S6 | **Precipitazioni sparse** | 2 carte con Pioggia, Temporale o Neve (anche miste). | 3 | facile | 73% |
-| P1 | **Nebbia a banchi** | 2 carte con Nebbia, ognuna accanto a qualche carta ma nessuna accanto a un’altra Nebbia. | 3 | facile | — (la AI non lo sceglie: 29% per caso) |
-| P2 | **Cella temporalesca** | 2 carte con Temporale vicine tra loro. | 5 | media | 27% |
-| P3 | **Massa d’aria uniforme** | 3 carte vicine con lo stesso simbolo. | 8 | difficile | 30% |
+| T1 | **Tutto lo Stivale** | Almeno 2 regioni in ognuna delle 3 aree (Nord, Centro, Sud e Isole). | 3 | facile | — (la AI non lo sceglie: 44% per caso) |
+| T2 | **Pianura Padana** | Almeno 4 regioni del Nord. | 5 | media | 53% |
+| T3 | **Dorsale appenninica** | Almeno 3 regioni del Centro. | 5 | media | 36% |
+| T4 | **Mediterraneo** | Almeno 4 regioni di Sud e Isole. | 5 | media | 32% |
+| T5 | **Rete fitta** | Almeno 5 bonus di confine attivi. | 5 | media | 44% |
+| T6 | **Estremo Sud e Isole** | Almeno una tra Calabria, Sicilia e Sardegna. | 3 | facile | 67% |
+| T7 | **Costa tirrenica** | Almeno 4 tra Liguria, Toscana, Lazio, Campania, Calabria, Sicilia e Sardegna. | 5 | media | — (la AI non lo sceglie: 22% per caso) |
+| T8 | **Costa adriatica** | Almeno 4 tra Friuli-Venezia Giulia, Veneto, Emilia-Romagna, Marche, Abruzzo, Molise e Puglia. | 5 | media | 44% |
+| T9 | **Arco alpino** | Almeno 4 tra Valle d'Aosta, Piemonte, Liguria, Lombardia, Trentino-Alto Adige, Veneto e Friuli-Venezia Giulia. | 5 | media | 39% |
+| S1 | **Cinque fenomeni** | 5 tipi di simbolo diversi sul tuo tavolo. | 3 | facile | 85% |
+| S2 | **Tempo a coppie** | Tre tipi di simbolo, ognuno su almeno 2 carte. | 5 | media | 90% |
+| S3 | **Tempo stabile** | 5 carte con lo stesso simbolo. | 3 | facile | — (la AI non lo sceglie: 7% per caso) |
+| S4 | **Neve a bassa quota** | 4 carte con Neve. | 8 | difficile | 54% |
+| S5 | **Tutti i fenomeni in campo** | Tutti e 7 i tipi di simbolo sul tuo tavolo. | 5 | media | 44% |
+| S6 | **Precipitazioni sparse** | 4 carte con Pioggia, Temporale o Neve (anche miste). | 3 | facile | 62% |
+| P1 | **Nebbia a banchi** | 3 carte con Nebbia, ognuna accanto a qualche carta ma nessuna accanto a un’altra Nebbia. | 3 | facile | — (la AI non lo sceglie: 31% per caso) |
+| P2 | **Cella temporalesca** | 3 carte con Temporale vicine tra loro. | 5 | media | 22% |
+| P3 | **Massa d’aria uniforme** | 4 carte vicine con lo stesso simbolo. | 8 | difficile | 21% |
 | R1 | **Mano vuota** | Nessuna Carta Regione in mano a fine partita. | 3 | facile | 100% |
-| R2 | **Economia di guerra** | 7 o più PM e nessuna Carta Regione in mano. | 5 | media | 59% |
-| R3 | **Cassaforte** | 9 o più PM a fine partita. | 5 | media | 66% |
-| R4 | **Tavolo grande** | 7 o più carte sul tuo tavolo. | 5 | media | 8% |
-| R5 | **Squadra al completo** | Hai il 3° lavoratore. | 8 | difficile | 19% |
-| R6 | **Tavolo attrezzato** | Almeno 6 carte sul tavolo, tutte con un simbolo. | 5 | media | 52% |
+| R2 | **Economia di guerra** | 7 o più PM e nessuna Carta Regione in mano. | 5 | media | 58% |
+| R3 | **Cassaforte** | 9 o più PM a fine partita. | 5 | media | 38% |
+| R4 | **Tavolo grande** | 9 o più carte sul tuo tavolo. | 5 | media | 51% |
+| R5 | **Squadra al completo** | Hai il 3° lavoratore. | 8 | difficile | 13% |
+| R6 | **Tavolo attrezzato** | Almeno 9 carte sul tavolo, tutte con un simbolo. | 5 | media | 44% |
 
 *La riuscita è alta per le carte che la AI sa inseguire (PM, mano vuota) e bassa per quelle che dipendono dalla fortuna (Tutti i fenomeni, Alta pressione, Squadra al completo): vanno viste al playtest con persone vere.*
 
@@ -161,7 +163,7 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 Più punti totali; a parità più punti di Accuratezza, poi più Accuratezza grezza, poi più Coerenza, poi più PM; se ancora pari: pari merito.
 
 ## 9. Parametri (modificabili dall'app per fare esperimenti)
-`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 (solo per le fusioni) · `secondSymbolOnlyFusion` sì · `nebbiaNeedsNeighbor` sì · `sez2OccupiesSez1` no · `mapMode` italia (variante `libera` = griglia libera a contatto, solo per esperimenti) · `borderPoints` 2 · `eventDrawer` segnalino che passa di mano (variante `first` = il primo giocatore del round, solo per esperimenti) · `objectives` sì (variante no = senza Obiettivi, solo per esperimenti) · `startPMBonus` 0 al primo giocatore e +1 PM a tutti gli altri.
+`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 (solo per le fusioni) · `secondSymbolOnlyFusion` sì · `priceShift` −1 · `playGivesSymbol` sì · `symbolReserve` 2 (varianti solo per esperimenti: `pmGain`, `incomePM`) · `nebbiaNeedsNeighbor` sì · `sez2OccupiesSez1` no · `mapMode` italia (variante `libera` = griglia libera a contatto, solo per esperimenti) · `borderPoints` 2 · `eventDrawer` segnalino che passa di mano (variante `first` = il primo giocatore del round, solo per esperimenti) · `objectives` sì (variante no = senza Obiettivi, solo per esperimenti) · `startPMBonus` 0 al primo giocatore e +1 PM a tutti gli altri.
 
 ## 10. Differenze rispetto al Concept v9 originale
 | Tema | Concept v9 | Questa versione |
@@ -171,6 +173,7 @@ Più punti totali; a parità più punti di Accuratezza, poi più Accuratezza gre
 | Simboli | «appoggiati/impilati» sulla carta | Subito su una carta giocata, non si spostano; 1 per carta, il 2° solo per fare una fusione |
 | Fusione | «scatta impilando 2 simboli» | Automatica; la carta conta solo come la fusione |
 | Piazzamento | «uno alla volta a rotazione» e «continua a piazzare» | Rotazione stretta; chi passa è fuori dal round |
+| Simboli gratis e riserva | non previsti | Giocare una carta nuova dà 1 simbolo gratis, da mettere subito o tenere in una riserva di 2, da usare gratis a inizio turno; prezzi delle carte −1 (misurato: 8 carte e 9 simboli a testa in 12 round invece di 5 e 5) |
 | Pattern Temporale | ambiguo (per carta o per gruppo) | Per gruppo |
 | Pattern Neve | «bonus fisso se esiste un gruppo» | Una volta sola per giocatore |
 | 3° lavoratore | «per il resto della partita» | Dal round successivo |

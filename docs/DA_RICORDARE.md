@@ -163,3 +163,11 @@ Diagnosi: con 12 round ci sono ~24 azioni e circa il 40% serve solo a guadagnare
 | +1 PM a round + prezzi −1 + gioca dà simbolo | 9,1 | 10,3 | 3,2 | 40% | 9,5 | 92% | 32,8 | 37% | 44% |
 
 Nota: le condizioni della previsione prese restano ~3 su 10 anche con 9 carte: più carte non bastano per completare le previsioni; con più azioni gli obiettivi (soglie) e la scala di Accuratezza andrebbero poi rialzati.
+
+## Più carte e simboli: variante APPLICATA (scelta di Niky) — prezzi −1, simbolo gratis alla giocata, riserva di 2
+- Regole: `priceShift: -1` (Neutra gratis, Confine 1, Compensativa 2, cieca 2), `playGivesSymbol: true` (solo per carte nuove, non per sostituzioni), `symbolReserve: 2` (riserva pubblica; si mettono gratis, senza lavoratore, all'inizio di un proprio turno; quelli rimasti a fine partita si perdono). Vale anche per i simboli gratuiti degli Eventi. Riserva: **uso gratuito** scelto perché con l'uso a pagamento (una azione) sarebbe solo un modo di rinviare lo stesso costo, senza il vantaggio di aspettare un Evento.
+- Misura della riserva (200 partite, AI Difficile): per la AI la riserva è neutra (punteggio 26,5 con riserva 0 e con riserva 2; ne usa 1,1 su 1,9 presi) perché non pianifica l'attesa di un Evento: il vantaggio per un giocatore umano resta da vedere al playtest. Prima di scrivere la valutazione «tienilo solo se la regione che mi serve è in mano o in mercato» la AI sprecava la riserva (−1 punto).
+- Dopo le nuove regole (2 giocatori, AI Difficile, 12 round): carte sul tavolo ≈ 7,8 per giocatore; fusioni 0,6; punteggio medio 24,4 (Accuratezza 9,6 · Coerenza 14,8). Fedeltà vs pattern **42,7%** [37,2–48,3]; Difficile > Media **67,6%**, Media > Facile **95,7%**; strategie estreme tutte perdenti (Fedeltà 72%, Pattern 73%, Casuale 99,7%, Accumulatore/Passivo 100%).
+- **Vantaggio di chi inizia ora in linea con l'atteso a tutti i numeri di giocatori**: 2 → 48,1% (atteso 50), 3 → 33,5% (33,3), 4 → 27,1% (25).
+- Obiettivi ritarati su queste regole (soglie più alte: 9 carte, 7 tipi di simbolo, 4 regioni di un'area, ecc.): ~45-50% raggiunti, 2,5 punti a giocatore.
+- Da decidere: con più carte la Coerenza (14,8) pesa più dell'Accuratezza (9,6): la scala 0/2/4/7/10 potrebbe tornare più generosa.

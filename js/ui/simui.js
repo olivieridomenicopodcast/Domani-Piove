@@ -29,7 +29,7 @@
   const tile = (big, label, sub) => `<div class="tile"><div class="tbig">${big}</div><div class="tlab">${label}</div>${sub ? `<div class="tsub">${sub}</div>` : ''}</div>`;
   const parseParams = (txt) => { const o = {}; String(txt || '').split(/[,;\s]+/).filter(Boolean).forEach((p) => { const [k, v] = p.split('='); if (k && v != null) o[k] = v === 'true' ? true : v === 'false' ? false : Number(v); }); return o; };
   const parseVal = (s) => { s = s.trim(); if (s === 'true') return true; if (s === 'false') return false; if (s === 'null') return null; return isNaN(Number(s)) ? s : Number(s); };
-  const PARAM_LIST = ['startPM', 'startCards', 'workers', 'thirdWorkerCost', 'marketSize', 'blindPrice', 'poolPerSymbol', 'maxSymbolsPerCard', 'coerCap', 'borderPoints', 'sez2OccupiesSez1', 'requireAdjacentPlacement', 'mapMode', 'thirdWorkerNextRound', 'rotateFirst', 'eventDrawer', 'rounds',
+  const PARAM_LIST = ['startPM', 'startCards', 'workers', 'thirdWorkerCost', 'marketSize', 'blindPrice', 'poolPerSymbol', 'maxSymbolsPerCard', 'coerCap', 'borderPoints', 'priceShift', 'playGivesSymbol', 'symbolReserve', 'sez2OccupiesSez1', 'requireAdjacentPlacement', 'mapMode', 'thirdWorkerNextRound', 'rotateFirst', 'eventDrawer', 'rounds',
     'pattern.pioggia', 'pattern.neve', 'pattern.vento', 'pattern.nuvolo', 'pattern.nebbia', 'pattern.temporale2', 'pattern.temporale3'];
   const profOpts = (sel) => Object.keys(FF.Sim.PROFILES).map((k) => `<option value="${k}" ${k === sel ? 'selected' : ''}>${esc(FF.Sim.PROFILES[k].label)}</option>`).join('');
 

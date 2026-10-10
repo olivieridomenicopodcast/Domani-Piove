@@ -62,7 +62,7 @@
         pool: Object.assign({}, t.pool), market: t.market.slice(), occupied: Object.assign({}, t.occupied), transit: t.transit.slice(),
         target: { nord: T.nord.map((c) => Object.assign({}, c)), centro: T.centro.map((c) => Object.assign({}, c)), sud_isole: T.sud_isole.map((c) => Object.assign({}, c)) },
         objDeck: t.objDeck.slice(), objDiscard: t.objDiscard.slice(),
-        players: t.players.map((p) => Object.assign({}, p, { hand: p.hand.slice(), objChoices: p.objChoices.slice(), table: p.table.map((e) => ({ id: e.id, x: e.x, y: e.y, sym: e.sym.slice(), fusion: e.fusion })) })),
+        players: t.players.map((p) => Object.assign({}, p, { hand: p.hand.slice(), objChoices: p.objChoices.slice(), reserve: (p.reserve || []).slice(), table: p.table.map((e) => ({ id: e.id, x: e.x, y: e.y, sym: e.sym.slice(), fusion: e.fusion })) })),
       });
       return g;
     }
@@ -91,7 +91,7 @@
       for (let i = 0; i < n; i++) {
         const p = pl[i] || {};
         s.players.push({ id: i, name: p.name || ('Giocatore ' + (i + 1)), kind: p.kind || 'ai', level: p.level || null,
-          pm: R.startPM, hand: [], table: [], workers: R.workers, pendingWorker: false, objective: null, objChoices: [], left: 0, passed: false, peek: null });
+          pm: R.startPM, hand: [], table: [], workers: R.workers, pendingWorker: false, objective: null, objChoices: [], reserve: [], left: 0, passed: false, peek: null });
       }
       for (let i = 0; i < n; i++) for (let k = 0; k < R.startCards; k++) { const c = this._drawRegion(); if (c != null) s.players[i].hand.push(c); }
       s.first = R.firstPlayer >= 0 ? R.firstPlayer % n : this.randInt(n);
@@ -224,10 +224,16 @@
       if (p.pm >= this.rules.blindPrice && this.regionCardsLeft() > 0) out.push({ blind: true, price: this.rules.blindPrice });
       return out;
     }
-    symbolOptions(pid) {
-      const p = this.s.players[pid], out = [], M = this.rules.maxSymbolsPerCard;
-      const only = this.rules.secondSymbolOnlyFusion;
-      p.table.forEach((e, idx) => { if (e.sym.length < M) FF.SYMBOLS.forEach((x) => { if (this.s.pool[x] > 0 && (!only || !e.sym.length || FF.fusionOf([e.sym[0], x]))) out.push({ sym: x, idx }); }); });
+    // un simbolo x si può mettere su una carta e? (1 simbolo per carta; il 2° solo se forma una fusione)
+    canPlaceSym(e, x) {
+      if (e.sym.length >= this.rules.maxSymbolsPerCard) return false;
+      return !this.rules.secondSymbolOnlyFusion || !e.sym.length || !!FF.fusionOf([e.sym[0], x]);
+    }
+    // free = simbolo gratis (giocare una carta, Eventi): si può anche tenere in riserva (se c'è posto)
+    symbolOptions(pid, free) {
+      const p = this.s.players[pid], out = [], R = this.rules;
+      p.table.forEach((e, idx) => { FF.SYMBOLS.forEach((x) => { if (this.s.pool[x] > 0 && this.canPlaceSym(e, x)) out.push({ sym: x, idx }); }); });
+      if (free && R.symbolReserve && p.reserve.length < R.symbolReserve) FF.SYMBOLS.forEach((x) => { if (this.s.pool[x] > 0) out.push({ sym: x, reserve: true }); });
       return out;
     }
     legalAction(pid, a) {
@@ -290,8 +296,8 @@
         p.table.push({ id: o.card, x: o.x, y: o.y, sym: [], fusion: null });
         this.stat('carte_giocate', pid);
         yield* this.say('act', `🃏 ${this.pn(pid)} gioca ${this.cname(o.card)} in (${o.x},${o.y}).`, pid, { card: o.card, x: o.x, y: o.y });
+        if (this.rules.playGivesSymbol) yield* this.act(pid, 'simbolo', true);   // giocare una carta NUOVA dà 1 simbolo gratis (da mettere subito o tenere in riserva)
       }
-      if (this.rules.playGivesSymbol && this.symbolOptions(pid).length) yield* this.act(pid, 'simbolo', true);   // variante: la carta giocata porta 1 simbolo gratis
     }
 
     *actBuy(pid) {
@@ -309,15 +315,40 @@
 
     // raccoglie un simbolo dal pool e lo mette su una propria carta giocata (max 2 simboli per carta; il 2° compatibile fonde in automatico)
     *actSymbol(pid, free) {
-      const s = this.s, p = s.players[pid], opts = this.symbolOptions(pid);
+      const s = this.s, p = s.players[pid], opts = this.symbolOptions(pid, free);
       if (!opts.length) { yield* this.say('act', `⚠ ${this.pn(pid)} non può raccogliere simboli${free ? ' (l\'effetto va perso)' : ''}.`, pid); this.stat('simbolo_perso', pid); return; }
-      const ans = yield* this.ask({ type: 'symbol', pid, options: opts });
-      const o = opts[ans], e = p.table[o.idx];
+      const ans = yield* this.ask({ type: 'symbol', pid, options: opts, free: !!free });
+      const o = opts[ans];
+      if (o.reserve) {
+        s.pool[o.sym]--; p.reserve.push(o.sym); this.stat('simboli_in_riserva', pid); this.stat('simbolo_' + o.sym, -1);
+        yield* this.say('act', `${SYMBOL_INFO[o.sym].i} ${this.pn(pid)} prende ${sn(o.sym)} e lo tiene in riserva (${p.reserve.length}/${this.rules.symbolReserve}).`, pid, { sym: o.sym, reserve: true });
+        return;
+      }
+      const e = p.table[o.idx];
       s.pool[o.sym]--; e.sym.push(o.sym);
       this.stat('simboli_raccolti', pid); this.stat('simbolo_' + o.sym, -1);
       const f = FF.fusionOf(e.sym);
       if (f) { e.fusion = f; this.stat('fusioni', pid); this.stat('fusione_' + f, -1); }
       yield* this.say('act', `${SYMBOL_INFO[o.sym].i} ${this.pn(pid)} mette ${sn(o.sym)} su ${FF.regionOf(e)}${f ? ` → 💥 FUSIONE: ${f}!` : ` (${e.sym.map((x) => SYMBOL_INFO[x].i).join('')})`}.`, pid, { sym: o.sym, region: FF.regionOf(e), fusion: f });
+    }
+
+    // all'inizio di ogni suo turno un giocatore può mettere sulle proprie carte i simboli che ha in riserva (azione gratuita, senza lavoratore)
+    *useReserve(pid) {
+      const s = this.s, p = s.players[pid];
+      for (let guard = 0; guard < 10 && p.reserve.length; guard++) {
+        const opts = [];
+        Array.from(new Set(p.reserve)).forEach((x) => p.table.forEach((e, idx) => { if (this.canPlaceSym(e, x)) opts.push({ sym: x, idx }); }));
+        if (!opts.length) return;
+        opts.push({ done: true });
+        const ans = yield* this.ask({ type: 'reserve', pid, options: opts }), o = opts[ans];
+        if (o.done) return;
+        p.reserve.splice(p.reserve.indexOf(o.sym), 1);
+        const e = p.table[o.idx]; e.sym.push(o.sym);
+        this.stat('simboli_da_riserva', pid);
+        const f = FF.fusionOf(e.sym);
+        if (f) { e.fusion = f; this.stat('fusioni', pid); this.stat('fusione_' + f, -1); }
+        yield* this.say('act', `${SYMBOL_INFO[o.sym].i} ${this.pn(pid)} mette dalla riserva ${sn(o.sym)} su ${FF.regionOf(e)}${f ? ` → 💥 FUSIONE: ${f}!` : ` (${e.sym.map((x) => SYMBOL_INFO[x].i).join('')})`}.`, pid, { sym: o.sym, region: FF.regionOf(e), fusion: f || null });
+      }
     }
 
     // ───────────────────────── il round ─────────────────────────
@@ -333,6 +364,7 @@
         let pid = null;
         for (let k = 0; k < n; k++) { const q = (cur + k) % n, p = s.players[q]; if (p.left >= 1 && !p.passed) { pid = q; break; } }
         if (pid == null) break;
+        if (R.symbolReserve && s.players[pid].reserve.length) yield* this.useReserve(pid);
         const p = s.players[pid], opts = this.placeOptions(pid);
         if (opts.length === 1) { p.passed = true; this.stat('passa_forzato', pid); yield* this.say('pass', `⏭ ${this.pn(pid)} non ha spazi utili: passa per questo round.`, pid); cur = (pid + 1) % n; continue; }
         const ans = yield* this.ask({ type: 'place', pid, options: opts });

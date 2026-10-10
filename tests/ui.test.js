@@ -29,7 +29,7 @@ test('sprite: tutte le carte e i gettoni si disegnano, ben formati, con rapporto
 });
 test('sprite: il testo delle carte non lascia mai tracce di errori e riporta nome e prezzo', () => {
   const c = FF.REGION_CARDS.find((x) => x.variante === 'compensativa' && x.regione === 'Calabria');
-  const v = S.region(c); assert.ok(v.includes('Calabria')); assert.ok(v.includes('Valle d&#39;Aosta') && v.includes('Friuli-Venezia Giulia')); assert.ok(v.includes('>3<'));
+  const v = S.region(c); assert.ok(v.includes('Calabria')); assert.ok(v.includes('Valle d&#39;Aosta') && v.includes('Friuli-Venezia Giulia')); assert.ok(v.includes('>2<'));   // prezzo 3 − 1
 });
 test('PWA: ogni script di index.html esiste ed è nella cache del service worker', () => {
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8'), sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');

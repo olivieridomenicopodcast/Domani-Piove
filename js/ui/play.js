@@ -11,7 +11,7 @@
   const RULE_FIELDS = [
     ['rounds', 'Round (un\'ora l\'uno)'], ['startPM', 'PM iniziali'], ['startCards', 'Carte Regione iniziali'], ['workers', 'Lavoratori iniziali'], ['thirdWorkerCost', 'Costo del 3° lavoratore (PM)'],
     ['marketSize', 'Carte scoperte nel mercato'], ['blindPrice', 'Prezzo della pesca alla cieca'], ['poolPerSymbol', 'Gettoni per simbolo nel pool'], ['maxSymbolsPerCard', 'Simboli massimi per carta'],
-    ['borderPoints', 'Punti per bonus di confine'], ['sez2OccupiesSez1', 'La Sezione 2 occupa anche gli spazi della Sezione 1'], ['requireAdjacentPlacement', 'Le carte vanno giocate a contatto con quelle già giocate'],
+    ['borderPoints', 'Punti per bonus di confine'], ['priceShift', 'Variazione del prezzo delle carte (PM)'], ['playGivesSymbol', 'Giocare una carta nuova dà 1 simbolo gratis'], ['symbolReserve', 'Simboli tenibili in riserva (0 = nessuna)'], ['sez2OccupiesSez1', 'La Sezione 2 occupa anche gli spazi della Sezione 1'], ['requireAdjacentPlacement', 'Le carte vanno giocate a contatto con quelle già giocate'],
     ['thirdWorkerNextRound', 'Il 3° lavoratore arriva dal round dopo'], ['rotateFirst', 'Il primo giocatore ruota a ogni round'],
   ];
   UI.rulesFields = function (prefix, values) {
@@ -216,7 +216,8 @@
       $('#g-tabname').textContent = g.s.players[v].name;
       $('#g-tabs').innerHTML = g.s.players.map((p) => `<button class="tab ${p.id === v ? 'sel' : ''} ${active === p.id ? 'act' : ''}" data-pid="${p.id}">${S.seat(p.id, 'tiny')} ${esc(p.name)}</button>`).join('');
       $$('#g-tabs .tab').forEach((b) => { b.onclick = () => { this.viewPid = Number(b.dataset.pid); this.renderTable(null); }; });
-      $('#g-table').innerHTML = UI.tableauHTML(g, v);
+      const rsv = g.rules.symbolReserve ? g.s.players[v].reserve : null;
+      $('#g-table').innerHTML = UI.tableauHTML(g, v) + (rsv ? `<div class="reservebox" aria-label="Riserva di simboli">🧳 <b>Riserva</b> (${rsv.length}/${g.rules.symbolReserve}): ${rsv.length ? rsv.map((x) => `<span class="rtoken" title="${SN[x].n}">${S.symbol(x, 'micro')}</span>`).join('') : '<span class="muted">vuota</span>'} <span class="small muted">— i simboli in riserva si mettono gratis all'inizio di un tuo turno</span></div>` : '');
       const vis = this.viewHands().indexOf(v) >= 0, hand = g.s.players[v].hand, pv = g.s.players[v];
       let objH = '';
       if (g.rules.objectives && pv.objective) {
@@ -258,7 +259,7 @@
       return {
         place: `${n}: tocca a te — piazza un lavoratore o passa`, play: `${n}: scegli la Carta Regione da giocare e dove`, buy: `${n}: scegli quale carta comprare`, symbol: `${n}: scegli il simbolo e la carta su cui metterlo`,
         doppia1: `${n}: Doppia azione — scegli la 1ª azione`, doppia2: `${n}: Doppia azione — scegli la 2ª azione`, ripetuta: `${n}: Azione ripetuta — quale azione fai due volte?`,
-        objective: `${n}: scegli in segreto l'Obiettivo da tenere (l'altro si scarta)`, objswap: `${n}: vuoi cambiare il tuo Obiettivo Segreto?`,
+        reserve: `${n}: vuoi mettere un simbolo dalla tua riserva? (gratis)`, objective: `${n}: scegli in segreto l'Obiettivo da tenere (l'altro si scarta)`, objswap: `${n}: vuoi cambiare il tuo Obiettivo Segreto?`,
         keep: `${n}: scegli la carta da tenere`, order: `${n}: scegli l'ordine delle carte rimesse in fondo`, swap: `${n}: vuoi scambiare una carta con il mercato?`, revise: `${n}: vuoi scartare una carta e pescarne una nuova?`,
       }[d.type] || `Tocca a ${n}`;
     }
@@ -343,7 +344,7 @@
         case 'place': ans = await this.placePanel(d); break;
         case 'play': ans = await this.playPanel(d); break;
         case 'buy': ans = await this.buyPanel(d); break;
-        case 'symbol': ans = await this.symbolPanel(d); break;
+        case 'symbol': case 'reserve': ans = await this.symbolPanel(d); break;
         case 'doppia1': case 'doppia2': case 'ripetuta': ans = await this.actPanel(d); break;
         case 'keep': ans = await this.cardsPanel(d, 'Tieni questa carta'); break;
         case 'objective': ans = await this.objectivePanel(d); break;
@@ -462,18 +463,23 @@
     // ── pannello: raccogli un simbolo (simbolo → carta → anteprima → conferma) ──
     symbolPanel(d) {
       const g = this.game, pid = d.pid, p = g.s.players[pid];
-      const syms = Array.from(new Set(d.options.map((o) => o.sym)));
+      const fromRes = d.type === 'reserve', cap = g.rules.symbolReserve, syms = Array.from(new Set(d.options.filter((o) => !o.done).map((o) => o.sym)));
       let sel = null, chosen = null;
       const draw = () => {
-        const pickIdx = d.options.filter((o) => o.sym === sel).map((o) => o.idx);
-        this.setAction(`<h3>${S.seat(pid, 'tiny')} ${esc(p.name)} — raccogli un simbolo</h3>
-          <div class="sub">1. Scegli il simbolo dal pool</div><div class="pool">${FF.SYMBOLS.map((x) => { const ok = syms.indexOf(x) >= 0; return `<button class="poolsym ${ok ? 'selectable' : 'empty'} ${x === sel ? 'chosen' : ''}" ${ok ? `data-sym="${x}"` : 'disabled'} title="${SN[x].n}">${S.symbol(x)}<span class="pc">${g.s.pool[x]}</span></button>`; }).join('')}</div>
-          ${sel ? `<div class="sub">2. Tocca la carta su cui metterlo (${SN[sel].i} ${SN[sel].n})</div>${UI.tableauHTML(g, pid, { pickIdx })}` : `<div class="small muted">Tocca un simbolo.${syms.length < FF.SYMBOLS.length ? ' Quelli in grigio sono finiti nel pool.' : ''}</div>`}<div id="pv"></div>`);
+        const pickIdx = d.options.filter((o) => o.sym === sel && !o.reserve && !o.done).map((o) => o.idx), resOpt = d.options.find((o) => o.sym === sel && o.reserve);
+        const cnt = (x) => (fromRes ? p.reserve.filter((y) => y === x).length : g.s.pool[x]);
+        const pool = fromRes ? FF.SYMBOLS.filter((x) => cnt(x) > 0) : FF.SYMBOLS;
+        this.setAction(`<h3>${S.seat(pid, 'tiny')} ${esc(p.name)} — ${fromRes ? 'metti un simbolo dalla tua riserva' : d.free ? 'simbolo gratis' : 'raccogli un simbolo'}</h3>
+          <div class="sub">1. Scegli il simbolo ${fromRes ? 'dalla riserva' : 'dal pool'}</div><div class="pool">${pool.map((x) => { const ok = syms.indexOf(x) >= 0; return `<button class="poolsym ${ok ? 'selectable' : 'empty'} ${x === sel ? 'chosen' : ''}" ${ok ? `data-sym="${x}"` : 'disabled'} title="${SN[x].n}">${S.symbol(x)}<span class="pc">${cnt(x)}</span></button>`; }).join('')}</div>
+          ${sel ? `<div class="sub">2. Tocca la carta su cui metterlo (${SN[sel].i} ${SN[sel].n})${resOpt ? ' — oppure tienilo in riserva' : ''}</div>${pickIdx.length ? UI.tableauHTML(g, pid, { pickIdx }) : '<div class="small muted">Nessuna tua carta può riceverlo ora.</div>'}${resOpt ? `<div class="btn-row"><button class="btn" data-reserve="1">🧳 Tienilo in riserva (${p.reserve.length + 1}/${cap})</button></div>` : ''}` : `<div class="small muted">Tocca un simbolo.${!fromRes && syms.length < FF.SYMBOLS.length ? ' Quelli in grigio sono finiti nel pool o non hanno posto.' : ''}</div>`}
+          ${fromRes ? '<div class="btn-row"><button class="btn" data-done="1">Non ora: tengo la riserva</button></div>' : ''}<div id="pv"></div>`);
       };
       draw();
       return this.waitClick(async (e) => {
         const sb = e.target.closest('[data-sym]');
         if (sb) { sel = sb.dataset.sym; chosen = null; draw(); return undefined; }
+        if (e.target.closest('[data-done]')) return d.options.findIndex((o) => o.done);
+        if (e.target.closest('[data-reserve]') && sel) return d.options.findIndex((o) => o.sym === sel && o.reserve);
         const cb = e.target.closest('.tcell.pick [data-idx]');
         if (cb && sel) {
           const idx = Number(cb.dataset.idx), opt = d.options.find((o) => o.sym === sel && o.idx === idx);
@@ -537,8 +543,9 @@
         case 'place': return o.pass ? 'Passa per questo round' : `Piazza su «${FF.SPACE_NAMES[o.space]}»`;
         case 'play': return o.replace ? `Gioca ${rn(o.card)} al posto di quella che hai` : `Gioca ${rn(o.card)} nella cella (${o.x},${o.y})`;
         case 'buy': return o.blind ? `Pesca alla cieca (${o.price} PM)` : `Compra ${rn(o.card)} (${o.price} PM)`;
-        case 'symbol': return `Metti ${SN[o.sym].i} ${SN[o.sym].n} su ${FF.regionOf(g.s.players[d.pid].table[o.idx])}`;
+        case 'symbol': return o.reserve ? `Tieni ${SN[o.sym].i} ${SN[o.sym].n} in riserva` : `Metti ${SN[o.sym].i} ${SN[o.sym].n} su ${FF.regionOf(g.s.players[d.pid].table[o.idx])}`;
         case 'doppia1': case 'doppia2': case 'ripetuta': return `Scegli «${FF.SPACE_NAMES[o.act]}»`;
+        case 'reserve': return o.done ? 'Tieni la riserva per ora' : `Metti ${SN[o.sym].i} ${SN[o.sym].n} dalla riserva su ${FF.regionOf(g.s.players[d.pid].table[o.idx])}`;
         case 'keep': return `Tieni ${rn(o.card)}`;
         case 'objective': return `Tieni l'Obiettivo «${FF.OBJ[o.obj].titolo}»`;
         case 'objswap': return o.keep ? 'Tieni il tuo Obiettivo' : 'Scarta l\'Obiettivo e pescane uno nuovo';
@@ -564,7 +571,7 @@
         case 'place': q(o.pass ? '[data-sp="pass"]' : `[data-sp="${o.space}"]`); break;
         case 'play': q(`[data-card="${o.card}"]`); if (o.replace) q('.tcell.pick .cardbtn'); else q(`[data-cell="${o.x},${o.y}"]`); break;
         case 'buy': q(o.blind ? '[data-blind]' : `[data-slot="${o.slot}"]`); break;
-        case 'symbol': q(`[data-sym="${o.sym}"]`); q(`.tcell.pick[data-idx="${o.idx}"] .cardbtn`); break;
+        case 'symbol': case 'reserve': q(o.done ? '[data-done]' : `[data-sym="${o.sym}"]`); if (!o.done) { if (o.reserve) q('[data-reserve]'); else q(`.tcell.pick[data-idx="${o.idx}"] .cardbtn`); } break;
         default: q(`[data-i="${index}"]`);
       }
     }

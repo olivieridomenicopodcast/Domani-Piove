@@ -19,9 +19,9 @@
 
   // parametri dei livelli (si possono sovrascrivere per fare esperimenti: AI.create(level, seed, {eff: 0.6}))
   AI.PARAMS = {
-    easy:   { random: 0.55, noise: 1.2, eff: 0.5, potW: 1, objW: 0.4, rho: 0.78, patW: 0.4, pmW: 0.06, oppW: 0, denial: 0, handW: 0.1, buyPrice: 1.5, noMarketCost: 3.5, passEps: 0.05 },
-    medium: { random: 0.06, noise: 0.35, eff: 0.65, potW: 1, objW: 0.6, rho: 0.84, patW: 0.7, pmW: 0.07, oppW: 0.15, denial: 0, handW: 0.1, buyPrice: 1.5, noMarketCost: 3.5, passEps: 0.05 },
-    hard:   { random: 0, noise: 0.03, eff: 0.7, potW: 1, objW: 0.8, rho: 0.86, patW: 0.8, pmW: 0.07, oppW: 0.35, denial: 0.6, handW: 0.1, buyPrice: 1.5, noMarketCost: 3.5, passEps: 0.05 },
+    easy:   { random: 0.55, noise: 1.2, eff: 0.5, potW: 1, resW: 0, objW: 0.4, rho: 0.78, patW: 0.4, pmW: 0.06, oppW: 0, denial: 0, handW: 0.1, buyPrice: 1.5, noMarketCost: 3.5, passEps: 0.05 },
+    medium: { random: 0.06, noise: 0.35, eff: 0.65, potW: 1, resW: 0, objW: 0.6, rho: 0.84, patW: 0.7, pmW: 0.07, oppW: 0.15, denial: 0, handW: 0.1, buyPrice: 1.5, noMarketCost: 3.5, passEps: 0.05 },
+    hard:   { random: 0, noise: 0.03, eff: 0.7, potW: 1, resW: 0, objW: 0.8, rho: 0.86, patW: 0.8, pmW: 0.07, oppW: 0.35, denial: 0.6, handW: 0.1, buyPrice: 1.5, noMarketCost: 3.5, passEps: 0.05 },
   };
 
   // ───────────────────────── informazione: cosa può sapere un giocatore ─────────────────────────
@@ -137,6 +137,7 @@
     const left = Math.min(1, actionsLeft(g, p, P) / 8);
     v += P.handW * p.hand.length * left + 0.7 * hb * left;
     v += p.pm * P.pmW * left;
+    v += (p.reserve ? p.reserve.length : 0) * (P.resW == null ? 0.5 : P.resW) * left * left;   // un simbolo in riserva vale: potrò usarlo più avanti (soprattutto se un Evento cambia il bersaglio)
     if (!noObj && P.objW && p.objective && R.objectives) {   // il mio Obiettivo Segreto (quello degli altri non lo conosco)
       const O = FF.OBJ[p.objective], met = O.val(p, R) >= O.need;
       v += P.objW * O.pts * (met ? 1 : 0.6 * Math.pow(FF.objectiveProgress(p.objective, p, R), 2) * Math.min(1, left * 1.5 + 0.2));
@@ -181,8 +182,21 @@
             else table = p.table.concat([{ id: o.card, x: o.x, y: o.y, sym: [], fusion: null }]);
             return evalPlayer(g, Object.assign({}, p, { table, hand, left: p.left }), P) - base;
           });
+        case 'reserve':
+          return dec.options.map((o) => {
+            if (o.done) return 0;
+            const table = p.table.map((e, i) => { if (i !== o.idx) return e; const sym = e.sym.concat([o.sym]); return { id: e.id, x: e.x, y: e.y, sym, fusion: FF.fusionOf(sym) }; }), reserve = p.reserve.slice(); reserve.splice(reserve.indexOf(o.sym), 1);
+            return evalPlayer(g, Object.assign({}, p, { table, reserve }), P) - base;
+          });
         case 'symbol':
           return dec.options.map((o) => {
+            if (o.reserve) {   // tenerlo in riserva: conviene solo se non posso metterlo bene adesso ma a breve potrò (la regione è in mano o in mercato)
+              const here = dec.options.filter((q) => !q.reserve && q.sym === o.sym).map((q) => { const t = p.table.map((e, i) => { if (i !== q.idx) return e; const sym = e.sym.concat([o.sym]); return { id: e.id, x: e.x, y: e.y, sym, fusion: FF.fusionOf(sym) }; }); return evalPlayer(g, Object.assign({}, p, { table: t }), P) - base; });
+              const bestHere = here.length ? Math.max(...here) : 0;
+              const soon = new Set(p.hand.map(regionName).concat(s.market.filter((c) => c != null).map(regionName)));   // regioni che posso avere a breve
+              const wanted = FF.AREAS.some((a) => s.target[a].some((c) => !FF.condMet(p.table, c) && soon.has(c.regione) && !p.table.some((e) => FF.regionOf(e) === c.regione) && (c.req === o.sym || (FF.isFusionName(c.req) && FF.FUSIONS.find((f) => f.name === c.req).recipe.indexOf(o.sym) >= 0))));
+              return bestHere > 0 ? 0.8 * bestHere : (wanted ? 0.5 : -0.3);
+            }
             const table = p.table.map((e, i) => { if (i !== o.idx) return e; const sym = e.sym.concat([o.sym]); return { id: e.id, x: e.x, y: e.y, sym, fusion: FF.fusionOf(sym) }; });
             return evalPlayer(g, Object.assign({}, p, { table }), P) - base;
           });

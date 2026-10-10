@@ -1,10 +1,10 @@
-<svg width="100" height="140" class="spr card obj " viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg" role="img" ><title>Obiettivo Segreto Neve a bassa quota — 2 carte con Neve. (8 punti)</title>
+<svg width="100" height="140" class="spr card obj " viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg" role="img" ><title>Obiettivo Segreto Neve a bassa quota — 4 carte con Neve. (8 punti)</title>
       <rect x="1.5" y="1.5" width="97" height="137" rx="7" fill="#f3efe4" stroke="#3a2d17" stroke-width="2"/>
       <rect x="4" y="4" width="92" height="17" rx="4" fill="#7a4f9a"/>
       <text x="50" y="12" text-anchor="middle" font-size="5.6" letter-spacing=".9" font-weight="700" fill="#fff" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">OBIETTIVO SEGRETO</text>
       <text x="50" y="18.6" text-anchor="middle" font-size="5.2" letter-spacing=".8" fill="#f1f1f1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">SIMBOLI</text>
       <text x="50" y="33" text-anchor="middle" font-size="9" font-weight="700" fill="#1f2530" font-family="Georgia, 'Times New Roman', serif">Neve a bassa</text><text x="50" y="43" text-anchor="middle" font-size="9" font-weight="700" fill="#1f2530" font-family="Georgia, 'Times New Roman', serif">quota</text>
       <line x1="14" y1="52.0" x2="86" y2="52.0" stroke="#bfb59b" stroke-width=".8"/>
-      <text x="50" y="61" text-anchor="middle" font-size="6.8" fill="#2b2216" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">2 carte con Neve.</text>
+      <text x="50" y="61" text-anchor="middle" font-size="6.8" fill="#2b2216" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">4 carte con Neve.</text>
       <circle cx="50" cy="116" r="14" fill="#7a4f9a"/><text x="50" y="122" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">8</text>
       <text x="50" y="135" text-anchor="middle" font-size="5.2" letter-spacing=".8" fill="#6b5d40" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">DIFFICILE · PUNTI</text></svg>

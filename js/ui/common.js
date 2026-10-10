@@ -90,7 +90,7 @@
     if (t === 'reg') {
       const c = FF.REGION_CARDS[Number(a)]; spr = S.region(c); titleH = c.regione;
       const lab = { neutra: 'Neutra: nessun bonus', confine: 'Confine: bonus alla frontiera', compensativa: 'Compensativa' }[c.variante];
-      desc = `<b>${FF.AREA_NAMES[c.area]}</b> · ${lab} · si compra a <b>${c.price} PM</b>.<br>${S.bonusText(c).join(' ')}.<br><span class="muted">Non ha simboli stampati: i simboli si raccolgono dal pool e si mettono sopra.</span>`;
+      desc = `<b>${FF.AREA_NAMES[c.area]}</b> · ${lab} · si compra a <b>${FF.cardPrice(c) ? FF.cardPrice(c) + ' PM' : 'gratis'}</b>.<br>${S.bonusText(c).join(' ')}.<br><span class="muted">Non ha simboli stampati: i simboli si raccolgono dal pool e si mettono sopra.</span>`;
     } else if (t === 'prev') {
       const p = FF.PREVISIONI.find((x) => x.id === a); spr = S.previsione(p); titleH = p.titolo;
       desc = `<i>${esc(p.testo)}</i><br><br>` + p.condizioni.map((c) => `${c.livello === 'core' ? '★' : '•'} <b>${esc(c.regione)}</b>: ${FF.SYMBOL_INFO[c.simbolo].i} ${FF.SYMBOL_INFO[c.simbolo].n} (${c.punti} pt)`).join('<br>');
