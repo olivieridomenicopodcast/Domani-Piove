@@ -140,25 +140,25 @@
         "da": 1,
         "a": 2,
         "esito": "Parzialmente corretta",
-        "punti": 2
+        "punti": 3
       },
       {
         "da": 3,
         "a": 4,
         "esito": "Buona",
-        "punti": 4
+        "punti": 6
       },
       {
         "da": 5,
         "a": 6,
         "esito": "Molto accurata",
-        "punti": 7
+        "punti": 9
       },
       {
         "da": 7,
         "a": 15,
         "esito": "Eccellente",
-        "punti": 10
+        "punti": 13
       }
     ]
   },

@@ -52,7 +52,7 @@ test('fusioni: tutte le 8 ricette, in entrambi gli ordini; le altre coppie non f
 // ───────────────────────── Accuratezza ─────────────────────────
 test('accuratezza: scaglioni 0 / 1-2 / 3-4 / 5-6 / 7+', () => {
   const pts = (raw) => FF.DEFAULT_RULES.accuracy.find((s) => raw >= s.from && raw <= s.to).pts;
-  assert.deepEqual([0, 1, 2, 3, 4, 5, 6, 7, 15].map(pts), [0, 2, 2, 4, 4, 7, 7, 10, 10]);
+  assert.deepEqual([0, 1, 2, 3, 4, 5, 6, 7, 15].map(pts), [0, 3, 3, 6, 6, 9, 9, 13, 13]);
 });
 test('accuratezza: simbolo richiesto, fusione richiesta, la fusione sostituisce i simboli base', () => {
   const target = { nord: [{ regione: 'Veneto', punti: 2, req: 'temporale' }, { regione: 'Lombardia', punti: 1, req: 'pioggia' }], centro: [{ regione: 'Marche', punti: 3, req: 'sole' }], sud_isole: [] };

@@ -100,12 +100,12 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 | Totale grezzo | Esito | Punti |
 |---|---|---|
 | 0 | Previsione mancata | 0 |
-| 1–2 | Parzialmente corretta | 2 |
-| 3–4 | Buona | 4 |
-| 5–6 | Molto accurata | 7 |
-| 7–15 | Eccellente | 10 |
+| 1–2 | Parzialmente corretta | 3 |
+| 3–4 | Buona | 6 |
+| 5–6 | Molto accurata | 9 |
+| 7–15 | Eccellente | 13 |
 
-*Un gradino ogni 2 punti di previsione: nelle partite simulate si arriva di solito a 2-6 punti grezzi. Scala 0 · 2 · 4 · 7 · 10. [chiarito con Niky, dopo le misure]*
+*Un gradino ogni 2 punti di previsione: nelle partite simulate si arriva di solito a 2-6 punti grezzi. Scala 0 · 3 · 6 · 9 · 13. [chiarito con Niky, dopo le misure]*
 
 ### Coerenza Geografica = bonus di confine + pattern
 **Bonus di confine / compensativi:** **+2** per ogni carta giocata il cui bonus è soddisfatto; si sommano senza tetto (tre regioni della «rete estrema» = +6, le due isole = +4). [chiarito con Niky, dopo le misure]
@@ -132,30 +132,30 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 
 | # | Titolo | Condizione | Punti | Fascia | Riuscita misurata |
 |---|---|---|---|---|---|
-| T1 | **Tutto lo Stivale** | Almeno 2 regioni in ognuna delle 3 aree (Nord, Centro, Sud e Isole). | 3 | facile | — (la AI non lo sceglie: 44% per caso) |
-| T2 | **Pianura Padana** | Almeno 4 regioni del Nord. | 5 | media | 53% |
-| T3 | **Dorsale appenninica** | Almeno 3 regioni del Centro. | 5 | media | 36% |
-| T4 | **Mediterraneo** | Almeno 4 regioni di Sud e Isole. | 5 | media | 32% |
-| T5 | **Rete fitta** | Almeno 5 bonus di confine attivi. | 5 | media | 44% |
-| T6 | **Estremo Sud e Isole** | Almeno una tra Calabria, Sicilia e Sardegna. | 3 | facile | 67% |
-| T7 | **Costa tirrenica** | Almeno 4 tra Liguria, Toscana, Lazio, Campania, Calabria, Sicilia e Sardegna. | 5 | media | — (la AI non lo sceglie: 22% per caso) |
-| T8 | **Costa adriatica** | Almeno 4 tra Friuli-Venezia Giulia, Veneto, Emilia-Romagna, Marche, Abruzzo, Molise e Puglia. | 5 | media | 44% |
-| T9 | **Arco alpino** | Almeno 4 tra Valle d'Aosta, Piemonte, Liguria, Lombardia, Trentino-Alto Adige, Veneto e Friuli-Venezia Giulia. | 5 | media | 39% |
-| S1 | **Cinque fenomeni** | 5 tipi di simbolo diversi sul tuo tavolo. | 3 | facile | 85% |
-| S2 | **Tempo a coppie** | Tre tipi di simbolo, ognuno su almeno 2 carte. | 5 | media | 90% |
-| S3 | **Tempo stabile** | 5 carte con lo stesso simbolo. | 3 | facile | — (la AI non lo sceglie: 7% per caso) |
-| S4 | **Neve a bassa quota** | 4 carte con Neve. | 8 | difficile | 54% |
-| S5 | **Tutti i fenomeni in campo** | Tutti e 7 i tipi di simbolo sul tuo tavolo. | 5 | media | 44% |
-| S6 | **Precipitazioni sparse** | 4 carte con Pioggia, Temporale o Neve (anche miste). | 3 | facile | 62% |
-| P1 | **Nebbia a banchi** | 3 carte con Nebbia, ognuna accanto a qualche carta ma nessuna accanto a un’altra Nebbia. | 3 | facile | — (la AI non lo sceglie: 31% per caso) |
-| P2 | **Cella temporalesca** | 3 carte con Temporale vicine tra loro. | 5 | media | 22% |
-| P3 | **Massa d’aria uniforme** | 4 carte vicine con lo stesso simbolo. | 8 | difficile | 21% |
+| T1 | **Tutto lo Stivale** | Almeno 2 regioni in ognuna delle 3 aree (Nord, Centro, Sud e Isole). | 3 | facile | — (la AI non lo sceglie: 45% per caso) |
+| T2 | **Pianura Padana** | Almeno 4 regioni del Nord. | 5 | media | 45% |
+| T3 | **Dorsale appenninica** | Almeno 3 regioni del Centro. | 5 | media | 34% |
+| T4 | **Mediterraneo** | Almeno 4 regioni di Sud e Isole. | 5 | media | 41% |
+| T5 | **Rete fitta** | Almeno 5 bonus di confine attivi. | 5 | media | 37% |
+| T6 | **Estremo Sud e Isole** | Almeno una tra Calabria, Sicilia e Sardegna. | 3 | facile | 72% |
+| T7 | **Costa tirrenica** | Almeno 4 tra Liguria, Toscana, Lazio, Campania, Calabria, Sicilia e Sardegna. | 5 | media | 13% |
+| T8 | **Costa adriatica** | Almeno 4 tra Friuli-Venezia Giulia, Veneto, Emilia-Romagna, Marche, Abruzzo, Molise e Puglia. | 5 | media | 47% |
+| T9 | **Arco alpino** | Almeno 4 tra Valle d'Aosta, Piemonte, Liguria, Lombardia, Trentino-Alto Adige, Veneto e Friuli-Venezia Giulia. | 5 | media | 40% |
+| S1 | **Cinque fenomeni** | 5 tipi di simbolo diversi sul tuo tavolo. | 3 | facile | 98% |
+| S2 | **Tempo a coppie** | Tre tipi di simbolo, ognuno su almeno 2 carte. | 5 | media | 92% |
+| S3 | **Tempo stabile** | 5 carte con lo stesso simbolo. | 3 | facile | — (la AI non lo sceglie: 6% per caso) |
+| S4 | **Neve a bassa quota** | 4 carte con Neve. | 8 | difficile | 30% |
+| S5 | **Tutti i fenomeni in campo** | Tutti e 7 i tipi di simbolo sul tuo tavolo. | 5 | media | 39% |
+| S6 | **Precipitazioni sparse** | 4 carte con Pioggia, Temporale o Neve (anche miste). | 3 | facile | 71% |
+| P1 | **Nebbia a banchi** | 3 carte con Nebbia, ognuna accanto a qualche carta ma nessuna accanto a un’altra Nebbia. | 3 | facile | — (la AI non lo sceglie: 30% per caso) |
+| P2 | **Cella temporalesca** | 3 carte con Temporale vicine tra loro. | 5 | media | — (la AI non lo sceglie: 24% per caso) |
+| P3 | **Massa d’aria uniforme** | 4 carte vicine con lo stesso simbolo. | 8 | difficile | 25% |
 | R1 | **Mano vuota** | Nessuna Carta Regione in mano a fine partita. | 3 | facile | 100% |
 | R2 | **Economia di guerra** | 7 o più PM e nessuna Carta Regione in mano. | 5 | media | 58% |
-| R3 | **Cassaforte** | 9 o più PM a fine partita. | 5 | media | 38% |
-| R4 | **Tavolo grande** | 9 o più carte sul tuo tavolo. | 5 | media | 51% |
-| R5 | **Squadra al completo** | Hai il 3° lavoratore. | 8 | difficile | 13% |
-| R6 | **Tavolo attrezzato** | Almeno 9 carte sul tavolo, tutte con un simbolo. | 5 | media | 44% |
+| R3 | **Cassaforte** | 9 o più PM a fine partita. | 5 | media | 46% |
+| R4 | **Tavolo grande** | 9 o più carte sul tuo tavolo. | 5 | media | 50% |
+| R5 | **Squadra al completo** | Hai il 3° lavoratore. | 8 | difficile | 6% |
+| R6 | **Tavolo attrezzato** | Almeno 9 carte sul tavolo, tutte con un simbolo. | 5 | media | 50% |
 
 *La riuscita è alta per le carte che la AI sa inseguire (PM, mano vuota) e bassa per quelle che dipendono dalla fortuna (Tutti i fenomeni, Alta pressione, Squadra al completo): vanno viste al playtest con persone vere.*
 
@@ -179,6 +179,6 @@ Più punti totali; a parità più punti di Accuratezza, poi più Accuratezza gre
 | 3° lavoratore | «per il resto della partita» | Dal round successivo |
 | Primo giocatore | non scritto | A sorte, poi ruota di uno a ogni round; chi non inizia parte con 1 PM in più (compensazione misurata: senza, chi inizia vince il 55% a 2 giocatori, il 38% a 3 e il 31% a 4) |
 | Chi pesca l'Evento | non scritto | Segnalino «Protezione Civile» che passa a sinistra a ogni Evento (a 3 giocatori il primo giocatore pescherebbe sempre tutti e tre gli Eventi) |
-| Scala di Accuratezza | 1–6 → 3, 7–10 → 6, 11–13 → 10, 14–15 → 15 | 1–2 → 2, 3–4 → 4, 5–6 → 7, 7+ → 10; bonus di confine +2 (con le soglie del Concept la fedeltà non conveniva: ≈ 9% contro i pattern; con le scelte di Niky, dopo «un solo simbolo per carta» e «Nebbia con vicino», fedeltà e pattern tornano più vicini) |
+| Scala di Accuratezza | 1–6 → 3, 7–10 → 6, 11–13 → 10, 14–15 → 15 | 1–2 → 3, 3–4 → 6, 5–6 → 9, 7+ → 13; bonus di confine +2 (con le soglie del Concept la fedeltà non conveniva: ≈ 9% contro i pattern; con le scelte di Niky, dopo «un solo simbolo per carta» e «Nebbia con vicino», fedeltà e pattern tornano più vicini) |
 | Spareggio | non scritto | Vedi §8 |
 | Obiettivi Segreti | pesca 2, tieni 1, punti | Mazzo di 24 carte scritto con Niky: 3 fasce (3/5/8), solo il tuo tavolo, mai legati alla previsione, 0 se non raggiunti |

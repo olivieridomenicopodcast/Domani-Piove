@@ -251,7 +251,7 @@
 
   FF.OBJECTIVE_TYPES = { territorio: 'Territorio', simboli: 'Simboli', pattern: 'Pattern', risorse: 'Risorse e azioni' };
   FF.OBJECTIVES = OBJ.map((o) => ({ id: o[0], tipo: o[1], titolo: o[2], testo: o[3], pts: o[4], val: o[5], need: o[6], prog: o[7] || null }));
-  FF.OBJ_RATE = {"T1":0.44,"T2":0.53,"T3":0.36,"T4":0.32,"T5":0.44,"T6":0.67,"T7":0.22,"T8":0.44,"T9":0.39,"S1":0.85,"S2":0.9,"S3":0.07,"S4":0.54,"S5":0.44,"S6":0.62,"P1":0.31,"P2":0.22,"P3":0.21,"R1":1,"R2":0.58,"R3":0.38,"R4":0.51,"R5":0.13,"R6":0.44};   // probabilità stimate (misurate con tools/obiettivi.js) che l'AI usa per scegliere/cambiare obiettivo
+  FF.OBJ_RATE = {"T1":0.45,"T2":0.45,"T3":0.34,"T4":0.41,"T5":0.37,"T6":0.72,"T7":0.13,"T8":0.47,"T9":0.4,"S1":0.98,"S2":0.92,"S3":0.06,"S4":0.3,"S5":0.39,"S6":0.71,"P1":0.3,"P2":0.24,"P3":0.25,"R1":1,"R2":0.58,"R3":0.46,"R4":0.5,"R5":0.06,"R6":0.5};   // probabilità stimate (misurate con tools/obiettivi.js) che l'AI usa per scegliere/cambiare obiettivo
   FF.OBJECTIVE_IDS = FF.OBJECTIVES.map((o) => o.id);
   FF.OBJ = {}; FF.OBJECTIVES.forEach((o) => { FF.OBJ[o.id] = o; });
   FF.objectiveMet = (id, p, R) => { const o = FF.OBJ[id]; return !!o && o.val(p, R || FF.DEFAULT_RULES) >= o.need; };

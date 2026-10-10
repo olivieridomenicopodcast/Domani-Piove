@@ -180,3 +180,10 @@ Nota: le condizioni della previsione prese restano ~3 su 10 anche con 9 carte: p
 | 0/3/6/9/13 | 48,4% [42,3–54,6] | 77% | 77% | 11,9 | 14,5 | 26,4 |
 | 0/3/6/10/15 (la precedente) | 57,6% [51,4–63,6] | 78% | 74% | 12,9 | 13,8 | 26,8 |
 | 0/4/7/11/15 | 51,6% [45,4–57,7] | 81% | 74% | 13,3 | 14,6 | 28,0 |
+
+## Scala di Accuratezza APPLICATA: 0 · 3 · 6 · 9 · 13 (scelta di Niky) — misure finali
+- 1–2 punti grezzi → 3, 3–4 → 6, 5–6 → 9, 7+ → 13. Bonus di confine +2.
+- Misure (2 giocatori, AI Difficile): punteggio medio 26,2 (Accuratezza 11,6 · Coerenza 14,7), 7,7 carte a testa. Fedeltà vs pattern **51,7%** [46,0–57,3] (alla pari); misto vs solo-pattern 79%, misto vs solo-fedeltà 77%. Strategie estreme tutte perdenti (Fedeltà 74%, Pattern 80%, Casuale 99,7%, Accumulatore/Passivo 100%).
+- Livelli: Difficile > Media 68,2%, Media > Facile 94,7%.
+- Vantaggio di chi inizia: 2 giocatori 46,0% [41,2–50,9] (atteso 50), 3 giocatori 31,9% (33,3), 4 giocatori 24,3% (25): nei limiti del rumore; a 2 giocatori chi inizia è leggermente sotto (compensazione +1 PM al secondo da rivedere al playtest).
+- Obiettivi rimisurati: ~48% raggiunti da chi li tiene, 2,5 punti a giocatore.
