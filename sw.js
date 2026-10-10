@@ -1,5 +1,5 @@
 /* Service worker: la PWA funziona offline. A OGNI modifica ai file in cache incrementa VERSION. */
-const VERSION = 'dp-v25'; // cache: fbe9e26dc1
+const VERSION = 'dp-v28'; // cache: 9aa886f1b6
 const FILES = ['./', 'index.html', 'manifest.json', 'css/style.css', 'icon-192.png', 'icon-512.png',
   'js/cards.js', 'js/data.js', 'js/engine.js', 'js/ai.js', 'js/rulebook.js',
   'js/ui/sprites.js', 'js/ui/common.js', 'js/ui/board.js', 'js/sim.js', 'js/ui/play.js', 'js/ui/simui.js', 'js/ui/rules.js', 'js/ui/main.js'];

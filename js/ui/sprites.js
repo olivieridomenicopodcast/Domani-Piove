@@ -56,9 +56,10 @@
 
   S.bonusText = function (c) {
     const b = c.bonus; if (!b) return ['Nessun bonus'];
-    if (b.tipo === 'confine') return ['+1 punto se hai', 'giocato ' + b.verso.join(' / ')];
-    if (b.tipo === 'isole') return ['+1 punto se hai', 'giocato ' + b.se_giocata_una_di.join(' / ')];
-    return ['+1 punto se hai giocato', 'almeno una tra:'].concat(b.se_giocata_una_di);
+    const pt = (b.punti || 1) * FF.DEFAULT_RULES.borderPoints, pts = pt + (pt === 1 ? ' punto' : ' punti');
+    if (b.tipo === 'confine') return ['+' + pts + ' se hai', 'giocato ' + b.verso.join(' / ')];
+    if (b.tipo === 'isole') return ['+' + pts + ' se hai', 'giocato ' + b.se_giocata_una_di.join(' / ')];
+    return ['+' + pts + ' se hai giocato', 'almeno una tra:'].concat(b.se_giocata_una_di);
   };
   // Carta Regione (id numerico della carta fisica o oggetto carta)
   S.region = function (c, cls) {

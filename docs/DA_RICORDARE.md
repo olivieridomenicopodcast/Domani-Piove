@@ -113,3 +113,10 @@
 - Effetto (AI Difficile, 2 giocatori): punteggio medio 16,6 (Accuratezza 8,9 · **Coerenza 5,3**); Nebbia 1,5 punti a giocatore (era 4,7), carte con Nebbia 0,8. Fusioni 0,4 a partita.
 - **Problema aperto:** ora i pattern pesano poco. Solo-fedeltà vs solo-pattern **84,7%** [80,2–88,3]; la AI normale batte «solo fedeltà» appena **58,8%** [52,6–64,7] (prima 70-75%): la previsione da sola è quasi una strategia completa. Il test «prove estreme» ora chiede solo che «solo fedeltà» perda più di metà delle volte.
 - Opzioni già misurate senza toccare i pattern (250 partite): scala Accuratezza 0/2/4/7/10 → fedeltà vs pattern 57,6% · scala 0/2/4/6/8 → 56,4% · Confine +2 → 64,8% · scala 0/2/4/7/10 + Confine +2 → 44%. Niente applicato: da decidere con Niky.
+
+## Scala 0/2/4/7/10 e bonus di confine +2 (scelta di Niky) — misure
+- Applicato: Accuratezza 1–2 → 2, 3–4 → 4, 5–6 → 7, 7+ → 10 (`data/regole_e_costanti.json`) e `borderPoints: 2` (le carte mostrano «+2 punti se hai giocato…»). Pattern invariati.
+- Misure (2 giocatori, AI Difficile salvo dove indicato): punteggio medio 16,1–16,8 (Accuratezza ~6-8, Coerenza ~8,3); **solo-fedeltà vs solo-pattern 45,7%** [40,1–51,3] (era 84,7%); la AI normale batte le strategie estreme: Fedeltà 75%, Pattern 71%, Casuale 99%, Accumulatore e Passivo 100%. Difficile > Media 64,0%, Media > Facile 85,3%.
+- Vantaggio di chi inizia: 2 giocatori 50,0% (ok), 3 giocatori **27,8%** [23,6–32,4] (atteso 33,3: ora chi inizia è un po' svantaggiato, la compensazione +1 PM potrebbe essere troppa a 3), 4 giocatori 22,7% [18,4–27,8] (atteso 25).
+- Obiettivi rimisurati: raggiunti ~54%, 2,8 punti a giocatore.
+- Da rivedere al playtest: compensazione PM a 3 giocatori; con la scala più bassa le Pattern strategy (solo pattern) sono ora alla pari con la fedeltà, quindi gli estremi sono i più vicini ai tempi normali.

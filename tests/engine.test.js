@@ -52,7 +52,7 @@ test('fusioni: tutte le 8 ricette, in entrambi gli ordini; le altre coppie non f
 // ───────────────────────── Accuratezza ─────────────────────────
 test('accuratezza: scaglioni 0 / 1-2 / 3-4 / 5-6 / 7+', () => {
   const pts = (raw) => FF.DEFAULT_RULES.accuracy.find((s) => raw >= s.from && raw <= s.to).pts;
-  assert.deepEqual([0, 1, 2, 3, 4, 5, 6, 7, 15].map(pts), [0, 3, 3, 6, 6, 10, 10, 15, 15]);
+  assert.deepEqual([0, 1, 2, 3, 4, 5, 6, 7, 15].map(pts), [0, 2, 2, 4, 4, 7, 7, 10, 10]);
 });
 test('accuratezza: simbolo richiesto, fusione richiesta, la fusione sostituisce i simboli base', () => {
   const target = { nord: [{ regione: 'Veneto', punti: 2, req: 'temporale' }, { regione: 'Lombardia', punti: 1, req: 'pioggia' }], centro: [{ regione: 'Marche', punti: 3, req: 'sole' }], sud_isole: [] };
@@ -72,15 +72,15 @@ test('accuratezza: simbolo richiesto, fusione richiesta, la fusione sostituisce 
 test('bonus di confine: contano solo le carte giocate e il possesso della regione (senza contatto)', () => {
   const pie = regId('Piemonte', 'confine', 'Lombardia'), lom = regId('Lombardia', 'neutra');
   assert.equal(FF.borderScore([cell(null, 0, 0, [], pie)]).total, 0);
-  assert.equal(FF.borderScore([cell(null, 0, 0, [], pie), cell(null, 5, 5, [], lom)]).total, 1); // lontane: vale lo stesso
+  assert.equal(FF.borderScore([cell(null, 0, 0, [], pie), cell(null, 5, 5, [], lom)]).total, 2); // lontane: vale lo stesso (+2 per bonus)
 });
-test('bonus rete estrema: additivo, 2 carte = +2, 3 carte = +3; isole +2', () => {
+test('bonus rete estrema: additivo (+2 ciascuno), 2 carte = +4, 3 carte = +6; isole +4', () => {
   const vda = regId("Valle d'Aosta", 'compensativa'), fvg = regId('Friuli-Venezia Giulia', 'compensativa'), cal = regId('Calabria', 'compensativa');
   assert.equal(FF.borderScore([cell(null, 0, 0, [], vda)]).total, 0);
-  assert.equal(FF.borderScore([cell(null, 0, 0, [], vda), cell(null, 1, 0, [], cal)]).total, 2);
-  assert.equal(FF.borderScore([cell(null, 0, 0, [], vda), cell(null, 1, 0, [], cal), cell(null, 2, 0, [], fvg)]).total, 3);
+  assert.equal(FF.borderScore([cell(null, 0, 0, [], vda), cell(null, 1, 0, [], cal)]).total, 4);
+  assert.equal(FF.borderScore([cell(null, 0, 0, [], vda), cell(null, 1, 0, [], cal), cell(null, 2, 0, [], fvg)]).total, 6);
   const sic = regId('Sicilia', 'compensativa'), sar = regId('Sardegna', 'compensativa');
-  assert.equal(FF.borderScore([cell(null, 0, 0, [], sic), cell(null, 1, 0, [], sar)]).total, 2);
+  assert.equal(FF.borderScore([cell(null, 0, 0, [], sic), cell(null, 1, 0, [], sar)]).total, 4);
 });
 
 // ───────────────────────── Coerenza: pattern ─────────────────────────

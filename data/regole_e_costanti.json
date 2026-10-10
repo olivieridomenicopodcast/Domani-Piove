@@ -140,29 +140,29 @@
         "da": 1,
         "a": 2,
         "esito": "Parzialmente corretta",
-        "punti": 3
+        "punti": 2
       },
       {
         "da": 3,
         "a": 4,
         "esito": "Buona",
-        "punti": 6
+        "punti": 4
       },
       {
         "da": 5,
         "a": 6,
         "esito": "Molto accurata",
-        "punti": 10
+        "punti": 7
       },
       {
         "da": 7,
         "a": 15,
         "esito": "Eccellente",
-        "punti": 15
+        "punti": 10
       }
     ]
   },
-  "punteggio_finale": "Accuratezza + Coerenza Geografica (bonus confine/territorio +1 ciascuno + pattern) + Obiettivi Segreti",
+  "punteggio_finale": "Accuratezza + Coerenza Geografica (bonus confine/territorio +2 ciascuno + pattern) + Obiettivi Segreti",
   "pattern_geografici": {
     "sole": "Distesa: gruppo connesso di Sole adiacenti 2=1, 3=2, 4=4, 5=6, 6+=9",
     "temporale": "Cella convettiva: +3 se >=2 Temporale adiacenti, +6 se >=3, isolato 0",

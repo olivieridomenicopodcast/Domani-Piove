@@ -47,7 +47,7 @@
     firstPlayer: -1,            // [interpretazione] -1 = a sorte (da seed); poi ruota di uno a ogni round
     rotateFirst: true,
     coerCap: null,              // [variante da misurare] tetto ai punti di Coerenza Geografica (null = nessun tetto)
-    borderPoints: 1,            // [chiarito] +1 per bonus attivo
+    borderPoints: 2,            // [chiarito con Niky] +2 per bonus di confine attivo (era 1: con 1 simbolo per carta i pattern pesavano poco)
     accuracy: C.costanti.accuratezza.scaglioni.map((s) => ({ from: s.da, to: s.a, label: s.esito, pts: s.punti })),
     pattern: {                  // numeri provvisori da tarare (Concept §6)
       soleScale: { 2: 1, 3: 2, 4: 4, 5: 6, 6: 9 },   // 6 = "6 o più"
@@ -245,7 +245,7 @@
 
   FF.OBJECTIVE_TYPES = { territorio: 'Territorio', simboli: 'Simboli', pattern: 'Pattern', risorse: 'Risorse e azioni' };
   FF.OBJECTIVES = OBJ.map((o) => ({ id: o[0], tipo: o[1], titolo: o[2], testo: o[3], pts: o[4], val: o[5], need: o[6], prog: o[7] || null }));
-  FF.OBJ_RATE = {"T1":0.68,"T2":0.61,"T3":0.47,"T4":0.51,"T5":0.35,"T6":0.46,"T7":0.5,"T8":0.41,"T9":0.42,"S1":0.79,"S2":0.76,"S3":0.26,"S4":0.58,"S5":0.37,"S6":0.51,"P1":0.23,"P2":0.26,"P3":0.28,"R1":0.97,"R2":0.53,"R3":0.56,"R4":0.13,"R5":0.13,"R6":0.48};   // probabilità stimate (misurate con tools/obiettivi.js) che l'AI usa per scegliere/cambiare obiettivo
+  FF.OBJ_RATE = {"T1":0.77,"T2":0.45,"T3":0.49,"T4":0.39,"T5":0.47,"T6":0.36,"T7":0.35,"T8":0.41,"T9":0.42,"S1":0.83,"S2":0.7,"S3":0.31,"S4":0.83,"S5":0.45,"S6":0.73,"P1":0.29,"P2":0.27,"P3":0.3,"R1":1,"R2":0.59,"R3":0.66,"R4":0.08,"R5":0.19,"R6":0.52};   // probabilità stimate (misurate con tools/obiettivi.js) che l'AI usa per scegliere/cambiare obiettivo
   FF.OBJECTIVE_IDS = FF.OBJECTIVES.map((o) => o.id);
   FF.OBJ = {}; FF.OBJECTIVES.forEach((o) => { FF.OBJ[o.id] = o; });
   FF.objectiveMet = (id, p, R) => { const o = FF.OBJ[id]; return !!o && o.val(p, R || FF.DEFAULT_RULES) >= o.need; };

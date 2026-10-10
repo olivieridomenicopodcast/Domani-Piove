@@ -98,15 +98,15 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 | Totale grezzo | Esito | Punti |
 |---|---|---|
 | 0 | Previsione mancata | 0 |
-| 1–2 | Parzialmente corretta | 3 |
-| 3–4 | Buona | 6 |
-| 5–6 | Molto accurata | 10 |
-| 7–15 | Eccellente | 15 |
+| 1–2 | Parzialmente corretta | 2 |
+| 3–4 | Buona | 4 |
+| 5–6 | Molto accurata | 7 |
+| 7–15 | Eccellente | 10 |
 
-*Un gradino ogni 2 punti di previsione: nelle partite simulate si arriva di solito a 2-6 punti grezzi. [chiarito con Niky, dopo le misure]*
+*Un gradino ogni 2 punti di previsione: nelle partite simulate si arriva di solito a 2-6 punti grezzi. Scala 0 · 2 · 4 · 7 · 10. [chiarito con Niky, dopo le misure]*
 
 ### Coerenza Geografica = bonus di confine + pattern
-**Bonus di confine / compensativi:** +1 per ogni carta giocata il cui bonus è soddisfatto; si sommano senza tetto (tre regioni della «rete estrema» = +3, le due isole = +2).
+**Bonus di confine / compensativi:** **+2** per ogni carta giocata il cui bonus è soddisfatto; si sommano senza tetto (tre regioni della «rete estrema» = +6, le due isole = +4). [chiarito con Niky, dopo le misure]
 
 **Pattern** (carte adiacenti in orto­gonale; una carta con fusione non partecipa ai pattern base; **ogni simbolo base** su una carta partecipa per conto suo):
 
@@ -130,30 +130,30 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 
 | # | Titolo | Condizione | Punti | Fascia | Riuscita misurata |
 |---|---|---|---|---|---|
-| T1 | **Tutto lo Stivale** | Almeno 1 regione in ognuna delle 3 aree (Nord, Centro, Sud e Isole). | 3 | facile | 68% |
-| T2 | **Pianura Padana** | Almeno 3 regioni del Nord. | 5 | media | 61% |
-| T3 | **Dorsale appenninica** | Almeno 2 regioni del Centro. | 5 | media | 47% |
-| T4 | **Mediterraneo** | Almeno 3 regioni di Sud e Isole. | 5 | media | 51% |
-| T5 | **Rete fitta** | Almeno 3 bonus di confine attivi. | 5 | media | 35% |
-| T6 | **Estremo Sud e Isole** | Almeno una tra Calabria, Sicilia e Sardegna. | 3 | facile | 46% |
-| T7 | **Costa tirrenica** | Almeno 3 tra Liguria, Toscana, Lazio, Campania, Calabria, Sicilia e Sardegna. | 5 | media | 50% |
+| T1 | **Tutto lo Stivale** | Almeno 1 regione in ognuna delle 3 aree (Nord, Centro, Sud e Isole). | 3 | facile | 77% |
+| T2 | **Pianura Padana** | Almeno 3 regioni del Nord. | 5 | media | 45% |
+| T3 | **Dorsale appenninica** | Almeno 2 regioni del Centro. | 5 | media | 49% |
+| T4 | **Mediterraneo** | Almeno 3 regioni di Sud e Isole. | 5 | media | 39% |
+| T5 | **Rete fitta** | Almeno 3 bonus di confine attivi. | 5 | media | 47% |
+| T6 | **Estremo Sud e Isole** | Almeno una tra Calabria, Sicilia e Sardegna. | 3 | facile | 36% |
+| T7 | **Costa tirrenica** | Almeno 3 tra Liguria, Toscana, Lazio, Campania, Calabria, Sicilia e Sardegna. | 5 | media | 35% |
 | T8 | **Costa adriatica** | Almeno 3 tra Friuli-Venezia Giulia, Veneto, Emilia-Romagna, Marche, Abruzzo, Molise e Puglia. | 5 | media | 41% |
 | T9 | **Arco alpino** | Almeno 3 tra Valle d'Aosta, Piemonte, Liguria, Lombardia, Trentino-Alto Adige, Veneto e Friuli-Venezia Giulia. | 5 | media | 42% |
-| S1 | **Quattro fenomeni** | 4 tipi di simbolo diversi sul tuo tavolo. | 3 | facile | 79% |
-| S2 | **Tempo a coppie** | Due tipi di simbolo, ognuno su almeno 2 carte. | 3 | facile | 76% |
-| S3 | **Tempo stabile** | 3 carte con lo stesso simbolo. | 3 | facile | — (la AI non lo sceglie: 26% per caso) |
-| S4 | **Neve a bassa quota** | 2 carte con Neve. | 8 | difficile | 58% |
-| S5 | **Sei fenomeni** | 6 tipi di simbolo diversi sul tuo tavolo. | 8 | difficile | 37% |
-| S6 | **Precipitazioni sparse** | 2 carte con Pioggia, Temporale o Neve (anche miste). | 3 | facile | — (la AI non lo sceglie: 51% per caso) |
-| P1 | **Nebbia a banchi** | 2 carte con Nebbia, ognuna accanto a qualche carta ma nessuna accanto a un’altra Nebbia. | 3 | facile | — (la AI non lo sceglie: 23% per caso) |
-| P2 | **Cella temporalesca** | 2 carte con Temporale vicine tra loro. | 5 | media | 26% |
-| P3 | **Massa d’aria uniforme** | 3 carte vicine con lo stesso simbolo. | 8 | difficile | 28% |
-| R1 | **Mano vuota** | Nessuna Carta Regione in mano a fine partita. | 3 | facile | 97% |
-| R2 | **Economia di guerra** | 7 o più PM e nessuna Carta Regione in mano. | 5 | media | 53% |
-| R3 | **Cassaforte** | 9 o più PM a fine partita. | 5 | media | 56% |
-| R4 | **Tavolo grande** | 7 o più carte sul tuo tavolo. | 5 | media | 13% |
-| R5 | **Squadra al completo** | Hai il 3° lavoratore. | 8 | difficile | 13% |
-| R6 | **Tavolo attrezzato** | Almeno 6 carte sul tavolo, tutte con un simbolo. | 5 | media | 48% |
+| S1 | **Quattro fenomeni** | 4 tipi di simbolo diversi sul tuo tavolo. | 3 | facile | 83% |
+| S2 | **Tempo a coppie** | Due tipi di simbolo, ognuno su almeno 2 carte. | 3 | facile | 70% |
+| S3 | **Tempo stabile** | 3 carte con lo stesso simbolo. | 3 | facile | — (la AI non lo sceglie: 31% per caso) |
+| S4 | **Neve a bassa quota** | 2 carte con Neve. | 8 | difficile | 83% |
+| S5 | **Sei fenomeni** | 6 tipi di simbolo diversi sul tuo tavolo. | 8 | difficile | 45% |
+| S6 | **Precipitazioni sparse** | 2 carte con Pioggia, Temporale o Neve (anche miste). | 3 | facile | 73% |
+| P1 | **Nebbia a banchi** | 2 carte con Nebbia, ognuna accanto a qualche carta ma nessuna accanto a un’altra Nebbia. | 3 | facile | — (la AI non lo sceglie: 29% per caso) |
+| P2 | **Cella temporalesca** | 2 carte con Temporale vicine tra loro. | 5 | media | 27% |
+| P3 | **Massa d’aria uniforme** | 3 carte vicine con lo stesso simbolo. | 8 | difficile | 30% |
+| R1 | **Mano vuota** | Nessuna Carta Regione in mano a fine partita. | 3 | facile | 100% |
+| R2 | **Economia di guerra** | 7 o più PM e nessuna Carta Regione in mano. | 5 | media | 59% |
+| R3 | **Cassaforte** | 9 o più PM a fine partita. | 5 | media | 66% |
+| R4 | **Tavolo grande** | 7 o più carte sul tuo tavolo. | 5 | media | 8% |
+| R5 | **Squadra al completo** | Hai il 3° lavoratore. | 8 | difficile | 19% |
+| R6 | **Tavolo attrezzato** | Almeno 6 carte sul tavolo, tutte con un simbolo. | 5 | media | 52% |
 
 *La riuscita è alta per le carte che la AI sa inseguire (PM, mano vuota) e bassa per quelle che dipendono dalla fortuna (Tutti i fenomeni, Alta pressione, Squadra al completo): vanno viste al playtest con persone vere.*
 
@@ -161,7 +161,7 @@ Si sommano i punti delle condizioni soddisfatte sul **bersaglio attuale** (dopo 
 Più punti totali; a parità più punti di Accuratezza, poi più Accuratezza grezza, poi più Coerenza, poi più PM; se ancora pari: pari merito.
 
 ## 9. Parametri (modificabili dall'app per fare esperimenti)
-`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 (solo per le fusioni) · `secondSymbolOnlyFusion` sì · `nebbiaNeedsNeighbor` sì · `sez2OccupiesSez1` no · `mapMode` italia (variante `libera` = griglia libera a contatto, solo per esperimenti) · `borderPoints` 1 · `eventDrawer` segnalino che passa di mano (variante `first` = il primo giocatore del round, solo per esperimenti) · `objectives` sì (variante no = senza Obiettivi, solo per esperimenti) · `startPMBonus` 0 al primo giocatore e +1 PM a tutti gli altri.
+`rounds` 12 · `eventRounds` 4, 7, 10 · `startPM` 2 · `startCards` 2 · `workers` 2 · `thirdWorkerCost` 5 · `marketSize` 5 · `blindPrice` 2 · `poolPerSymbol` 10 · `maxSymbolsPerCard` 2 (solo per le fusioni) · `secondSymbolOnlyFusion` sì · `nebbiaNeedsNeighbor` sì · `sez2OccupiesSez1` no · `mapMode` italia (variante `libera` = griglia libera a contatto, solo per esperimenti) · `borderPoints` 2 · `eventDrawer` segnalino che passa di mano (variante `first` = il primo giocatore del round, solo per esperimenti) · `objectives` sì (variante no = senza Obiettivi, solo per esperimenti) · `startPMBonus` 0 al primo giocatore e +1 PM a tutti gli altri.
 
 ## 10. Differenze rispetto al Concept v9 originale
 | Tema | Concept v9 | Questa versione |
@@ -176,6 +176,6 @@ Più punti totali; a parità più punti di Accuratezza, poi più Accuratezza gre
 | 3° lavoratore | «per il resto della partita» | Dal round successivo |
 | Primo giocatore | non scritto | A sorte, poi ruota di uno a ogni round; chi non inizia parte con 1 PM in più (compensazione misurata: senza, chi inizia vince il 55% a 2 giocatori, il 38% a 3 e il 31% a 4) |
 | Chi pesca l'Evento | non scritto | Segnalino «Protezione Civile» che passa a sinistra a ogni Evento (a 3 giocatori il primo giocatore pescherebbe sempre tutti e tre gli Eventi) |
-| Scala di Accuratezza | 1–6 → 3, 7–10 → 6, 11–13 → 10, 14–15 → 15 | 1–2 → 3, 3–4 → 6, 5–6 → 10, 7+ → 15 (con le soglie vecchie la fedeltà non conveniva: ≈ 9% contro i pattern; ora ≈ 51%) |
+| Scala di Accuratezza | 1–6 → 3, 7–10 → 6, 11–13 → 10, 14–15 → 15 | 1–2 → 2, 3–4 → 4, 5–6 → 7, 7+ → 10; bonus di confine +2 (con le soglie del Concept la fedeltà non conveniva: ≈ 9% contro i pattern; con le scelte di Niky, dopo «un solo simbolo per carta» e «Nebbia con vicino», fedeltà e pattern tornano più vicini) |
 | Spareggio | non scritto | Vedi §8 |
 | Obiettivi Segreti | pesca 2, tieni 1, punti | Mazzo di 24 carte scritto con Niky: 3 fasce (3/5/8), solo il tuo tavolo, mai legati alla previsione, 0 se non raggiunti |
