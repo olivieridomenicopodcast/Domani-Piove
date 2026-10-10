@@ -186,3 +186,5 @@ details > summary.ptitle { cursor: pointer; }
 #g-action:focus { outline: 3px solid #ffd54a; outline-offset: 2px; }
 .objbox { display: flex; gap: .7rem; align-items: center; margin-top: .6rem; } .objbox .cardbtn { width: 84px; flex: none; } .objbox .spr.card { width: 100%; }
 .reservebox { margin-top: .5rem; display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; font-size: .9rem; } .rtoken .spr { width: 28px; height: 28px; vertical-align: middle; }
+pre.map { background: #f3efe0; border: 1px solid #c9b98b; border-radius: 6px; padding: .5rem .8rem; font: 13px/1.25 ui-monospace, Menlo, Consolas, monospace; overflow-x: auto; }
+.mode-link { display: block; text-align: left; text-decoration: none; color: inherit; background: var(--paper); border: 2px dashed var(--wood); border-radius: 14px; padding: .9rem 1rem; box-shadow: 0 3px 8px rgba(0,0,0,.35); } .mode-link:hover { background: #fff8e4; } .mode-link b { display: block; font-size: 1.1rem; } .mode-link .d { display: block; font-size: .88rem; color: var(--muted); margin-top: .2rem; }

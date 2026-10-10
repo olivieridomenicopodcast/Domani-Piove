@@ -153,7 +153,8 @@
     const out = []; const L = src.split('\n'); let i = 0;
     while (i < L.length) {
       const l = L[i];
-      if (/^#{1,3} /.test(l)) { const n = l.match(/^#+/)[0].length; out.push(`<h${n}>${inline(l.replace(/^#+ /, ''))}</h${n}>`); i++; }
+      if (l.startsWith('```')) { const code = []; i++; while (i < L.length && !L[i].startsWith('```')) code.push(L[i++]); i++; out.push(`<pre class="map">${esc(code.join('\n'))}</pre>`); }
+      else if (/^#{1,3} /.test(l)) { const n = l.match(/^#+/)[0].length; out.push(`<h${n}>${inline(l.replace(/^#+ /, ''))}</h${n}>`); i++; }
       else if (l.startsWith('> ')) { out.push(`<blockquote>${inline(l.slice(2))}</blockquote>`); i++; }
       else if (l.startsWith('|')) {
         const rows = []; while (i < L.length && L[i].startsWith('|')) rows.push(L[i++]);
@@ -165,7 +166,7 @@
         while (i < L.length && /^(- |\d+\. )/.test(L[i])) items.push(L[i++].replace(/^(- |\d+\. )/, ''));
         out.push(`<${ord ? 'ol' : 'ul'}>${items.map((x) => `<li>${inline(x)}</li>`).join('')}</${ord ? 'ol' : 'ul'}>`);
       } else if (l.trim() === '') i++;
-      else { const p = []; while (i < L.length && L[i].trim() && !/^(#|>|\||- |\d+\. )/.test(L[i])) p.push(L[i++]); out.push(`<p>${inline(p.join(' '))}</p>`); }
+      else { const p = []; while (i < L.length && L[i].trim() && !/^(#|>|\||```|- |\d+\. )/.test(L[i])) p.push(L[i++]); out.push(`<p>${inline(p.join(' '))}</p>`); }
     }
     return out.join('\n');
   };

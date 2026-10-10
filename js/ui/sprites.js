@@ -144,9 +144,66 @@
       <text x="50" y="135" text-anchor="middle" font-size="5.2" letter-spacing=".8" fill="#6b5d40" ${SANS}>${band} · PUNTI</text>`;
     return svg('0 0 100 140', body, 'card obj ' + (cls || ''));
   };
+  // Carte di riferimento (si tengono scoperte, non fanno parte dei mazzi): testo ricavato dalle regole in uso
+  const RULES = () => FF.DEFAULT_RULES;
+  function refContent(kind) {
+    const R = RULES(), P = R.pattern, sc = P.soleScale;
+    const sym = (x) => ({ ico: x });
+    switch (kind) {
+      case 'fusioni': return { col: '#b6401a', t: 'FUSIONI', sub: '2 simboli sulla stessa carta', items: FF.FUSIONS.map((f) => ({ fus: f })), foot: ['Il 2° simbolo si mette solo se', 'forma una fusione. La carta conta', 'solo come fusione.'] };
+      case 'pattern': return { col: '#2c6f9c', t: 'PATTERN', sub: 'Vicine = caselle che si toccano a croce', items: [
+        { ico: 'sole', txt: `Sole: gruppo di 2=${sc[2]} · 3=${sc[3]} · 4=${sc[4]} · 5=${sc[5]} · 6+=${sc[6]}` },
+        { ico: 'temporale', txt: `Temporale: gruppo di 2 = +${P.temporale2}, 3 o più = +${P.temporale3}` },
+        { ico: 'pioggia', txt: `Pioggia: +${P.pioggia} accanto a un Temporale` },
+        { ico: 'neve', txt: `Neve: gruppo di 2-3 = +${P.neve} (una volta)` },
+        { ico: 'vento', txt: `Vento: +${P.vento} accanto ad almeno 2 simboli diversi` },
+        { ico: 'nuvolo', txt: `Nuvolo: +${P.nuvolo} accanto a un simbolo diverso` },
+        { ico: 'nebbia', txt: `Nebbia: +${P.nebbia} con una carta vicina e nessuna Nebbia vicina` }], foot: [] };
+      case 'punteggio': return { col: '#2f6b4f', t: 'PUNTEGGIO FINALE', sub: 'Accuratezza + Coerenza + Obiettivo', items: [
+        { txt: 'Accuratezza (punti grezzi → punti):' }, { txt: R.accuracy.map((a) => `${a.from === a.to ? a.from : a.from + '-' + (a.to >= 15 ? '15' : a.to)}→${a.pts}`).join(' · '), bold: true },
+        { txt: `Bonus di confine: +${R.borderPoints} per ogni carta il cui bonus è soddisfatto` }, { txt: 'Pattern: vedi la carta Pattern' },
+        { txt: 'Obiettivo Segreto: 3, 5 o 8 punti se raggiunto, altrimenti 0' }], foot: [] };
+      case 'turno': return { col: '#7a4f9a', t: 'IL ROUND', sub: `${R.rounds} round · dalle 8:00 alle 19:00`, items: [
+        { txt: `1. Round ${R.eventRounds.join(', ')}: Evento (lo pesca chi ha la Protezione Civile)` },
+        { txt: '2. Un lavoratore alla volta, a rotazione; chi passa è fuori' },
+        { txt: 'Gioca (+1 simbolo gratis) · Compra · Simbolo · +1 PM · 3° lavoratore (5 PM)' },
+        { txt: 'Doppia azione (2 diverse) e Azione ripetuta: 2 lavoratori' },
+        { txt: '3. Fine round: il primo giocatore passa a sinistra' }], foot: [] };
+      case 'protezione': return { col: '#9a2a1a', t: 'PROTEZIONE CIVILE', sub: 'Segnalino', items: [
+        { txt: 'Chi lo ha pesca e legge ad alta voce la Carta Evento.' }, { txt: 'Dove una carta dice «il giocatore che pesca», è lui.' },
+        { txt: 'Dopo l’Evento passa al giocatore alla sua sinistra.' }, { txt: 'Parte dal primo giocatore della partita.' }], foot: ['Tieni questa carta scoperta.'] };
+      case 'primo': return { col: '#c98a1c', t: 'PRIMO GIOCATORE', sub: 'Segnalino', items: [
+        { txt: 'Si sceglie a sorte e passa a sinistra a ogni round.' }, { txt: 'Chi non è il primo giocatore della partita parte con 1 PM in più (3 invece di 2).' },
+        { txt: 'Chi è primo piazza il primo lavoratore del round.' }], foot: ['Tieni questa carta scoperta.'] };
+      case 'eventi': return { col: '#4a5a70', t: 'CARTE EVENTO', sub: 'Cambiano il bersaglio', items: [
+        { txt: 'Si attivano solo se la regione è tra quelle della Previsione di quell’area.' }, { txt: 'Tipo A: se il bersaglio richiede già il simbolo indicato diventa la fusione, altrimenti colpo a vuoto.' },
+        { txt: 'Tipo B: il bersaglio di quella regione diventa la fusione, qualunque fosse.' }, { txt: 'Neutre e positive: fanno ciò che c’è scritto.' }], foot: ['Tieni questa carta scoperta.'] };
+    }
+    return { col: '#555', t: kind, sub: '', items: [], foot: [] };
+  }
+  S.RIFERIMENTI = ['fusioni', 'pattern', 'punteggio', 'turno', 'protezione', 'primo', 'eventi'];
+  S.riferimento = function (kind, cls) {
+    const c = refContent(kind); let y = 34, body = '';
+    c.items.forEach((it) => {
+      if (it.fus) {
+        const f = it.fus;
+        body += `<g transform="translate(6 ${y - 7}) scale(.34)">${ICON[f.recipe[0]]}</g><text x="21" y="${y + 1}" font-size="6.2" font-weight="700" fill="#2b2216" ${SANS}>+</text><g transform="translate(25 ${y - 7}) scale(.34)">${ICON[f.recipe[1]]}</g><text x="40" y="${y + 1}" font-size="6" font-weight="700" fill="#2b2216" ${SANS}>${esc(f.name)}</text>`;
+        y += 10.2; return;
+      }
+      const w = it.ico ? 28 : 33, ls = wrap(it.txt, w), x = it.ico ? 21 : 8;
+      if (it.ico) body += `<g transform="translate(5 ${y - 6}) scale(.36)">${ICON[it.ico]}</g>`;
+      body += lines(ls, x, y + 1, 6.2, `font-size="5.1" ${it.bold ? 'font-weight="700"' : ''} fill="#2b2216" ${SANS}`);
+      y += ls.length * 6.2 + 2.4;
+    });
+    const ft = c.foot.length ? lines(c.foot, 50, 133 - (c.foot.length - 1) * 6.5, 6.5, `text-anchor="middle" font-size="5.4" font-style="italic" fill="#5b5140" ${SANS}`) : '';
+    const body2 = `${title('Carta di riferimento: ' + c.t)}<rect x="1.5" y="1.5" width="97" height="137" rx="7" fill="#fbf7ea" stroke="#3a2d17" stroke-width="2"/>
+      <rect x="4" y="4" width="92" height="22" rx="4" fill="${c.col}"/><text x="50" y="16" text-anchor="middle" font-size="${Math.min(9.5, 86 / (c.t.length * 0.66)).toFixed(1)}" font-weight="800" letter-spacing=".4" fill="#fff" ${SANS}>${esc(c.t)}</text>
+      <text x="50" y="23" text-anchor="middle" font-size="4.9" fill="#f1f1f1" ${SANS}>${esc(c.sub)}</text>${body}${ft}`;
+    return svg('0 0 100 140', body2, 'card ref ' + (cls || ''));
+  };
   // dorso generico (mazzi coperti)
   S.back = function (kind, cls) {
-    const c = { regione: '#4f6f52', evento: '#9a2a1a', previsione: '#3d6c9e', obiettivo: '#5b3a78' }[kind] || '#555', lab = { regione: 'REGIONI', evento: 'EVENTI', previsione: 'PREVISIONI', obiettivo: 'OBIETTIVI' }[kind] || '';
+    const c = { regione: '#4f6f52', evento: '#9a2a1a', previsione: '#3d6c9e', obiettivo: '#5b3a78', riferimento: '#6b6b6b' }[kind] || '#555', lab = { regione: 'REGIONI', evento: 'EVENTI', previsione: 'PREVISIONI', obiettivo: 'OBIETTIVI', riferimento: 'RIFERIMENTO' }[kind] || '';
     return svg('0 0 100 140', `<rect x="1.5" y="1.5" width="97" height="137" rx="7" fill="${c}" stroke="#2a2a2a" stroke-width="2"/><rect x="8" y="8" width="84" height="124" rx="4" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.5"/><g transform="translate(30 50) scale(1.0)">${ICON.pioggia}</g><text x="50" y="108" text-anchor="middle" font-size="9" letter-spacing="1.4" font-weight="700" fill="#fff" ${SANS}>${lab}</text><text x="50" y="122" text-anchor="middle" font-size="6" fill="#fff" fill-opacity=".8" ${SANS}>DOMANI PIOVE</text>`, 'card back ' + (cls || ''));
   };
   S.seat = function (i, cls) {

@@ -25,3 +25,5 @@
 - [ ] Obiettivi Segreti: riscrivere la bozza per la mappa d'Italia (via Quadrato/Fila, dentro obiettivi geografici: «Dorsale appenninica», «Pianura Padana», «Le isole»…).
 - [ ] Plancia personale stampabile con la forma dell'Italia (caselle per regione) per il kit fisico.
 - [x] Obiettivi Segreti nel gioco (dati, motore, AI, app, test, regolamento). Restano: stampa delle 24 carte Obiettivo (sprite già esportati in `assets/sprites/carte-obiettivo/`, 100×140) e verifica al playtest di soglie e fasce.
+- [x] Kit stampabile (`node tools/build-print.js`): carte, plancia centrale, plance giocatori, mappa d'Italia a tessere, foglio punti, regolamento, pagina `stampa/index.html` e pulsante «🖨 Stampa e gioca» nell'app. Da provare su carta: allineamento fronte/retro della stampante, tolleranze di taglio, leggibilità del testo piccolo, assemblaggio delle 5 tessere della mappa (≈39 × 55 cm).
+- [ ] Gettoni stampabili (simboli, PM, lavoratori, segnalino round): per ora si usano oggetti qualsiasi (elenco in `stampa/index.html`).

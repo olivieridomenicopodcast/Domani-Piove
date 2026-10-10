@@ -1,0 +1,44 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Domani Piove — stampa e gioca</title><style>
+body{font:16px/1.5 "Trebuchet MS",Verdana,sans-serif;max-width:860px;margin:0 auto;padding:16px;color:#222;background:#f7f4ea} h1{margin:.2em 0} h2{border-bottom:2px solid #c9b98b;margin-top:1.6em} a.dl{display:inline-block;margin:.2em .3em .2em 0;padding:.45em .8em;border-radius:8px;background:#24445f;color:#fff;text-decoration:none;font-weight:700} a.dl.alt{background:#7a6a3a}
+table{border-collapse:collapse;width:100%} td,th{border:1px solid #bbb;padding:.35em .6em;text-align:left;vertical-align:top} th{background:#efe6c8} .note{background:#fff3c4;border-left:5px solid #d4a017;padding:.5em .8em;border-radius:4px} code{background:#eee;padding:0 .3em} .asm{display:inline-grid;grid-template-columns:repeat(2,64px);gap:3px;margin:.4em 0} .asm div{height:78px;border:2px solid #555;border-radius:4px;background:#fff;font-size:12px;text-align:center;padding-top:26px} .asm .no{border-style:dashed;color:#aaa;background:#f1f1f1}
+</style></head><body>
+<p><a href="../index.html">← Torna all'app</a></p>
+<h1>🖨 Stampa e gioca — Domani Piove</h1>
+<p>Tutto quello che serve per giocare con carta e forbici. I file si rigenerano dal codice (<code>node tools/build-print.js</code>) quando cambiano le regole.</p>
+<div class="note"><b>Impostazioni di stampa (valgono per tutti i PDF):</b> carta <b>A4</b>, scala <b>100% (non «adatta alla pagina»)</b>, margini «nessuno/predefiniti», stampa a colori. Per le carte fronte/retro: <b>fronte-retro sul lato lungo</b> (flip on long edge). Non so come la tua stampante allinei i due lati: fai prima una prova sul primo foglio.</div>
+<h2>1 · Le carte (243 carte, 27 fogli, 9 per foglio)</h2>
+<p><a class="dl" href="carte-fronte-retro.pdf">⬇ Carte fronte/retro (54 facciate)</a> <a class="dl alt" href="carte-solo-fronti.pdf">⬇ Carte solo fronti (27 pagine)</a></p>
+<table><tr><th>Mazzo</th><th>Carte</th><th>Dorso</th><th>Come si usa</th></tr>
+<tr><td>Carte Regione</td><td>96</td><td>verde</td><td>si mescolano; mercato di 5 scoperte + mazzo coperto; ognuno parte con 2 in mano</td></tr>
+<tr><td>Carte Previsione</td><td>36</td><td>blu</td><td>12 per area (Nord, Centro, Sud e Isole): a inizio partita si pesca 1 carta per area, scoperta sulla plancia</td></tr>
+<tr><td>Carte Evento</td><td>80</td><td>rosso</td><td>si mescolano; si pesca ai round 4, 7, 10</td></tr>
+<tr><td>Obiettivi Segreti</td><td>24</td><td>viola</td><td>ognuno ne pesca 2 e ne tiene 1 (segreto)</td></tr>
+<tr><td>Carte di riferimento</td><td>7</td><td>grigio</td><td><b>non fanno parte dei mazzi</b>: si tengono scoperte a bordo tavolo (Fusioni, Pattern, Punteggio, Round, segnalino Protezione Civile, segnalino Primo giocatore, Eventi)</td></tr></table>
+<p><b>Taglio:</b> ritaglia lungo i segni neri nei margini (3 colonne × 3 righe). Il retro è già specchiato per la stampa fronte/retro sul lato lungo. Con la versione «solo fronti» metti ogni carta in una bustina con una carta qualunque dietro (i mazzi si distinguono dal fronte: stesso ruolo del dorso).</p>
+<p>I segnalini (Protezione Civile e Primo giocatore) sono carte di riferimento: puoi usarle come segnalino (passandole di mano) oppure usare un oggetto qualsiasi.</p>
+<h2>2 · Plancia centrale (4 pagine A4 orizzontali)</h2>
+<p><a class="dl" href="plancia-centrale.pdf">⬇ Plancia centrale</a> stampala una volta sola e mettila al centro. Le pagine: 1 turno e azioni · 2 mercato e mazzi · 3 previsione e bersaglio · 4 eventi, pool dei simboli e PM. I posti per le carte sono un po' più grandi (65 × 91 mm) della carta, per posarla senza precisione. Puoi accostarle come vuoi.</p>
+<h2>3 · Plance dei giocatori (1 pagina A4 orizzontale a testa)</h2>
+<p><a class="dl" href="plance-giocatori.pdf">⬇ Plance giocatori (4 pagine)</a> stampa solo quante ne servono (una per giocatore, da 2 a 4). Contengono i posti per Obiettivo Segreto, lavoratori, PM e riserva di simboli, il promemoria del turno e il riepilogo del punteggio.</p>
+<h2>4 · Mappa d'Italia (5 tessere A4 verticali per giocatore)</h2>
+<p><a class="dl" href="plancia-italia.pdf">⬇ Mappa d'Italia (5 tessere)</a> <b>stampa una copia per giocatore.</b> Ogni regione ha la sua casella fissa; le carte si posano nella casella con il suo nome. Ritaglia ogni tessera lungo i segni agli angoli (tutto il margine bianco va via) e accosta le tessere bordo a bordo come qui (le caselle sono 65 × 91 mm):</p>
+<div class="asm"><div>1<br>Nord-Ovest</div><div>2<br>Nord-Est</div><div>3<br>Tirreno</div><div>4<br>Adriatico/Sud</div><div class="no">(vuoto)</div><div>5<br>Calabria e Sicilia</div></div>
+<p>Due regioni sono <b>vicine</b> se le loro caselle si toccano a croce (non in diagonale): vale per i pattern. Il bonus di confine non richiede contatto. Una mappa assemblata è larga circa 39 cm e alta circa 55 cm: serve un tavolo grande, oppure un cartoncino su cui fissare le tessere.</p>
+<h2>5 · Foglio punti e regolamento</h2>
+<p><a class="dl" href="foglio-punti.pdf">⬇ Foglio punti (con esempio)</a> <a class="dl" href="regolamento.pdf">⬇ Regolamento</a></p>
+<h2>6 · Preparazione del tavolo</h2>
+<ol><li>Plancia centrale al centro; mappa d'Italia e plancia davanti a ogni giocatore.</li>
+<li>Mescola i mazzi Regione, Evento e Obiettivi. Metti 5 Carte Regione scoperte sul mercato (3+2 posti, a piacere).</li>
+<li>Dividi le Previsioni per area, pesca <b>1 per area</b> e mettile scoperte; sul cerchio di ogni condizione metti il gettone del simbolo richiesto.</li>
+<li>Ognuno pesca 2 Carte Regione e 2 Obiettivi (ne tiene 1); 2 PM (3 se non sei il primo giocatore); 2 lavoratori.</li>
+<li>Primo giocatore a sorte: riceve il segnalino Protezione Civile. Segnalino del round sul round 1 (ore 8:00).</li></ol>
+<h2>7 · Segnalini fisici che servono (non sono stampati)</h2>
+<table><tr><th>Cosa</th><th>Quanti</th><th>Suggerimento</th></tr>
+<tr><td>Lavoratori</td><td>3 per giocatore (il 3° si sblocca): fino a 12</td><td>pedine, bottoni, tappi di 4 colori</td></tr>
+<tr><td>Punti Meteo (PM)</td><td>circa 40-50</td><td>monete, fagioli, perline</td></tr>
+<tr><td>Simboli meteo</td><td>70 (10 per ciascuno dei 7 simboli)</td><td>7 colori di bottoni/perline, oppure carte-segnalino fatte a mano; servono anche per il bersaglio e la riserva</td></tr>
+<tr><td>Segnalino del round</td><td>1</td><td>una pedina qualsiasi</td></tr>
+<tr><td>Segnalino Protezione Civile e Primo giocatore</td><td>2 (c'è anche la carta di riferimento)</td><td>due oggetti diversi</td></tr></table>
+<h2>Cosa è stato verificato e cosa no</h2>
+<p class="note">Il kit è generato da codice; i conteggi e i formati sono controllati da test automatici e ho guardato le pagine dei PDF convertite in immagini. <b>Non</b> ho potuto provare la stampa su carta (allineamento fronte/retro della tua stampante, tolleranze di taglio, leggibilità del testo piccolo sulle carte).</p>
+</body></html>

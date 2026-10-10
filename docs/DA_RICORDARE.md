@@ -187,3 +187,9 @@ Nota: le condizioni della previsione prese restano ~3 su 10 anche con 9 carte: p
 - Livelli: Difficile > Media 68,2%, Media > Facile 94,7%.
 - Vantaggio di chi inizia: 2 giocatori 46,0% [41,2–50,9] (atteso 50), 3 giocatori 31,9% (33,3), 4 giocatori 24,3% (25): nei limiti del rumore; a 2 giocatori chi inizia è leggermente sotto (compensazione +1 PM al secondo da rivedere al playtest).
 - Obiettivi rimisurati: ~48% raggiunti da chi li tiene, 2,5 punti a giocatore.
+
+## Kit stampabile (stampa/) — cosa contiene e cosa non è verificato
+- 243 carte = 96 Regione + 36 Previsione + 80 Evento + 24 Obiettivi + 7 di riferimento (Fusioni, Pattern, Punteggio, Round, Protezione Civile, Primo giocatore, Eventi): riempiono esattamente 27 fogli A4 (9 per foglio), ogni mazzo col suo dorso, retro specchiato. Carte di riferimento = si tengono scoperte, non nei mazzi.
+- Plancia centrale (4 pagine A4 orizzontali), 4 plance giocatore, mappa d'Italia in 5 tessere A4 verticali per giocatore (caselle 65 × 91 mm; una mappa assemblata è circa 39 × 55 cm), foglio punti con esempio, regolamento PDF.
+- Verifiche fatte: conteggi, specchiatura dei retro, formato (passo carta 63,5 mm misurato sul PDF a 254 dpi, pagine A4), assenza di «undefined/NaN», pagine guardate come immagini. NON verificato: stampa reale (allineamento fronte/retro, tagli).
+- Fatto emerso: il regolamento nell'app e nel PDF mostrava la mappa in ASCII come testo su una riga; ora `UI.md` gestisce i blocchi di codice.
